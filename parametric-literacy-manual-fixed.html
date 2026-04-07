@@ -1,0 +1,2277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parametric Literacy Tool - Educational Manual for Digital Image Processing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.8;
+            background: #f5f5f5;
+            color: #2c3e50;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+        
+        .header .meta {
+            font-size: 1em;
+            opacity: 0.9;
+            font-style: italic;
+            margin-top: 20px;
+        }
+        
+        .content {
+            padding: 50px;
+        }
+        
+        .abstract {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 30px;
+            margin: 40px 0;
+            font-size: 1.05em;
+            line-height: 1.9;
+        }
+        
+        .abstract h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 35px;
+            margin: 40px 0;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .toc h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .toc ol {
+            list-style: none;
+            counter-reset: section;
+            padding-left: 0;
+        }
+        
+        .toc ol li {
+            counter-increment: section;
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+        
+        .toc ol li:before {
+            content: counter(section) ". ";
+            font-weight: bold;
+            color: #667eea;
+            margin-right: 10px;
+        }
+        
+        .toc ol ol {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+        
+        .toc ol ol li {
+            counter-increment: subsection;
+            font-size: 1em;
+            color: #666;
+        }
+        
+        .toc ol ol li:before {
+            content: counter(section) "." counter(subsection) " ";
+        }
+        
+        .section {
+            margin: 60px 0;
+            page-break-inside: avoid;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 12px;
+        }
+        
+        .section h3 {
+            color: #34495e;
+            font-size: 1.7em;
+            margin: 35px 0 20px 0;
+            font-weight: 600;
+        }
+        
+        .section h4 {
+            color: #5a6c7d;
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+        
+        .section p {
+            margin: 15px 0;
+            text-align: justify;
+        }
+        
+        .definition-box {
+            background: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        
+        .definition-box strong {
+            color: #2980b9;
+            font-size: 1.15em;
+        }
+        
+        .theory-box {
+            background: #fff9e6;
+            border-left: 5px solid #f39c12;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        
+        .theory-box h4 {
+            color: #d68910;
+            margin-top: 0;
+        }
+        
+        .parameter-card {
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .parameter-card h4 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .param-section {
+            margin: 20px 0;
+        }
+        
+        .param-label {
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        
+        .param-content {
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .reference {
+            background: #f0f4f8;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 3px solid #667eea;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+        
+        .reference-list {
+            background: #fafafa;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .reference-list h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .reference-list ol {
+            padding-left: 30px;
+        }
+        
+        .reference-list li {
+            margin: 15px 0;
+            line-height: 1.7;
+        }
+        
+        .citation {
+            font-style: italic;
+            color: #555;
+        }
+        
+        .example-box {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        
+        .example-box h4 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+        
+        .exercise-box {
+            background: #f3e5f5;
+            border: 2px solid #9c27b0;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+        
+        .exercise-box h4 {
+            color: #7b1fa2;
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        
+        .learning-objective {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .learning-objective h4 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+        
+        .learning-objective ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        
+        .learning-objective li {
+            margin: 8px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .formula {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.05em;
+            overflow-x: auto;
+        }
+        
+        .formula-title {
+            color: #3498db;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .important-note {
+            background: #ffebee;
+            border-left: 5px solid #f44336;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .important-note:before {
+            content: "⚠️ IMPORTANT: ";
+            font-weight: bold;
+            color: #c62828;
+        }
+        
+        .tip-box {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .tip-box:before {
+            content: "💡 TIP: ";
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .comparison-column {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .comparison-column h4 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .comparison-column.bad {
+            border-color: #f44336;
+        }
+        
+        .comparison-column.good {
+            border-color: #4caf50;
+        }
+        
+        .footnote {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .appendix {
+            background: #f8f9fa;
+            padding: 40px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+        
+        .appendix h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 20px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .comparison-table {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Floating TOC Button */
+        #toc-float-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        #toc-float-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        #toc-float-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+        
+        /* Floating TOC Panel */
+        #toc-float-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 350px;
+            max-height: 80vh;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 999;
+            overflow-y: auto;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        #toc-float-panel.show {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        #toc-float-panel .toc-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #toc-float-panel .toc-header h3 {
+            margin: 0;
+            font-size: 1.3em;
+        }
+        
+        #toc-float-panel .close-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: background 0.2s;
+        }
+        
+        #toc-float-panel .close-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        #toc-float-panel .toc-content {
+            padding: 20px;
+        }
+        
+        #toc-float-panel ol {
+            list-style: none;
+            counter-reset: section;
+            padding-left: 0;
+        }
+        
+        #toc-float-panel ol li {
+            counter-increment: section;
+            margin: 10px 0;
+        }
+        
+        #toc-float-panel ol li:before {
+            content: counter(section) ". ";
+            font-weight: bold;
+            color: #667eea;
+            margin-right: 8px;
+        }
+        
+        #toc-float-panel ol ol {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+        
+        #toc-float-panel ol ol li {
+            counter-increment: subsection;
+            font-size: 0.9em;
+        }
+        
+        #toc-float-panel ol ol li:before {
+            content: counter(section) "." counter(subsection) " ";
+        }
+        
+        #toc-float-panel a {
+            color: #2c3e50;
+            text-decoration: none;
+            display: block;
+            padding: 5px 0;
+            transition: color 0.2s;
+        }
+        
+        #toc-float-panel a:hover {
+            color: #667eea;
+            padding-left: 5px;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        @media (max-width: 768px) {
+            #toc-float-panel {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+            
+            #toc-float-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Parametric Literacy Tool</h1>
+            <p class="subtitle">Educational Manual for Digital Image Processing</p>
+            <p class="meta">A Comprehensive Guide for Students Learning Prompt Engineering and Computational Thinking in Visual Media</p>
+            <p class="meta" style="margin-top: 10px;">Cumulus Conference 2026 Edition</p>
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+                <p style="font-size: 1.1em; margin-bottom: 10px;"><strong>Authors:</strong></p>
+                <p style="font-size: 1em; line-height: 1.8;">
+                    G. Korakakis<br>
+                    K. Dalacosta<br>
+                    Our. Efstathiadou<br>
+                    A. Karamani<br>
+                    Claude (Anthropic AI Assistant)
+                </p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- ABSTRACT -->
+            <div class="abstract">
+                <h2>Abstract</h2>
+                <p>This manual introduces <strong>parametric literacy</strong>—the ability to understand, articulate, and manipulate visual outcomes through systematic configurations of adjustable parameters. Rather than relying on vague aesthetic descriptions, parametric literacy enables precise, reproducible, and machine-readable specifications for image editing and AI-assisted visual creation.</p>
+                
+                <p>This document serves as a comprehensive educational resource for students in digital media, design, and computer science programs, providing theoretical foundations, practical applications, and pedagogical frameworks grounded in cognitive science, design theory, and digital image processing.</p>
+                
+                <p><strong>Keywords:</strong> Parametric literacy, computational thinking, digital image processing, prompt engineering, educational technology, human-computer interaction, visual literacy</p>
+            </div>
+
+            <!-- TABLE OF CONTENTS -->
+            <div class="toc" id="toc-main" id="toc-main">
+                <h2>Table of Contents</h2>
+                <ol>
+                    <li><a href="#section-1">Introduction: What is Parametric Literacy?</a>
+                        <ol>
+                            <li><a href="#section-1-1">Defining Parametric Literacy</a></li>
+                            <li><a href="#section-1-2">Historical Context</a></li>
+                            <li><a href="#section-1-3">Why Parametric Literacy Matters</a></li>
+                            <li><a href="#section-1-4">Learning Objectives</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#section-2">Theoretical Foundations</a>
+                        <ol>
+                            <li><a href="#section-2-1">Cognitive Load Theory</a></li>
+                            <li><a href="#section-2-2">Constructivist Learning</a></li>
+                            <li><a href="#section-2-3">Design Thinking & Norman's Principles</a></li>
+                            <li><a href="#section-2-4">Color Science & Perception</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#section-3">Technical Parameters Explained</a>
+                        <ol>
+                            <li><a href="#section-3-1">Basic Adjustments (Brightness, Contrast)</a></li>
+                            <li><a href="#section-3-2">Color Manipulation (Saturation, Temperature, Tint)</a></li>
+                            <li><a href="#section-3-3">Advanced Effects (Shadows, Highlights, Vignette)</a></li>
+                            <li><a href="#section-3-4">Overlays and Composition</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#section-4">The Tool Interface</a>
+                        <ol>
+                            <li><a href="#section-4-1">Navigation and Workflow</a></li>
+                            <li><a href="#section-4-2">Parameter Controls</a></li>
+                            <li><a href="#section-4-3">Prompt Generation</a></li>
+                            <li><a href="#section-4-4">Educational Features</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#section-5">Pedagogical Framework</a>
+                        <ol>
+                            <li><a href="#section-5-1">Four-Stage Learning Progression</a></li>
+                            <li><a href="#section-5-2">Scaffolded Decomposition</a></li>
+                            <li><a href="#section-5-3">Active Learning Strategies</a></li>
+                            <li><a href="#section-5-4">Assessment Methods</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#section-6">Practical Applications</a>
+                        <ol>
+                            <li><a href="#section-6-1">AI Prompt Engineering</a></li>
+                            <li><a href="#section-6-2">Professional Workflows</a></li>
+                            <li><a href="#section-6-3">Interdisciplinary Use Cases</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#section-7">Exercises and Projects</a>
+                        <ol>
+                            <li><a href="#section-7-1">Beginner Exercises</a></li>
+                            <li><a href="#section-7-2">Intermediate Projects</a></li>
+                            <li><a href="#section-7-3">Advanced Challenges</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#section-8">References and Further Reading</a></li>
+                    <li><a href="#section-9">Appendices</a></li>
+                </ol>
+            </div>
+
+            <!-- SECTION 1: INTRODUCTION -->
+            <div class="section" id="section-1">
+                <h2 id="section-1">1. Introduction: What is Parametric Literacy?</h2>
+                
+                <h3 id="section-1-1">1.1 Defining Parametric Literacy</h3>
+                
+                <div class="definition-box">
+                    <strong>Parametric Literacy</strong> is the cognitive ability to decompose complex visual and aesthetic intentions into discrete, quantifiable parameters, and to manipulate these parameters systematically to achieve desired outcomes. It represents a fundamental shift from intuitive, tacit knowledge about visual editing to explicit, articulable specifications.
+                </div>
+                
+                <p>Traditional approaches to image editing rely heavily on subjective language: "make it look more professional," "add some warmth," "enhance the mood." While such descriptions convey general intent, they lack the precision necessary for reproducible results, effective communication with collaborators, and especially for instructing AI systems.</p>
+                
+                <p>Parametric literacy transforms this vague language into structured specifications. For example, "make it look cinematic" becomes:</p>
+                
+                <ul>
+                    <li>Temperature: -15 (cooler blue tones)</li>
+                    <li>Saturation: -25% (desaturated for film-like quality)</li>
+                    <li>Contrast: +20 (enhanced tonal separation)</li>
+                    <li>Vignette: 40% (darkened edges for focus)</li>
+                    <li>Shadows: -10 (deepened shadows for drama)</li>
+                </ul>
+                
+                <h3 id="section-1-2">1.2 Historical Context</h3>
+                
+                <p>The concept of parametric thinking has deep roots in computational design and architecture (Woodbury, 2010), where complex forms are defined through mathematical relationships and adjustable parameters. In digital image processing, this approach gained prominence with the development of non-destructive editing tools in software like Adobe Lightroom and Capture One, which exposed previously "hidden" professional adjustments as explicit, numerical controls.</p>
+                
+                <div class="reference">
+                    <strong>Reference:</strong> Woodbury, R. (2010). <em>Elements of Parametric Design</em>. Routledge. This seminal work explores how parametric thinking enables design exploration through systematic variation of controlling parameters.
+                </div>
+                
+                <p>The rise of AI-assisted creative tools has made parametric literacy even more critical. Large language models and image generation systems require precise instructions to produce desired results. Users who can think parametrically—decomposing their visual goals into specific, measurable attributes—can more effectively collaborate with AI tools (Brown et al., 2023).</p>
+                
+                <div class="reference">
+                    <strong>Reference:</strong> Brown, T. B., Mann, B., Ryder, N., et al. (2020). Language Models are Few-Shot Learners. <em>Advances in Neural Information Processing Systems</em>, 33, 1877-1901. Discusses how precise prompting improves AI system outputs.
+                </div>
+                
+                <h3 id="section-1-3">1.3 Why Parametric Literacy Matters</h3>
+                
+                <p>Parametric literacy addresses several critical needs in contemporary digital media education:</p>
+                
+                <p><strong>1. Precision and Reproducibility:</strong> Parametric specifications enable exact replication of visual effects. This is essential for maintaining brand consistency, collaborative workflows, and professional quality control.</p>
+                
+                <p><strong>2. Effective Human-AI Collaboration:</strong> As AI tools become central to creative workflows, the ability to provide structured, parametric prompts determines output quality. Vague requests yield inconsistent results; parametric specifications yield predictable outcomes (Deng et al., 2023).</p>
+                
+                <div class="reference">
+                    <strong>Reference:</strong> Deng, J., Li, W., Chen, Y., & Duan, L. (2023). Unbiased Scene Graph Generation from Biased Training. <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>. Examines structured visual description for AI systems.
+                </div>
+                
+                <p><strong>3. Metacognitive Development:</strong> Learning to think parametrically develops metacognitive skills—awareness of one's own thought processes. Students learn to externalize tacit aesthetic knowledge, making invisible decision-making processes visible and analyzable (Flavell, 1979).</p>
+                
+                <div class="reference">
+                    <strong>Reference:</strong> Flavell, J. H. (1979). Metacognition and cognitive monitoring: A new area of cognitive-developmental inquiry. <em>American Psychologist</em>, 34(10), 906-911. Foundational work on metacognitive awareness.
+                </div>
+                
+                <p><strong>4. Democratization of Expertise:</strong> Traditionally, professional image editing knowledge was tacit, acquired through years of apprenticeship. Parametric interfaces expose this knowledge explicitly, accelerating learning and reducing barriers to entry (Norman, 2013).</p>
+                
+                <div class="reference">
+                    <strong>Reference:</strong> Norman, D. A. (2013). <em>The Design of Everyday Things: Revised and Expanded Edition</em>. Basic Books. Chapter on visibility and knowledge in the world versus in the head.
+                </div>
+                
+                <h3 id="section-1-4">1.4 Learning Objectives</h3>
+                
+                <div class="learning-objective">
+                    <h4>By completing this manual and associated exercises, students will be able to:</h4>
+                    <ul>
+                        <li><strong>Identify</strong> the constituent parameters that define visual appearance (brightness, contrast, saturation, etc.)</li>
+                        <li><strong>Manipulate</strong> these parameters systematically to achieve specific aesthetic goals</li>
+                        <li><strong>Articulate</strong> visual intentions as structured parameter specifications</li>
+                        <li><strong>Translate</strong> between vague aesthetic language and precise parametric descriptions</li>
+                        <li><strong>Generate</strong> effective prompts for AI-assisted image editing tools</li>
+                        <li><strong>Evaluate</strong> the perceptual effects of parameter adjustments using color science principles</li>
+                        <li><strong>Apply</strong> parametric thinking to professional creative workflows</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 2: THEORETICAL FOUNDATIONS -->
+            <div class="section" id="section-2">
+                <h2 id="section-2">2. Theoretical Foundations</h2>
+                
+                <p>The Parametric Literacy Tool is grounded in multiple theoretical frameworks from cognitive psychology, learning science, human-computer interaction, and visual perception. Understanding these foundations enriches the learning experience and provides scientific justification for the tool's design.</p>
+                
+                <h3 id="section-2-1">2.1 Cognitive Load Theory</h3>
+                
+                <div class="theory-box">
+                    <h4>Core Principle</h4>
+                    <p>Cognitive Load Theory (CLT) posits that working memory has limited capacity, and effective instruction minimizes extraneous cognitive load while optimizing germane cognitive load—the load dedicated to schema construction and automation (Sweller, 1988; Sweller, Ayres, & Kalyuga, 2011).</p>
+                </div>
+                
+                <p><strong>Application in the Tool:</strong></p>
+                
+                <p>The tool implements several CLT-informed design principles:</p>
+                
+                <ul>
+                    <li><strong>Chunking Information:</strong> Parameters are organized into conceptual categories (Basic, Color Balance, Effects, Overlay, Output). This grouping leverages chunking—organizing information into meaningful units that can be processed as single items in working memory (Miller, 1956).</li>
+                    
+                    <li><strong>Progressive Disclosure:</strong> The tabbed interface reveals complexity gradually. Novice users can focus on basic parameters without being overwhelmed by advanced options. As expertise develops, students progressively explore additional tabs.</li>
+                    
+                    <li><strong>Integrated Information:</strong> Each parameter control is accompanied by immediate visual feedback on the canvas. This integration reduces split-attention effect—the cognitive cost of mentally integrating spatially separated information sources (Ayres & Sweller, 2005).</li>
+                    
+                    <li><strong>Worked Examples:</strong> The "Smart Tips" feature provides context-aware guidance, functioning as scaffolding that reduces load during initial learning (van Merriënboer & Sweller, 2010).</li>
+                </ul>
+                
+                <div class="reference">
+                    <strong>Key References:</strong><br>
+                    • Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <em>Cognitive Science</em>, 12(2), 257-285.<br>
+                    • Sweller, J., Ayres, P., & Kalyuga, S. (2011). <em>Cognitive Load Theory</em>. Springer.<br>
+                    • Miller, G. A. (1956). The magical number seven, plus or minus two: Some limits on our capacity for processing information. <em>Psychological Review</em>, 63(2), 81-97.<br>
+                    • Ayres, P., & Sweller, J. (2005). The Split-Attention Principle in Multimedia Learning. In R. E. Mayer (Ed.), <em>The Cambridge Handbook of Multimedia Learning</em> (pp. 135-146). Cambridge University Press.
+                </div>
+                
+                <h3 id="section-2-2">2.2 Constructivist Learning Theory</h3>
+                
+                <div class="theory-box">
+                    <h4>Core Principle</h4>
+                    <p>Constructivism holds that learners actively construct knowledge through experience rather than passively receiving it. Learning is most effective when students manipulate objects, observe outcomes, and form their own understanding (Piaget, 1954; Vygotsky, 1978).</p>
+                </div>
+                
+                <p><strong>Application in the Tool:</strong></p>
+                
+                <p>The tool embodies constructivist principles through:</p>
+                
+                <ul>
+                    <li><strong>Active Manipulation:</strong> Students directly adjust sliders and controls, immediately observing visual effects. This hands-on exploration enables discovery learning.</li>
+                    
+                    <li><strong>Zone of Proximal Development (ZPD):</strong> The tool provides scaffolding (help buttons, tooltips, educational content) that supports learning slightly beyond current ability level. As competence grows, students rely less on support, eventually internalizing parametric thinking (Vygotsky, 1978).</li>
+                    
+                    <li><strong>Multiple Representations:</strong> Each parameter adjustment is represented numerically (slider value), visually (canvas update), and linguistically (prompt output). This multi-modal representation supports diverse learning styles and deeper understanding (Ainsworth, 2006).</li>
+                </ul>
+                
+                <div class="reference">
+                    <strong>Key References:</strong><br>
+                    • Piaget, J. (1954). <em>The Construction of Reality in the Child</em>. Basic Books.<br>
+                    • Vygotsky, L. S. (1978). <em>Mind in Society: The Development of Higher Psychological Processes</em>. Harvard University Press.<br>
+                    • Ainsworth, S. (2006). DeFT: A conceptual framework for considering learning with multiple representations. <em>Learning and Instruction</em>, 16(3), 183-198.
+                </div>
+                
+                <h3>2.3 Norman's Design Principles</h3>
+                
+                <div class="theory-box">
+                    <h4>Core Principles</h4>
+                    <p>Don Norman's design principles focus on usability: visibility, feedback, affordances, constraints, and consistency. Well-designed interfaces make functionality obvious and provide clear feedback for actions (Norman, 2013).</p>
+                </div>
+                
+                <p><strong>Application in the Tool:</strong></p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Principle</th>
+                            <th>Implementation</th>
+                            <th>Educational Benefit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Visibility</strong></td>
+                            <td>All adjustable parameters explicitly displayed with clear labels</td>
+                            <td>Students see full range of possibilities, reducing discovery time</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Feedback</strong></td>
+                            <td>Immediate visual update on canvas for every adjustment</td>
+                            <td>Establishes cause-effect relationships; accelerates learning through operant conditioning</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Affordance</strong></td>
+                            <td>Sliders afford continuous adjustment; buttons afford discrete actions</td>
+                            <td>Interface design communicates functionality without explicit instruction</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Constraints</strong></td>
+                            <td>Parameter ranges limited to meaningful values (e.g., brightness: -100 to +100)</td>
+                            <td>Prevents errors and guides exploration toward productive adjustments</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Consistency</strong></td>
+                            <td>Uniform control patterns across all parameters</td>
+                            <td>Skills transfer from one parameter to another; reduces cognitive load</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="reference">
+                    <strong>Reference:</strong> Norman, D. A. (2013). <em>The Design of Everyday Things: Revised and Expanded Edition</em>. Basic Books. Chapters 1-2 on the psychopathology of everyday things and psychology of everyday actions.
+                </div>
+                
+                <h3 id="section-2-4">2.4 Color Science and Perception</h3>
+                
+                <p>Understanding how humans perceive color and light is fundamental to parametric literacy. The tool's color parameters are grounded in established color science principles.</p>
+                
+                <h4>2.4.1 The Munsell Color System</h4>
+                
+                <p>Albert Munsell (1905) developed a color system based on three independent perceptual attributes:</p>
+                
+                <ul>
+                    <li><strong>Hue:</strong> The quality by which we distinguish one color from another (red, blue, green, etc.)</li>
+                    <li><strong>Value:</strong> Lightness or darkness, from black to white</li>
+                    <li><strong>Chroma:</strong> Color intensity or saturation—the degree of departure from gray at the same value level</li>
+                </ul>
+                
+                <p>The tool's saturation parameter directly maps to Munsell chroma, while brightness affects value. This systematic approach enables predictable color manipulation (Kuehni, 2003).</p>
+                
+                <div class="reference">
+                    <strong>References:</strong><br>
+                    • Munsell, A. H. (1905). <em>A Color Notation</em>. G.H. Ellis Company.<br>
+                    • Kuehni, R. G. (2003). <em>Color Space and Its Divisions: Color Order from Antiquity to the Present</em>. Wiley-Interscience.
+                </div>
+                
+                <h4>2.4.2 Color Spaces: RGB and HSL</h4>
+                
+                <p>Digital images typically use the RGB (Red, Green, Blue) color space, where colors are created by mixing light of three primary wavelengths. However, RGB doesn't align well with human color perception. For intuitive color adjustments, the tool converts to HSL (Hue, Saturation, Lightness) space (Smith, 1978).</p>
+                
+                <div class="formula">
+                    <div class="formula-title">RGB to HSL Conversion (simplified):</div>
+                    <code>
+                    L = (max(R,G,B) + min(R,G,B)) / 2<br>
+                    S = (max(R,G,B) - min(R,G,B)) / (1 - |2L - 1|)<br>
+                    H = calculated based on which of R, G, B is maximum
+                    </code>
+                </div>
+                
+                <p>Saturation adjustments multiply the S component, then convert back to RGB. This preserves hue while intensifying or muting color purity.</p>
+                
+                <div class="reference">
+                    <strong>Reference:</strong> Smith, A. R. (1978). Color Gamut Transform Pairs. <em>ACM SIGGRAPH Computer Graphics</em>, 12(3), 12-19. Seminal paper on color space transformations.
+                </div>
+                
+                <h4>2.4.3 Weber-Fechner Law and Perception</h4>
+                
+                <p>Human perception of brightness is non-linear. The Weber-Fechner Law states that perceived sensation is proportional to the logarithm of stimulus intensity (Fechner, 1860). This means:</p>
+                
+                <ul>
+                    <li>Small brightness changes in dark areas are more noticeable than identical changes in bright areas</li>
+                    <li>Our eyes are more sensitive to relative changes than absolute values</li>
+                    <li>Gamma correction in digital images compensates for this non-linearity</li>
+                </ul>
+                
+                <p>Understanding this principle helps students predict how parameter adjustments will be perceived. A +10 brightness adjustment affects shadows more dramatically than highlights.</p>
+                
+                <div class="reference">
+                    <strong>References:</strong><br>
+                    • Fechner, G. T. (1860). <em>Elemente der Psychophysik</em> [Elements of Psychophysics]. Breitkopf & Härtel.<br>
+                    • Fairchild, M. D. (2013). <em>Color Appearance Models</em>, 3rd ed. Wiley. Chapter 4 on perceptual uniformity and lightness.
+                </div>
+                
+                <h4>2.4.4 Gestalt Principles in Visual Composition</h4>
+                
+                <p>Gestalt psychology explains how humans perceive visual organization. Key principles relevant to image editing include:</p>
+                
+                <ul>
+                    <li><strong>Figure-Ground:</strong> Higher contrast strengthens subject-background separation. The contrast parameter leverages this principle.</li>
+                    <li><strong>Similarity:</strong> Similar tones and colors are perceived as groups. Saturation adjustments affect grouping perception.</li>
+                    <li><strong>Proximity:</strong> Spatially close elements are perceived as related. Vignetting uses this to draw attention centrally.</li>
+                </ul>
+                
+                <p>By understanding these principles, students can make informed parametric choices that align with human perceptual organization (Koffka, 1935; Palmer, 1999).</p>
+                
+                <div class="reference">
+                    <strong>References:</strong><br>
+                    • Koffka, K. (1935). <em>Principles of Gestalt Psychology</em>. Harcourt, Brace and Company.<br>
+                    • Palmer, S. E. (1999). <em>Vision Science: Photons to Phenomenology</em>. MIT Press. Comprehensive treatment of visual perception.
+                </div>
+            </div>
+
+            <!-- SECTION 3: TECHNICAL PARAMETERS -->
+            <div class="section">
+                <h2 id="section-3">3. Technical Parameters Explained</h2>
+                
+                <p>This section provides comprehensive technical documentation for each parameter in the tool, including mathematical operations, perceptual effects, practical applications, and scientific foundations.</p>
+                
+                <h3 id="section-3-1">3.1 Basic Adjustments</h3>
+                
+                <div class="parameter-card">
+                    <h4>Brightness / Exposure</h4>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Definition:</div>
+                        <div class="param-content">
+                            Brightness adjusts the overall luminosity of an image by adding or subtracting equal amounts of light to all pixels. This simulates increasing or decreasing the amount of light reaching the camera sensor (exposure).
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Mathematical Operation:</div>
+                        <div class="param-content">
+                            Operates in RGB color space by adding/subtracting a constant value to each color channel:
+                        </div>
+                        <div class="formula">
+                            <strong>RGB'</strong> = RGB + <em>b</em><br>
+                            where <em>b</em> is the brightness adjustment value (-100 to +100)
+                        </div>
+                        <div class="param-content">
+                            Values are clamped to valid range [0, 255] to prevent overflow/underflow.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Perceptual Effects:</div>
+                        <div class="param-content">
+                            <strong>Positive Values (+10 to +100):</strong> Lighten the image, correct underexposure, create high-key aesthetic (bright, airy)<br>
+                            <strong>Negative Values (-10 to -100):</strong> Darken the image, correct overexposure, create low-key aesthetic (dramatic, moody)<br>
+                            <strong>Small Adjustments (±5 to ±20):</strong> Fine-tune overall tone without losing detail
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Technical Considerations:</div>
+                        <div class="param-content">
+                            <ul>
+                                <li>Affects all tonal ranges equally (shadows, midtones, highlights)</li>
+                                <li>Can cause clipping: extreme values push pixels to pure white (255) or pure black (0), losing detail</li>
+                                <li>Best used in combination with contrast to maintain tonal separation</li>
+                                <li>Gamma-corrected displays make brightness perception non-linear (Weber-Fechner Law)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Practical Applications:</div>
+                        <div class="param-content">
+                            <strong>Photography correction:</strong> Fix exposure errors in RAW/JPEG images<br>
+                            <strong>Mood creation:</strong> Low-key lighting for drama, high-key for optimism<br>
+                            <strong>Print preparation:</strong> Adjust for medium brightness characteristics<br>
+                            <strong>Accessibility:</strong> Increase brightness for low-vision users
+                        </div>
+                    </div>
+                    
+                    <div class="reference">
+                        <strong>Scientific Foundation:</strong><br>
+                        • Gonzalez, R. C., & Woods, R. E. (2018). <em>Digital Image Processing</em>, 4th ed. Pearson. Chapter 3: Intensity Transformations and Spatial Filtering.<br>
+                        • Fairchild, M. D. (2013). <em>Color Appearance Models</em>, 3rd ed. Wiley. Discusses lightness perception and computational models.
+                    </div>
+                </div>
+                
+                <div class="parameter-card">
+                    <h4>Contrast</h4>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Definition:</div>
+                        <div class="param-content">
+                            Contrast controls the difference between the darkest and lightest parts of an image. Higher contrast increases tonal separation (darker darks, lighter lights); lower contrast creates a flatter, more compressed tonal range.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Mathematical Operation:</div>
+                        <div class="param-content">
+                            Implemented through tone curve adjustment that scales pixel values around the midpoint:
+                        </div>
+                        <div class="formula">
+                            <strong>RGB'</strong> = ((RGB - 128) × (1 + <em>c</em>/100)) + 128<br>
+                            where <em>c</em> is the contrast value (0 to 100)<br>
+                            128 is the midpoint of 8-bit color range [0-255]
+                        </div>
+                        <div class="param-content">
+                            This formula stretches or compresses the tonal range while anchoring middle gray (128), preserving overall image balance.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Perceptual Effects:</div>
+                        <div class="param-content">
+                            <strong>High Contrast (+30 to +50):</strong> Dramatic, punchy images; enhanced definition; strong visual impact<br>
+                            <strong>Moderate Contrast (+10 to +20):</strong> Subtle enhancement suitable for most images<br>
+                            <strong>Low Contrast (-10 to -30):</strong> Soft, dreamy, hazy aesthetic; reduced visual intensity<br>
+                            <strong>Very Low Contrast (-40 to -50):</strong> Flat, desaturated, approaching gray
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Gestalt Principle Connection:</div>
+                        <div class="param-content">
+                            <strong>Figure-Ground Relationship:</strong> Higher contrast strengthens perceptual separation between subjects (figures) and backgrounds (ground). This makes compositional elements more distinct and helps viewers parse visual hierarchy.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Practical Applications:</div>
+                        <div class="param-content">
+                            <strong>Product photography:</strong> +20 to +30 for crisp, professional appearance<br>
+                            <strong>Portrait retouching:</strong> -10 to -20 for soft, flattering skin tones<br>
+                            <strong>Landscape photography:</strong> +10 to +25 to enhance natural detail<br>
+                            <strong>Vintage effects:</strong> -20 to -40 combined with desaturation for faded film look
+                        </div>
+                    </div>
+                    
+                    <div class="reference">
+                        <strong>Scientific Foundation:</strong><br>
+                        • Pratt, W. K. (2007). <em>Digital Image Processing</em>, 4th ed. Wiley. Chapter on histogram modification and contrast enhancement.<br>
+                        • Palmer, S. E. (1999). <em>Vision Science: Photons to Phenomenology</em>. MIT Press. On perceptual effects of luminance contrast.
+                    </div>
+                </div>
+                
+                <h3 id="section-3-2">3.2 Color Manipulation</h3>
+                
+                <div class="parameter-card">
+                    <h4>Saturation</h4>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Definition:</div>
+                        <div class="param-content">
+                            Saturation controls color intensity or purity—how vivid versus muted colors appear. High saturation produces vibrant, pure colors; low saturation moves toward grayscale. At -100%, the image becomes completely desaturated (black and white).
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Mathematical Operation:</div>
+                        <div class="param-content">
+                            Operates in HSL (Hue, Saturation, Lightness) color space:
+                        </div>
+                        <div class="formula">
+                            1. Convert RGB to HSL<br>
+                            2. <strong>S'</strong> = S × (1 + <em>s</em>/100)<br>
+                            &nbsp;&nbsp;&nbsp;where <em>s</em> is saturation adjustment (-100 to +100)<br>
+                            3. Clamp S' to valid range [0, 1]<br>
+                            4. Convert back to RGB
+                        </div>
+                        <div class="param-content">
+                            This preserves hue (color identity) and lightness while multiplying color purity.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Perceptual Effects:</div>
+                        <div class="param-content">
+                            <strong>High Saturation (+20 to +50):</strong> Vibrant, eye-catching, energetic; suitable for advertising, social media<br>
+                            <strong>Moderate Increase (+10 to +20):</strong> Enhanced but natural-looking; general improvement<br>
+                            <strong>Slight Decrease (-10 to -30):</strong> Muted, sophisticated, Nordic/minimalist aesthetic<br>
+                            <strong>Strong Decrease (-40 to -80):</strong> Nearly monochromatic while retaining subtle color information<br>
+                            <strong>Complete Desaturation (-100%):</strong> Grayscale conversion
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Color Theory Foundation:</div>
+                        <div class="param-content">
+                            Based on the <strong>Munsell Color System's</strong> chroma dimension—the attribute distinguishing color from gray at the same lightness level. Saturation directly maps to perceptual color intensity independent of brightness.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Practical Applications:</div>
+                        <div class="param-content">
+                            <strong>Product photography:</strong> +15 to +30 to make products pop<br>
+                            <strong>Fashion/beauty:</strong> +10 to +25 for vibrant, contemporary look<br>
+                            <strong>Architectural photography:</strong> -15 to -30 for understated elegance<br>
+                            <strong>Food photography:</strong> +20 to +40 to enhance appetizing appearance<br>
+                            <strong>Vintage/film emulation:</strong> -20 to -50 to mimic aged color photography
+                        </div>
+                    </div>
+                    
+                    <div class="important-note">
+                        Oversaturation (>+50%) can cause unnatural appearance, color clipping, and reduced color accuracy. Use moderation unless specific artistic effect is desired.
+                    </div>
+                    
+                    <div class="reference">
+                        <strong>Scientific Foundation:</strong><br>
+                        • Kuehni, R. G. (2003). <em>Color Space and Its Divisions</em>. Wiley-Interscience. On perceptual color attributes including chroma/saturation.<br>
+                        • Hunt, R. W. G., & Pointer, M. R. (2011). <em>Measuring Colour</em>, 4th ed. Wiley. Technical foundations of colorimetry and saturation measurement.
+                    </div>
+                </div>
+                
+                <div class="parameter-card">
+                    <h4>Temperature</h4>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Definition:</div>
+                        <div class="param-content">
+                            Temperature adjusts the color temperature balance of an image, simulating different lighting conditions. Negative values create cooler tones (blue shift); positive values create warmer tones (orange/yellow shift). This mimics the Kelvin scale used in photography.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Color Temperature Scale (Kelvin):</div>
+                        <div class="param-content">
+                            <ul>
+                                <li><strong>1000-2000K:</strong> Candlelight (very warm, orange)</li>
+                                <li><strong>2500-3500K:</strong> Tungsten/incandescent bulbs (warm, yellow-orange)</li>
+                                <li><strong>5000-5500K:</strong> Daylight (neutral)</li>
+                                <li><strong>6500-7500K:</strong> Overcast sky (cool, slight blue)</li>
+                                <li><strong>9000-10000K:</strong> Shade (very cool, blue)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Mathematical Operation:</div>
+                        <div class="param-content">
+                            Temperature shifts are achieved by adjusting red and blue channels asymmetrically:
+                        </div>
+                        <div class="formula">
+                            For positive <em>t</em> (warming):<br>
+                            &nbsp;&nbsp;<strong>R'</strong> = R + <em>t</em><br>
+                            &nbsp;&nbsp;<strong>B'</strong> = B - <em>t</em> × 0.5<br>
+                            <br>
+                            For negative <em>t</em> (cooling):<br>
+                            &nbsp;&nbsp;<strong>R'</strong> = R + <em>t</em> × 0.5<br>
+                            &nbsp;&nbsp;<strong>B'</strong> = B - <em>t</em><br>
+                            <br>
+                            Green channel remains relatively unchanged
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Perceptual and Psychological Effects:</div>
+                        <div class="param-content">
+                            <strong>Warm Tones (+10 to +40):</strong><br>
+                            • Psychological: Cozy, inviting, comfortable, energetic<br>
+                            • Applications: Interior photography, food, sunset scenes<br>
+                            • Creates sense of warmth and intimacy<br>
+                            <br>
+                            <strong>Cool Tones (-10 to -40):</strong><br>
+                            • Psychological: Professional, calm, clinical, distant<br>
+                            • Applications: Corporate, technology, winter scenes<br>
+                            • Creates sense of space and objectivity<br>
+                            <br>
+                            <strong>Neutral (0):</strong><br>
+                            • Balanced, natural appearance<br>
+                            • Suitable for accurate color representation
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">White Balance Connection:</div>
+                        <div class="param-content">
+                            Temperature adjustment is closely related to white balance correction in photography. Cameras adjust white balance to compensate for lighting color, making white objects appear white under various illuminants. This parameter allows creative deviation from neutral white balance or correction of color casts.
+                        </div>
+                    </div>
+                    
+                    <div class="reference">
+                        <strong>Scientific Foundation:</strong><br>
+                        • Wyszecki, G., & Stiles, W. S. (2000). <em>Color Science: Concepts and Methods, Quantitative Data and Formulae</em>, 2nd ed. Wiley. Authoritative reference on color temperature and colorimetry.<br>
+                        • Fairchild, M. D. (2013). <em>Color Appearance Models</em>, 3rd ed. Wiley. Chapter on chromatic adaptation and white balance.
+                    </div>
+                </div>
+                
+                <div class="parameter-card">
+                    <h4>Tint</h4>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Definition:</div>
+                        <div class="param-content">
+                            Tint adjusts the magenta-green balance of an image, complementing temperature (which adjusts blue-orange balance). Together, temperature and tint provide two-dimensional color balance control.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Mathematical Operation:</div>
+                        <div class="formula">
+                            For positive <em>t</em> (magenta shift):<br>
+                            &nbsp;&nbsp;<strong>R'</strong> = R + <em>t</em> × 0.7<br>
+                            &nbsp;&nbsp;<strong>G'</strong> = G - <em>t</em> × 0.5<br>
+                            &nbsp;&nbsp;<strong>B'</strong> = B + <em>t</em> × 0.7<br>
+                            <br>
+                            For negative <em>t</em> (green shift):<br>
+                            &nbsp;&nbsp;<strong>R'</strong> = R + <em>t</em> × 0.5<br>
+                            &nbsp;&nbsp;<strong>G'</strong> = G - <em>t</em><br>
+                            &nbsp;&nbsp;<strong>B'</strong> = B + <em>t</em> × 0.5
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Practical Applications:</div>
+                        <div class="param-content">
+                            <strong>Fluorescent light correction:</strong> -10 to -25 (reduce green cast)<br>
+                            <strong>Sunset enhancement:</strong> +10 to +20 (enhance magenta in sky)<br>
+                            <strong>Skin tone adjustment:</strong> +5 to +15 (warmer, more flattering)<br>
+                            <strong>Creative color grading:</strong> Extreme values for stylized looks
+                        </div>
+                    </div>
+                    
+                    <div class="reference">
+                        <strong>Scientific Foundation:</strong><br>
+                        • McCamy, C. S., Marcus, H., & Davidson, J. G. (1976). A color-rendition chart. <em>Journal of Applied Photographic Engineering</em>, 2(3), 95-99. On color balance in photography.
+                    </div>
+                </div>
+                
+                <h3 id="section-3-3">3.3 Advanced Effects</h3>
+                
+                <div class="parameter-card">
+                    <h4>Shadows & Highlights</h4>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Definition:</div>
+                        <div class="param-content">
+                            Shadows and Highlights parameters enable selective tonal adjustment—darkening or lightening specific tonal ranges without affecting the entire image. This provides more nuanced control than global brightness.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Technical Operation:</div>
+                        <div class="param-content">
+                            Uses luminosity-based masks to selectively apply adjustments:
+                        </div>
+                        <div class="formula">
+                            For Shadows (affects dark pixels more):<br>
+                            <strong>mask</strong> = 1 - (luminosity / 255)<br>
+                            <strong>RGB'</strong> = RGB + (adjustment × mask)<br>
+                            <br>
+                            For Highlights (affects bright pixels more):<br>
+                            <strong>mask</strong> = luminosity / 255<br>
+                            <strong>RGB'</strong> = RGB + (adjustment × mask)
+                        </div>
+                        <div class="param-content">
+                            This creates smooth, natural transitions between affected and unaffected regions.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Practical Applications:</div>
+                        <div class="param-content">
+                            <strong>Shadow Recovery (+20 to +50):</strong> Reveal detail in underexposed shadows<br>
+                            <strong>Shadow Deepening (-20 to -40):</strong> Increase drama and contrast<br>
+                            <strong>Highlight Recovery (-20 to -40):</strong> Rescue blown highlights, especially in sky<br>
+                            <strong>Creative Effects:</strong> Combine shadow lift and highlight lowering for faded film look
+                        </div>
+                    </div>
+                    
+                    <div class="reference">
+                        <strong>Scientific Foundation:</strong><br>
+                        • Durand, F., & Dorsey, J. (2002). Fast bilateral filtering for the display of high-dynamic-range images. <em>ACM Transactions on Graphics (TOG)</em>, 21(3), 257-266. On tone mapping and local contrast.
+                    </div>
+                </div>
+                
+                <div class="parameter-card">
+                    <h4>Vignette</h4>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Definition:</div>
+                        <div class="param-content">
+                            Vignetting gradually darkens image edges while keeping the center bright, drawing viewer attention toward the center of the frame. This mimics optical vignetting in photography and is a powerful compositional tool.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Mathematical Operation:</div>
+                        <div class="formula">
+                            1. Calculate distance from center for each pixel:<br>
+                            &nbsp;&nbsp;<strong>dist</strong> = sqrt((x - centerX)² + (y - centerY)²)<br>
+                            <br>
+                            2. Normalize distance (0 at center, 1 at corners):<br>
+                            &nbsp;&nbsp;<strong>normDist</strong> = dist / maxDist<br>
+                            <br>
+                            3. Apply power function for smooth falloff:<br>
+                            &nbsp;&nbsp;<strong>mask</strong> = 1 - (normDist ^ 2) × (strength / 100)<br>
+                            <br>
+                            4. Multiply RGB values by mask:<br>
+                            &nbsp;&nbsp;<strong>RGB'</strong> = RGB × mask
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Gestalt Principle - Proximity and Focus:</div>
+                        <div class="param-content">
+                            Vignetting leverages the Gestalt principle of proximity by creating a "visual spotlight." Darker edges push attention inward, establishing clear visual hierarchy and focusing the viewer's eye on central subjects.
+                        </div>
+                    </div>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Practical Applications:</div>
+                        <div class="param-content">
+                            <strong>Portrait photography:</strong> 30-50% to isolate subject<br>
+                            <strong>Landscape emphasis:</strong> 20-35% to frame scene<br>
+                            <strong>Vintage look:</strong> 40-60% combined with desaturation<br>
+                            <strong>Dramatic effect:</strong> 60-80% for high-contrast, moody aesthetic
+                        </div>
+                    </div>
+                    
+                    <div class="reference">
+                        <strong>Scientific Foundation:</strong><br>
+                        • Palmer, S. E. (1999). <em>Vision Science: Photons to Phenomenology</em>. MIT Press. On attentional mechanisms and visual salience.<br>
+                        • Itti, L., & Koch, C. (2001). Computational modelling of visual attention. <em>Nature Reviews Neuroscience</em>, 2(3), 194-203.
+                    </div>
+                </div>
+                
+                <h3 id="section-3-4">3.4 Overlays and Composition</h3>
+                
+                <p>The tool supports text and graphical overlays, enabling composite image creation. This feature introduces students to layered composition—a fundamental concept in professional image editing and graphic design.</p>
+                
+                <div class="parameter-card">
+                    <h4>Overlay Opacity and Blend Modes</h4>
+                    
+                    <div class="param-section">
+                        <div class="param-label">Blend Mode Theory:</div>
+                        <div class="param-content">
+                            Blend modes determine how overlay layers mathematically interact with base layers. Common modes include:
+                        </div>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Blend Mode</th>
+                                <th>Formula/Description</th>
+                                <th>Effect</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Normal</strong></td>
+                                <td>Direct overlay controlled by opacity</td>
+                                <td>Standard layering</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Multiply</strong></td>
+                                <td>Result = (Base × Overlay) / 255</td>
+                                <td>Darkens; white = transparent</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Screen</strong></td>
+                                <td>Result = 255 - ((255-Base) × (255-Overlay) / 255)</td>
+                                <td>Lightens; black = transparent</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Overlay</strong></td>
+                                <td>Combination of Multiply and Screen</td>
+                                <td>Increases contrast</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="reference">
+                        <strong>Reference:</strong> Adobe Systems Incorporated. (2000). <em>PDF Reference: Adobe Portable Document Format, Version 1.3</em>. Chapter 7.2 on blend modes (foundational specification adopted across digital imaging).
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: THE TOOL INTERFACE -->
+            <div class="section">
+                <h2 id="section-4">4. The Tool Interface</h2>
+                
+                <h3 id="section-4-1">4.1 Navigation and Workflow</h3>
+                
+                <p>The Parametric Literacy Tool employs a tabbed interface organized by conceptual function, implementing progressive disclosure to manage cognitive load.</p>
+                
+                <h4>Interface Sections:</h4>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tab</th>
+                            <th>Parameters</th>
+                            <th>Learning Focus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>⚙️ Basic</strong></td>
+                            <td>Brightness, Contrast, Saturation</td>
+                            <td>Fundamental tonal and color control</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🎨 Color Balance</strong></td>
+                            <td>Temperature, Tint, Hue Shift</td>
+                            <td>White balance and color correction</td>
+                        </tr>
+                        <tr>
+                            <td><strong>✨ Effects</strong></td>
+                            <td>Shadows, Highlights, Vignette, Sharpness, Grain</td>
+                            <td>Advanced creative control</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🖼️ Overlay/Text</strong></td>
+                            <td>Text placement, opacity, blend modes</td>
+                            <td>Composite image creation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>💾 Output</strong></td>
+                            <td>Format, quality, dimensions</td>
+                            <td>Export specifications</td>
+                        </tr>
+                        <tr>
+                            <td><strong>📚 Literacy</strong></td>
+                            <td>Educational content, theory</td>
+                            <td>Conceptual understanding</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 id="section-4-2">4.2 Parameter Controls</h3>
+                
+                <p>Each parameter features multiple interface elements designed for usability and learning:</p>
+                
+                <ul>
+                    <li><strong>Slider:</strong> Continuous adjustment with visual feedback</li>
+                    <li><strong>Numeric Input:</strong> Precise value entry</li>
+                    <li><strong>Label:</strong> Parameter name and current value</li>
+                    <li><strong>Help Button (?):</strong> Context-sensitive educational content</li>
+                </ul>
+                
+                <div class="tip-box">
+                    The help buttons provide in-depth explanations including mathematical operations, perceptual effects, and scientific references. Students should explore these to deepen understanding.
+                </div>
+                
+                <h3 id="section-4-3">4.3 Prompt Generation</h3>
+                
+                <p>The "Generate Prompt" button compiles all parameter settings into structured text suitable for AI image editing tools. This output serves multiple educational purposes:</p>
+                
+                <ul>
+                    <li><strong>Externalization:</strong> Makes invisible mental model visible and explicit</li>
+                    <li><strong>Communication:</strong> Provides structured language for describing visual intent</li>
+                    <li><strong>Reproducibility:</strong> Creates shareable, executable specifications</li>
+                    <li><strong>AI Collaboration:</strong> Generates machine-readable instructions</li>
+                </ul>
+                
+                <h4>Prompt Output Format:</h4>
+                
+                <div class="formula">
+                    <strong>Example Generated Prompt:</strong><br><br>
+                    PARAMETRIC IMAGE EDITING SPECIFICATION<br>
+                    ========================================<br>
+                    <br>
+                    BASIC ADJUSTMENTS:<br>
+                    • Brightness: +15 (lighten overall tone)<br>
+                    • Contrast: +25 (enhanced tonal separation)<br>
+                    • Saturation: -10 (subtle desaturation)<br>
+                    <br>
+                    COLOR BALANCE:<br>
+                    • Temperature: -12 (cooler, blue-shifted tones)<br>
+                    • Tint: +5 (slight magenta shift)<br>
+                    <br>
+                    EFFECTS:<br>
+                    • Shadows: +20 (lifted shadow detail)<br>
+                    • Vignette: 35% (focused attention on center)<br>
+                    <br>
+                    OUTPUT:<br>
+                    • Format: JPEG, Quality: 90%<br>
+                    • Dimensions: 1920×1080 px
+                </div>
+                
+                <h3 id="section-4-4">4.4 Educational Features</h3>
+                
+                <h4>Smart Tips (Context-Aware Guidance)</h4>
+                
+                <p>The tool provides intelligent, context-sensitive tips based on parameter settings. For example:</p>
+                
+                <ul>
+                    <li>If brightness is very high (+70+), suggests checking for clipping</li>
+                    <li>If saturation is very high (+50+), warns about color accuracy loss</li>
+                    <li>If contrast and sharpness are both maximized, suggests potential oversharpening</li>
+                </ul>
+                
+                <p>This implements scaffolding that fades as competence increases—students learn to anticipate these issues independently.</p>
+                
+                <h4>Parametric Breakdown</h4>
+                
+                <p>After generating a prompt, the "Parametric Breakdown" section provides metacognitive reflection:</p>
+                
+                <ul>
+                    <li>Lists all non-default parameters</li>
+                    <li>Explains the likely visual effect of the combination</li>
+                    <li>Identifies potential conflicts or synergies</li>
+                    <li>Suggests alternative approaches</li>
+                </ul>
+                
+                <p>This feature develops metacognitive awareness—students reflect on their decisions and consider alternatives.</p>
+            </div>
+
+            <!-- SECTION 5: PEDAGOGICAL FRAMEWORK -->
+            <div class="section">
+                <h2 id="section-5">5. Pedagogical Framework</h2>
+                
+                <h3 id="section-5-1">5.1 Four-Stage Learning Progression</h3>
+                
+                <p>The tool supports a structured learning progression from novice to expert parametric thinking:</p>
+                
+                <div class="example-box">
+                    <h4>Stage 1: Exposure</h4>
+                    <p><strong>Goal:</strong> Identify and name parameters</p>
+                    <p><strong>Activities:</strong></p>
+                    <ul>
+                        <li>Explore each tab systematically</li>
+                        <li>Read parameter labels and help content</li>
+                        <li>Understand the conceptual purpose of each parameter</li>
+                    </ul>
+                    <p><strong>Assessment:</strong> Can student name 5+ parameters and describe their general function?</p>
+                </div>
+                
+                <div class="example-box">
+                    <h4>Stage 2: Manipulation</h4>
+                    <p><strong>Goal:</strong> Adjust parameters and observe effects</p>
+                    <p><strong>Activities:</strong></p>
+                    <ul>
+                        <li>Systematically vary each parameter to extremes</li>
+                        <li>Observe visual changes on uploaded images</li>
+                        <li>Build mental model of parameter-effect relationships</li>
+                    </ul>
+                    <p><strong>Assessment:</strong> Can student predict visual outcome before adjusting?</p>
+                </div>
+                
+                <div class="example-box">
+                    <h4>Stage 3: Articulation</h4>
+                    <p><strong>Goal:</strong> Translate visual goals into parametric specifications</p>
+                    <p><strong>Activities:</strong></p>
+                    <ul>
+                        <li>Given a target aesthetic (e.g., "cinematic"), determine parameter values</li>
+                        <li>Generate prompts that match provided example images</li>
+                        <li>Explain parameter choices in writing</li>
+                    </ul>
+                    <p><strong>Assessment:</strong> Can student specify parameters to achieve described aesthetic?</p>
+                </div>
+                
+                <div class="example-box">
+                    <h4>Stage 4: Synthesis</h4>
+                    <p><strong>Goal:</strong> Combine parameters creatively for complex outcomes</p>
+                    <p><strong>Activities:</strong></p>
+                    <ul>
+                        <li>Create original visual styles through parameter combination</li>
+                        <li>Solve complex editing challenges (e.g., match lighting across composited images)</li>
+                        <li>Generate prompts for AI tools to achieve professional results</li>
+                    </ul>
+                    <p><strong>Assessment:</strong> Can student independently create professional-quality parametric specifications?</p>
+                </div>
+                
+                <h3 id="section-5-2">5.2 Scaffolded Decomposition</h3>
+                
+                <p>The tool implements scaffolded decomposition—breaking complex skills into manageable sub-skills, providing support, then gradually removing support (Wood, Bruner, & Ross, 1976).</p>
+                
+                <div class="reference">
+                    <strong>Reference:</strong> Wood, D., Bruner, J. S., & Ross, G. (1976). The role of tutoring in problem solving. <em>Journal of Child Psychology and Psychiatry</em>, 17(2), 89-100. Foundational paper on scaffolding in education.
+                </div>
+                
+                <p><strong>Scaffolding Elements:</strong></p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scaffold Type</th>
+                            <th>Implementation</th>
+                            <th>Fading Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Procedural</strong></td>
+                            <td>Help buttons, tooltips</td>
+                            <td>Students consult less frequently as expertise grows</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conceptual</strong></td>
+                            <td>Literacy tab with theoretical foundations</td>
+                            <td>Advanced students focus on application, not theory review</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Strategic</strong></td>
+                            <td>Smart Tips suggesting approaches</td>
+                            <td>Experts develop internal heuristics, ignore tips</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Metacognitive</strong></td>
+                            <td>Parametric Breakdown prompting reflection</td>
+                            <td>Becomes internalized self-monitoring</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 id="section-5-3">5.3 Active Learning Strategies</h3>
+                
+                <p>The tool promotes active learning—students construct knowledge through manipulation and discovery rather than passive reception (Prince, 2004).</p>
+                
+                <div class="reference">
+                    <strong>Reference:</strong> Prince, M. (2004). Does active learning work? A review of the research. <em>Journal of Engineering Education</em>, 93(3), 223-231.
+                </div>
+                
+                <p><strong>Active Learning Mechanisms:</strong></p>
+                
+                <ul>
+                    <li><strong>Immediate Feedback:</strong> Every parameter adjustment instantly updates canvas, enabling rapid hypothesis testing</li>
+                    <li><strong>Low-Stakes Experimentation:</strong> Non-destructive editing allows fearless exploration</li>
+                    <li><strong>Problem-Based Learning:</strong> Exercises present authentic challenges requiring parametric solutions</li>
+                    <li><strong>Reflective Practice:</strong> Prompt generation and breakdown encourage metacognitive processing</li>
+                </ul>
+                
+                <h3 id="section-5-4">5.4 Assessment Methods</h3>
+                
+                <p>Educators can assess parametric literacy through multiple modalities:</p>
+                
+                <h4>Formative Assessment:</h4>
+                <ul>
+                    <li>Observation of parameter adjustment strategies</li>
+                    <li>Review of generated prompts for accuracy and completeness</li>
+                    <li>Class discussions comparing different parametric approaches to same goal</li>
+                </ul>
+                
+                <h4>Summative Assessment:</h4>
+                <ul>
+                    <li><strong>Matching Exercise:</strong> Given target images, generate parametric specifications that recreate them</li>
+                    <li><strong>Specification Challenge:</strong> Translate vague aesthetic descriptions into precise parameters</li>
+                    <li><strong>Creative Project:</strong> Develop original visual style documented through parametric prompts</li>
+                    <li><strong>Written Reflection:</strong> Explain parameter choices and their perceptual foundations</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 6: PRACTICAL APPLICATIONS -->
+            <div class="section">
+                <h2 id="section-6">6. Practical Applications</h2>
+                
+                <h3 id="section-6-1">6.1 AI Prompt Engineering</h3>
+                
+                <p>Parametric literacy is foundational for effective AI prompt engineering. Large language models with image processing capabilities (e.g., GPT-4 Vision, Claude 3, Midjourney) produce higher-quality results when provided with structured, parametric specifications.</p>
+                
+                <div class="comparison-table">
+                    <div class="comparison-column bad">
+                        <h4 style="color: #f44336;">❌ Vague Prompt</h4>
+                        <p>"Make this photo look more professional and add some nice colors."</p>
+                        <p><strong>Problems:</strong></p>
+                        <ul style="font-size: 0.9em;">
+                            <li>Subjective ("professional," "nice")</li>
+                            <li>Ambiguous (which colors?)</li>
+                            <li>Not reproducible</li>
+                            <li>AI must guess intent</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-column good">
+                        <h4 style="color: #4caf50;">✅ Parametric Prompt</h4>
+                        <p>"Adjust this image: Brightness +10, Contrast +20, Saturation +15, Temperature -8, Vignette 30%."</p>
+                        <p><strong>Benefits:</strong></p>
+                        <ul style="font-size: 0.9em;">
+                            <li>Objective (numerical values)</li>
+                            <li>Specific (exactly what to adjust)</li>
+                            <li>Reproducible (same input → same output)</li>
+                            <li>AI executes precisely</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3 id="section-6-2">6.2 Professional Workflows</h3>
+                
+                <p>Parametric literacy translates directly to professional creative software:</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Software</th>
+                            <th>Parametric Interface</th>
+                            <th>Professional Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Adobe Lightroom</strong></td>
+                            <td>Develop module with parametric sliders</td>
+                            <td>Photography post-production, batch editing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Capture One</strong></td>
+                            <td>Color grading and adjustment layers</td>
+                            <td>Commercial photography, tethered shooting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DaVinci Resolve</strong></td>
+                            <td>Color wheels, LUTs, parametric curves</td>
+                            <td>Video color grading, film production</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Photoshop</strong></td>
+                            <td>Adjustment layers with parametric controls</td>
+                            <td>Graphic design, photo retouching</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p>Skills learned in this educational tool transfer directly: brightness = exposure slider, contrast = tone curve, saturation = vibrance/saturation controls, etc.</p>
+                
+                <h3 id="section-6-3">6.3 Interdisciplinary Use Cases</h3>
+                
+                <h4>Computer Science & Data Visualization</h4>
+                <p>Parametric thinking applies to programmatic image generation. Students learning Processing, p5.js, or other creative coding frameworks benefit from understanding how numerical parameters control visual output.</p>
+                
+                <h4>Psychology & Perception Research</h4>
+                <p>Parametric control enables systematic stimulus manipulation for perceptual experiments. Researchers can precisely vary color, contrast, and other attributes to study visual cognition.</p>
+                
+                <h4>Architecture & Design</h4>
+                <p>Parametric design in architecture (Grasshopper, Rhino) mirrors image parameter logic: adjustable values control form. Visual literacy transfers to spatial literacy.</p>
+                
+                <h4>Marketing & Brand Management</h4>
+                <p>Brand guidelines increasingly include parametric specifications for image treatments, ensuring consistent visual identity across media. Students learn professional communication standards.</p>
+            </div>
+
+            <!-- SECTION 7: EXERCISES -->
+            <div class="section">
+                <h2 id="section-7">7. Exercises and Projects</h2>
+                
+                <h3 id="section-7-1">7.1 Beginner Exercises</h3>
+                
+                <div class="exercise-box">
+                    <h4>Exercise 1: Parameter Exploration</h4>
+                    <p><strong>Objective:</strong> Familiarize with each parameter's visual effect</p>
+                    <p><strong>Instructions:</strong></p>
+                    <ol>
+                        <li>Upload a color photograph with varied tones (landscape or portrait)</li>
+                        <li>Set all parameters to default (0 or midpoint)</li>
+                        <li>For each parameter:
+                            <ul>
+                                <li>Move slider to maximum positive value → observe effect</li>
+                                <li>Move slider to maximum negative value → observe effect</li>
+                                <li>Document in writing: "Parameter X at +max causes [description]"</li>
+                            </ul>
+                        </li>
+                        <li>Read the help content for any 3 parameters</li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> Written log of observations for all basic parameters</p>
+                    <p><strong>Learning Outcome:</strong> Stage 1 (Exposure) - Can identify and describe parameters</p>
+                </div>
+                
+                <div class="exercise-box">
+                    <h4>Exercise 2: Matching Challenge</h4>
+                    <p><strong>Objective:</strong> Replicate a target aesthetic through parameter adjustment</p>
+                    <p><strong>Instructions:</strong></p>
+                    <ol>
+                        <li>Instructor provides two versions of same image: original and adjusted</li>
+                        <li>Student uploads original to tool</li>
+                        <li>Student adjusts parameters to match adjusted version as closely as possible</li>
+                        <li>Generate prompt documenting parameter values used</li>
+                        <li>Compare with instructor's actual parameters</li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> Generated prompt + visual comparison</p>
+                    <p><strong>Learning Outcome:</strong> Stage 2 (Manipulation) - Can recreate effects through parameter adjustment</p>
+                </div>
+                
+                <h3 id="section-7-2">7.2 Intermediate Projects</h3>
+                
+                <div class="exercise-box">
+                    <h4>Project 1: Aesthetic Translation</h4>
+                    <p><strong>Objective:</strong> Translate vague aesthetic descriptions into parametric specifications</p>
+                    <p><strong>Instructions:</strong></p>
+                    <ol>
+                        <li>Student receives 5 aesthetic descriptions:
+                            <ul>
+                                <li>"Cinematic film noir"</li>
+                                <li>"Bright and airy minimalism"</li>
+                                <li>"Vintage faded photograph"</li>
+                                <li>"High-contrast dramatic"</li>
+                                <li>"Soft romantic portrait"</li>
+                            </ul>
+                        </li>
+                        <li>For each, student:
+                            <ul>
+                                <li>Uploads appropriate test image</li>
+                                <li>Adjusts parameters to achieve aesthetic</li>
+                                <li>Generates prompt</li>
+                                <li>Writes 1-paragraph justification for parameter choices</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> 5 generated prompts + written justifications</p>
+                    <p><strong>Learning Outcome:</strong> Stage 3 (Articulation) - Can translate aesthetic goals into parameters</p>
+                </div>
+                
+                <div class="exercise-box">
+                    <h4>Project 2: Professional Portfolio Editing</h4>
+                    <p><strong>Objective:</strong> Develop consistent visual style across image set</p>
+                    <p><strong>Instructions:</strong></p>
+                    <ol>
+                        <li>Student selects 5-10 related images (e.g., travel photos, portraits, product shots)</li>
+                        <li>Develops a consistent "look" by adjusting parameters on first image</li>
+                        <li>Documents parameter settings as "master prompt"</li>
+                        <li>Applies same settings to remaining images (with minor per-image adjustments)</li>
+                        <li>Exports edited set with prompts</li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> Image portfolio + master prompt + reflection on consistency vs. flexibility</p>
+                    <p><strong>Learning Outcome:</strong> Professional workflow simulation; understanding of visual coherence</p>
+                </div>
+                
+                <h3 id="section-7-3">7.3 Advanced Challenges</h3>
+                
+                <div class="exercise-box">
+                    <h4>Challenge 1: Reverse Engineering Professional Edits</h4>
+                    <p><strong>Objective:</strong> Analyze professional image edits and specify parametrically</p>
+                    <p><strong>Instructions:</strong></p>
+                    <ol>
+                        <li>Student finds 3 professionally edited images with known before/after (magazines, Instagram, portfolios)</li>
+                        <li>For each, student:
+                            <ul>
+                                <li>Analyzes visual differences</li>
+                                <li>Hypothesizes parameter adjustments</li>
+                                <li>Uses tool to approximate edits</li>
+                                <li>Generates parametric specification</li>
+                            </ul>
+                        </li>
+                        <li>Writes analysis: How do professionals use parameters to achieve commercial standards?</li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> 3 parametric specifications + analytical essay (1000 words)</p>
+                    <p><strong>Learning Outcome:</strong> Stage 4 (Synthesis) - Can deconstruct and reconstruct professional work</p>
+                </div>
+                
+                <div class="exercise-box">
+                    <h4>Challenge 2: AI Prompt Engineering Competition</h4>
+                    <p><strong>Objective:</strong> Create optimal prompts for AI image editing tools</p>
+                    <p><strong>Instructions:</strong></p>
+                    <ol>
+                        <li>Class receives identical image and aesthetic target</li>
+                        <li>Each student generates parametric prompt using the tool</li>
+                        <li>Students feed prompts to AI editing tool (e.g., ChatGPT, Claude)</li>
+                        <li>Class votes on which AI output best matches target</li>
+                        <li>Winner explains parametric strategy</li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> Prompt + AI-edited result + strategy explanation</p>
+                    <p><strong>Learning Outcome:</strong> Practical AI collaboration; peer learning through comparison</p>
+                </div>
+                
+                <div class="exercise-box">
+                    <h4>Challenge 3: Creating Original Visual Styles</h4>
+                    <p><strong>Objective:</strong> Develop signature editing style through parametric innovation</p>
+                    <p><strong>Instructions:</strong></p>
+                    <ol>
+                        <li>Student creates 3 original visual styles (e.g., "Neon Minimalism," "Soft Brutalism," "Digital Watercolor")</li>
+                        <li>For each style:
+                            <ul>
+                                <li>Document parametric recipe</li>
+                                <li>Apply to diverse image types</li>
+                                <li>Write creative brief explaining style vision</li>
+                            </ul>
+                        </li>
+                        <li>Present portfolio showcasing range of parametric thinking</li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> Portfolio (15+ images across 3 styles) + parametric recipes + creative brief</p>
+                    <p><strong>Learning Outcome:</strong> Advanced creative synthesis; parametric innovation; portfolio development</p>
+                </div>
+            </div>
+
+            <!-- SECTION 8: REFERENCES -->
+            <div class="section">
+                <h2 id="section-8">8. References and Further Reading</h2>
+                
+                <div class="reference-list">
+                    <h3>Core References</h3>
+                    <ol>
+                        <li>Ainsworth, S. (2006). DeFT: A conceptual framework for considering learning with multiple representations. <em>Learning and Instruction</em>, 16(3), 183-198.</li>
+                        
+                        <li>Ayres, P., & Sweller, J. (2005). The Split-Attention Principle in Multimedia Learning. In R. E. Mayer (Ed.), <em>The Cambridge Handbook of Multimedia Learning</em> (pp. 135-146). Cambridge University Press.</li>
+                        
+                        <li>Brown, T. B., Mann, B., Ryder, N., et al. (2020). Language Models are Few-Shot Learners. <em>Advances in Neural Information Processing Systems</em>, 33, 1877-1901.</li>
+                        
+                        <li>Durand, F., & Dorsey, J. (2002). Fast bilateral filtering for the display of high-dynamic-range images. <em>ACM Transactions on Graphics (TOG)</em>, 21(3), 257-266.</li>
+                        
+                        <li>Fairchild, M. D. (2013). <em>Color Appearance Models</em> (3rd ed.). Wiley.</li>
+                        
+                        <li>Fechner, G. T. (1860). <em>Elemente der Psychophysik</em> [Elements of Psychophysics]. Breitkopf & Härtel.</li>
+                        
+                        <li>Flavell, J. H. (1979). Metacognition and cognitive monitoring: A new area of cognitive-developmental inquiry. <em>American Psychologist</em>, 34(10), 906-911.</li>
+                        
+                        <li>Gonzalez, R. C., & Woods, R. E. (2018). <em>Digital Image Processing</em> (4th ed.). Pearson.</li>
+                        
+                        <li>Hunt, R. W. G., & Pointer, M. R. (2011). <em>Measuring Colour</em> (4th ed.). Wiley.</li>
+                        
+                        <li>Itti, L., & Koch, C. (2001). Computational modelling of visual attention. <em>Nature Reviews Neuroscience</em>, 2(3), 194-203.</li>
+                        
+                        <li>Koffka, K. (1935). <em>Principles of Gestalt Psychology</em>. Harcourt, Brace and Company.</li>
+                        
+                        <li>Kuehni, R. G. (2003). <em>Color Space and Its Divisions: Color Order from Antiquity to the Present</em>. Wiley-Interscience.</li>
+                        
+                        <li>Miller, G. A. (1956). The magical number seven, plus or minus two: Some limits on our capacity for processing information. <em>Psychological Review</em>, 63(2), 81-97.</li>
+                        
+                        <li>Munsell, A. H. (1905). <em>A Color Notation</em>. G.H. Ellis Company.</li>
+                        
+                        <li>Norman, D. A. (2013). <em>The Design of Everyday Things: Revised and Expanded Edition</em>. Basic Books.</li>
+                        
+                        <li>Palmer, S. E. (1999). <em>Vision Science: Photons to Phenomenology</em>. MIT Press.</li>
+                        
+                        <li>Piaget, J. (1954). <em>The Construction of Reality in the Child</em>. Basic Books.</li>
+                        
+                        <li>Pratt, W. K. (2007). <em>Digital Image Processing</em> (4th ed.). Wiley.</li>
+                        
+                        <li>Prince, M. (2004). Does active learning work? A review of the research. <em>Journal of Engineering Education</em>, 93(3), 223-231.</li>
+                        
+                        <li>Smith, A. R. (1978). Color Gamut Transform Pairs. <em>ACM SIGGRAPH Computer Graphics</em>, 12(3), 12-19.</li>
+                        
+                        <li>Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <em>Cognitive Science</em>, 12(2), 257-285.</li>
+                        
+                        <li>Sweller, J., Ayres, P., & Kalyuga, S. (2011). <em>Cognitive Load Theory</em>. Springer.</li>
+                        
+                        <li>van Merriënboer, J. J. G., & Sweller, J. (2010). Cognitive load theory in health professional education: design principles and strategies. <em>Medical Education</em>, 44(1), 85-93.</li>
+                        
+                        <li>Vygotsky, L. S. (1978). <em>Mind in Society: The Development of Higher Psychological Processes</em>. Harvard University Press.</li>
+                        
+                        <li>Wood, D., Bruner, J. S., & Ross, G. (1976). The role of tutoring in problem solving. <em>Journal of Child Psychology and Psychiatry</em>, 17(2), 89-100.</li>
+                        
+                        <li>Woodbury, R. (2010). <em>Elements of Parametric Design</em>. Routledge.</li>
+                        
+                        <li>Wyszecki, G., & Stiles, W. S. (2000). <em>Color Science: Concepts and Methods, Quantitative Data and Formulae</em> (2nd ed.). Wiley.</li>
+                    </ol>
+                </div>
+                
+                <h3>Recommended Further Reading</h3>
+                
+                <div class="reference-list">
+                    <h4>Digital Image Processing</h4>
+                    <ul>
+                        <li>Baxes, G. A. (1994). <em>Digital Image Processing: Principles and Applications</em>. Wiley.</li>
+                        <li>Burger, W., & Burge, M. J. (2016). <em>Digital Image Processing: An Algorithmic Introduction Using Java</em> (2nd ed.). Springer.</li>
+                    </ul>
+                    
+                    <h4>Color Science</h4>
+                    <ul>
+                        <li>Nassau, K. (2001). <em>The Physics and Chemistry of Color: The Fifteen Causes of Color</em> (2nd ed.). Wiley.</li>
+                        <li>Shevell, S. K. (Ed.). (2003). <em>The Science of Color</em> (2nd ed.). Elsevier.</li>
+                    </ul>
+                    
+                    <h4>Learning Theory and Pedagogy</h4>
+                    <ul>
+                        <li>Bransford, J. D., Brown, A. L., & Cocking, R. R. (Eds.). (2000). <em>How People Learn: Brain, Mind, Experience, and School</em>. National Academy Press.</li>
+                        <li>Kolb, D. A. (1984). <em>Experiential Learning: Experience as the Source of Learning and Development</em>. Prentice Hall.</li>
+                    </ul>
+                    
+                    <h4>Human-Computer Interaction</h4>
+                    <ul>
+                        <li>Shneiderman, B., Plaisant, C., Cohen, M., et al. (2016). <em>Designing the User Interface: Strategies for Effective Human-Computer Interaction</em> (6th ed.). Pearson.</li>
+                        <li>Raskin, J. (2000). <em>The Humane Interface: New Directions for Designing Interactive Systems</em>. Addison-Wesley.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 9: APPENDICES -->
+            <div class="appendix">
+                <h2 id="section-9">9. Appendices</h2>
+                
+                <h3>Appendix A: Quick Reference - Parameter Ranges</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Range</th>
+                            <th>Default</th>
+                            <th>Units</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Brightness</td>
+                            <td>-100 to +100</td>
+                            <td>0</td>
+                            <td>Arbitrary units</td>
+                        </tr>
+                        <tr>
+                            <td>Contrast</td>
+                            <td>0 to 100</td>
+                            <td>50</td>
+                            <td>Percentage of max</td>
+                        </tr>
+                        <tr>
+                            <td>Saturation</td>
+                            <td>-100 to +100</td>
+                            <td>0</td>
+                            <td>Percentage change</td>
+                        </tr>
+                        <tr>
+                            <td>Temperature</td>
+                            <td>-100 to +100</td>
+                            <td>0</td>
+                            <td>Kelvin-relative</td>
+                        </tr>
+                        <tr>
+                            <td>Tint</td>
+                            <td>-100 to +100</td>
+                            <td>0</td>
+                            <td>Magenta-Green</td>
+                        </tr>
+                        <tr>
+                            <td>Shadows</td>
+                            <td>-100 to +100</td>
+                            <td>0</td>
+                            <td>Lift/Lower amount</td>
+                        </tr>
+                        <tr>
+                            <td>Highlights</td>
+                            <td>-100 to +100</td>
+                            <td>0</td>
+                            <td>Lift/Lower amount</td>
+                        </tr>
+                        <tr>
+                            <td>Vignette</td>
+                            <td>0 to 100</td>
+                            <td>0</td>
+                            <td>Percentage strength</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Appendix B: Glossary of Terms</h3>
+                
+                <p><strong>Alpha Channel:</strong> Additional channel in digital images that stores transparency information (0 = transparent, 255 = opaque).</p>
+                
+                <p><strong>Bit Depth:</strong> Number of bits used to represent color of single pixel. 8-bit = 256 levels per channel; 16-bit = 65,536 levels.</p>
+                
+                <p><strong>Chroma:</strong> Attribute of color perception denoting purity or saturation—departure from gray of same lightness.</p>
+                
+                <p><strong>Clipping:</strong> Loss of image detail when pixel values are forced to minimum (0) or maximum (255), typically from extreme adjustments.</p>
+                
+                <p><strong>Colorimetry:</strong> Science of quantifying and describing human color perception physically.</p>
+                
+                <p><strong>Gamut:</strong> Range of colors that can be represented by particular color space or device.</p>
+                
+                <p><strong>Histogram:</strong> Graphical representation showing distribution of pixel values in image.</p>
+                
+                <p><strong>HSL:</strong> Color space representing colors as Hue (color type), Saturation (color purity), and Lightness (brightness).</p>
+                
+                <p><strong>Kelvin (K):</strong> Unit of color temperature. Lower values = warmer (red/orange); higher values = cooler (blue).</p>
+                
+                <p><strong>Luminosity:</strong> Perceptual measure of brightness accounting for human eye's varying sensitivity to different wavelengths.</p>
+                
+                <p><strong>Parametric Design:</strong> Approach defining design through adjustable parameters rather than fixed specifications.</p>
+                
+                <p><strong>RGB:</strong> Additive color model using Red, Green, Blue primaries. Standard for digital displays.</p>
+                
+                <p><strong>Tone Curve:</strong> Graph showing relationship between input pixel values and output values after adjustment.</p>
+                
+                <h3>Appendix C: Keyboard Shortcuts (If Implemented)</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Shortcut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Upload Image</td>
+                            <td>Ctrl/Cmd + O</td>
+                        </tr>
+                        <tr>
+                            <td>Generate Prompt</td>
+                            <td>Ctrl/Cmd + G</td>
+                        </tr>
+                        <tr>
+                            <td>Copy Prompt</td>
+                            <td>Ctrl/Cmd + C</td>
+                        </tr>
+                        <tr>
+                            <td>Reset All Parameters</td>
+                            <td>Ctrl/Cmd + R</td>
+                        </tr>
+                        <tr>
+                            <td>Toggle Help</td>
+                            <td>F1 or ?</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Appendix D: Citation Format for Academic Use</h3>
+                
+                <p>When citing this tool and manual in academic work, use the following format:</p>
+                
+                <div class="formula">
+                    <strong>APA Style:</strong><br>
+                    Korakakis, G., Dalacosta, K., Efstathiadou, O., Karamani, A., & Claude. (2026). <em>Parametric Literacy Tool: Educational Manual for Digital Image Processing</em>. Cumulus Conference Educational Resources.
+                </div>
+                
+                <div class="formula" style="margin-top: 15px;">
+                    <strong>MLA Style:</strong><br>
+                    Korakakis, G., et al. "Parametric Literacy Tool: Educational Manual for Digital Image Processing." <em>Cumulus Conference Educational Resources</em>, 2026.
+                </div>
+                
+                <div class="formula" style="margin-top: 15px;">
+                    <strong>Chicago Style:</strong><br>
+                    Korakakis, G., K. Dalacosta, O. Efstathiadou, A. Karamani, and Claude. 2026. <em>Parametric Literacy Tool: Educational Manual for Digital Image Processing</em>. Cumulus Conference Educational Resources.
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="footnote">
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">Authors & Contributors</h3>
+                <p style="margin-bottom: 10px;">
+                    <strong>G. Korakakis</strong> <br>
+                    <strong>K. Dalacosta</strong><br>
+                    <strong> Our. Efstathiadou</strong><br>
+                    <strong>A. Karamani</strong> <br>
+                    <strong>Claude (Anthropic)</strong>
+                </p>
+                <p style="margin-top: 20px;"><strong>Document Version:</strong> 1.0 | <strong>Last Updated:</strong> 2026 | <strong>Prepared for:</strong> Cumulus Conference 2026</p>
+                <p><strong>License:</strong> This educational manual is provided for academic use. Attribution required for reproduction or derivative works.</p>
+                <p><strong>Citation:</strong> Korakakis, G., Dalacosta, K., Efstathiadou, O., Karamani, A., & Claude. (2026). <em>Parametric Literacy Tool: Educational Manual for Digital Image Processing</em>. Cumulus Conference Educational Resources.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating TOC Button -->
+    <button id="toc-float-btn" onclick="toggleTOC()" aria-label="Toggle Table of Contents">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2zm16 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2z"/>
+        </svg>
+    </button>
+    
+    <!-- Floating TOC Panel -->
+    <div id="toc-float-panel">
+        <div class="toc-header">
+            <h3>Πίνακας Περιεχομένων</h3>
+            <button class="close-btn" onclick="toggleTOC()">×</button>
+        </div>
+        <div class="toc-content">
+            <ol>
+                <li><a href="#section-1" onclick="closeTOC()">Introduction: What is Parametric Literacy?</a>
+                    <ol>
+                        <li><a href="#section-1-1" onclick="closeTOC()">Defining Parametric Literacy</a></li>
+                        <li><a href="#section-1-2" onclick="closeTOC()">Historical Context</a></li>
+                        <li><a href="#section-1-3" onclick="closeTOC()">Why Parametric Literacy Matters</a></li>
+                        <li><a href="#section-1-4" onclick="closeTOC()">Learning Objectives</a></li>
+                    </ol>
+                </li>
+                <li><a href="#section-2" onclick="closeTOC()">Theoretical Foundations</a>
+                    <ol>
+                        <li><a href="#section-2-1" onclick="closeTOC()">Cognitive Load Theory</a></li>
+                        <li><a href="#section-2-2" onclick="closeTOC()">Constructivist Learning</a></li>
+                        <li><a href="#section-2-3" onclick="closeTOC()">Design Thinking & Norman's Principles</a></li>
+                        <li><a href="#section-2-4" onclick="closeTOC()">Color Science & Perception</a></li>
+                    </ol>
+                </li>
+                <li><a href="#section-3" onclick="closeTOC()">Technical Parameters Explained</a>
+                    <ol>
+                        <li><a href="#section-3-1" onclick="closeTOC()">Basic Adjustments (Brightness, Contrast)</a></li>
+                        <li><a href="#section-3-2" onclick="closeTOC()">Color Manipulation (Saturation, Temperature, Tint)</a></li>
+                        <li><a href="#section-3-3" onclick="closeTOC()">Advanced Effects (Shadows, Highlights, Vignette)</a></li>
+                        <li><a href="#section-3-4" onclick="closeTOC()">Overlays and Composition</a></li>
+                    </ol>
+                </li>
+                <li><a href="#section-4" onclick="closeTOC()">The Tool Interface</a>
+                    <ol>
+                        <li><a href="#section-4-1" onclick="closeTOC()">Navigation and Workflow</a></li>
+                        <li><a href="#section-4-2" onclick="closeTOC()">Parameter Controls</a></li>
+                        <li><a href="#section-4-3" onclick="closeTOC()">Prompt Generation</a></li>
+                        <li><a href="#section-4-4" onclick="closeTOC()">Educational Features</a></li>
+                    </ol>
+                </li>
+                <li><a href="#section-5" onclick="closeTOC()">Pedagogical Framework</a>
+                    <ol>
+                        <li><a href="#section-5-1" onclick="closeTOC()">Four-Stage Learning Progression</a></li>
+                        <li><a href="#section-5-2" onclick="closeTOC()">Scaffolded Decomposition</a></li>
+                        <li><a href="#section-5-3" onclick="closeTOC()">Active Learning Strategies</a></li>
+                        <li><a href="#section-5-4" onclick="closeTOC()">Assessment Methods</a></li>
+                    </ol>
+                </li>
+                <li><a href="#section-6" onclick="closeTOC()">Practical Applications</a>
+                    <ol>
+                        <li><a href="#section-6-1" onclick="closeTOC()">AI Prompt Engineering</a></li>
+                        <li><a href="#section-6-2" onclick="closeTOC()">Professional Workflows</a></li>
+                        <li><a href="#section-6-3" onclick="closeTOC()">Interdisciplinary Use Cases</a></li>
+                    </ol>
+                </li>
+                <li><a href="#section-7" onclick="closeTOC()">Exercises and Projects</a>
+                    <ol>
+                        <li><a href="#section-7-1" onclick="closeTOC()">Beginner Exercises</a></li>
+                        <li><a href="#section-7-2" onclick="closeTOC()">Intermediate Projects</a></li>
+                        <li><a href="#section-7-3" onclick="closeTOC()">Advanced Challenges</a></li>
+                    </ol>
+                </li>
+                <li><a href="#section-8" onclick="closeTOC()">References and Further Reading</a></li>
+                <li><a href="#section-9" onclick="closeTOC()">Appendices</a></li>
+            </ol>
+        </div>
+    </div>
+    
+    <script>
+        function toggleTOC() {
+            const panel = document.getElementById('toc-float-panel');
+            panel.classList.toggle('show');
+        }
+        
+        function closeTOC() {
+            const panel = document.getElementById('toc-float-panel');
+            panel.classList.remove('show');
+        }
+        
+        // Close TOC when clicking outside
+        document.addEventListener('click', function(event) {
+            const panel = document.getElementById('toc-float-panel');
+            const btn = document.getElementById('toc-float-btn');
+            if (!panel.contains(event.target) && !btn.contains(event.target)) {
+                panel.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

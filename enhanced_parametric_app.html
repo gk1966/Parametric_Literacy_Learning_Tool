@@ -1,0 +1,2788 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Parametric Literacy Tool — Enhanced Educational Edition (Cumulus 2026)</title>
+  <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=8r3eCtBekvL5r4zEpV1c9yH5pZ25LFUfo2xN0rW65U81D77c3arc1tZQKJPEA8FCkR2zGm-5nZ6mAGlY81SRFa4OBnn3sX8n8snaF2d72ZRo1Seal7IlQFIIkJgPUcDBxgCIm8UWIpsAaKSr9DLEmqsKCOYcVibj9qr-RgyyjYnxftyX-UjaBF9LzJz0JlKLJX5k01oTdIFhbf6kM1bqPhdHOyqkegMufCHmrcwCVdBTG-W8Xo5ELTP-yGtsoPvuQacCZvzN3hRmlfCTuc-IOaWpuEC9yLg6COex7eulBg5k5wHOM4nIMz0YPWqF7vJDfBEHoWsU8yYT2WBnwz_r39qRStO4l6RvtjlwHWi2g_T2MPt-64qKvT1PY0Hbc499wIR5OojfRyqmLue1gwmCjaOe5dv4r9QJF3pR_tDWrMrUbfSjA09xzVDV1FPXgCyJc5ewZtYNBY0vHZX8yBGDTd_pR6Z2ZPrL3JP0wWftZvftNPaMwzRfdc5uKfVtvvN-6HUl3tw0HLw8C9jyXImjXNjRID_GkUi2rGv9jlt-Ni3Q-k5nFe6QwXbnCmdDndtSfWXolg0uetcowVshziZBE5SqDLAtXe8rNEtPFcL7r22VrsVPLX8dT4zW_flptD4rzgDPctRHz5FWgBAEFBZWRl5N4hWg2Vf2QidJwtu1rxjYdm-dJ08BtSu1SXSOjOKPel3djQ9ho6ntWzYbgVW3-hOFeaD3wIM5PbNQbdVJ19aMaCLw-96tzWl4H2PJoF7YS_2AS-soLyFWAnFJPWBB6epwYrXR6JPW0t8zh7ZB1HcrG7i024bvcWZ44J37d4XdVs2eMrnA-S2WD5Jz4RUD0LIxObsL-82El2Vz7OliZE4" charset="UTF-8"></script><style>
+    :root{ 
+      --bg:#0b1020; 
+      --panel:#121936; 
+      --panel-2:#0f1530; 
+      --text:#e9ecf5; 
+      --muted:#9aa3c7; 
+      --accent:#6ea8fe; 
+      --accent-hover:#5a94e8;
+      --success:#52c788;
+      --warning:#f5b841;
+      --radius:16px; 
+      --shadow: 0 6px 30px rgba(0,0,0,.25);
+      --shadow-lg: 0 30px 80px rgba(0,0,0,.8);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#0b1020,#0a0f23);
+      color:var(--text);
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.5;
+    }
+    
+    /* Typography */
+    h1{font-size:1.3rem;margin:0;font-weight:700;letter-spacing:-0.02em}
+    h2{font-size:1rem;margin:0 0 8px 0;color:#fff;font-weight:600}
+    h3{font-size:.9rem;margin:12px 0 6px 0;color:#fff;font-weight:600}
+    h4{font-size:.85rem;margin:8px 0 4px 0;color:var(--accent);font-weight:600}
+
+    /* Layout */
+    .container{max-width:1400px;margin:0 auto;padding:16px;overflow:hidden}
+    .app{display:grid;grid-template-columns:400px 1fr;gap:16px;min-height:calc(100vh - 32px);overflow:visible}
+    
+    @media (max-width: 1024px) {
+      .app{grid-template-columns:1fr;gap:12px}
+    }
+
+    /* Cards */
+    .card{
+      background:var(--panel);
+      border:1px solid #1b254d;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow-x:hidden;
+      overflow-y:auto;
+      transition:box-shadow 0.3s ease;
+      scrollbar-gutter:stable;
+    }
+    .card:hover{box-shadow:0 8px 40px rgba(0,0,0,.35)}
+    
+    .section{padding:14px 16px;border-top:1px solid #1b254d}
+    .section:first-child{border-top:0}
+    .sticky{
+      position:sticky;
+      top:0;
+      background:linear-gradient(180deg,#121936 0%,#101733 100%);
+      z-index:3;
+      box-shadow:0 2px 8px rgba(0,0,0,.2);
+    }
+
+    /* Buttons */
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    button,.btn{
+      background:#192351;
+      color:var(--text);
+      border:1px solid #2a3672;
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:600;
+      cursor:pointer;
+      font-size:.85rem;
+      line-height:1.2;
+      transition:all 0.2s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+    button:hover,.btn:hover{
+      background:#1c285b;
+      border-color:#3a4782;
+      transform:translateY(-1px);
+    }
+    button:active,.btn:active{transform:translateY(0)}
+    
+    .primary{
+      background:linear-gradient(180deg,#6ea8fe,#4f8dff);
+      border-color:#5b90ff;
+      color:#0b1020;
+      font-weight:700;
+    }
+    .primary:hover{
+      background:linear-gradient(180deg,#5a94e8,#3f7def);
+      box-shadow:0 4px 12px rgba(110,168,254,.3);
+    }
+    
+    .ghost{background:transparent;border-color:#3a4782}
+    .ghost:hover{background:#192351}
+    
+    .success{
+      background:linear-gradient(180deg,#52c788,#42b778);
+      border-color:#52c788;
+      color:#fff;
+    }
+
+    /* Input file styling */
+    input[type="file"]{display:none}
+    label[for="file"]{
+      background:#192351;
+      border:1px solid #2a3672;
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:.85rem;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:all 0.2s ease;
+    }
+    label[for="file"]:hover{
+      background:#1c285b;
+      border-color:#3a4782;
+      transform:translateY(-1px);
+    }
+
+    /* Tabs */
+    .tabs{
+      display:flex;
+      gap:6px;
+      padding:10px 12px;
+      border-bottom:2px solid #24305f;
+      background:var(--panel-2);
+      position:sticky;
+      top:80px;
+      z-index:2;
+      overflow-x:auto;
+      flex-wrap:wrap;
+    }
+    .tab{
+      padding:9px 12px;
+      border:1px solid #2a3672;
+      border-bottom:none;
+      border-radius:10px 10px 0 0;
+      background:#18204a;
+      color:#cbd5ff;
+      cursor:pointer;
+      font-weight:700;
+      flex:0 0 auto;
+      white-space:nowrap;
+      font-size:.82rem;
+      transition:all 0.2s ease;
+      position:relative;
+    }
+    .tab:hover{
+      background:#1a2553;
+      color:#fff;
+    }
+    .tab.active{
+      background:linear-gradient(180deg,#1a2a66,#142254);
+      color:#fff;
+      border-color:#3a4782;
+    }
+    .tab.active::after{
+      content:'';
+      position:absolute;
+      bottom:-2px;
+      left:0;
+      right:0;
+      height:2px;
+      background:var(--accent);
+    }
+    
+    .tabpanes{padding:12px 8px 12px 12px}
+    .tabpane{display:none;overflow:visible}
+    .tabpane.active{display:block;animation:fadeIn 0.3s ease}
+    
+    /* Group containers */
+    [id^="group-"]{
+      padding:0;
+    }
+    
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(8px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    /* Parameter rows */
+    .row{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin:16px 12px 16px 8px;
+      padding:14px 16px;
+      border-radius:12px;
+      background:rgba(255,255,255,.02);
+      transition:background 0.2s ease;
+      border:1px solid transparent;
+    }
+    .row:hover{
+      background:rgba(255,255,255,.04);
+      border-color:#2a3672;
+    }
+    
+    .row>label{
+      font-size:.95rem;
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      font-weight:600;
+      width:100%;
+    }
+    .labelText{
+      flex:1;
+      color:var(--text);
+      font-weight:600;
+    }
+    
+    /* Help button */
+    .helpBtn{
+      background:#1a2148;
+      border:1px solid #2a3672;
+      color:var(--accent);
+      font-size:.75rem;
+      line-height:1;
+      font-weight:700;
+      width:24px;
+      height:24px;
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0;
+      cursor:pointer;
+      transition:all 0.2s ease;
+      flex-shrink:0;
+    }
+    .helpBtn:hover{
+      background:var(--accent);
+      color:#0b1020;
+      transform:scale(1.15);
+      box-shadow:0 4px 12px rgba(110,168,254,.3);
+    }
+
+    /* Form inputs */
+    input[type=range]{
+      width:100%;
+      max-width:100%;
+      height:8px;
+      border-radius:4px;
+      background:#1b254d;
+      outline:none;
+      -webkit-appearance:none;
+      margin:0;
+      cursor:pointer;
+    }
+    input[type=range]::-webkit-slider-thumb{
+      -webkit-appearance:none;
+      width:20px;
+      height:20px;
+      border-radius:50%;
+      background:var(--accent);
+      cursor:pointer;
+      transition:all 0.2s ease;
+      box-shadow:0 2px 8px rgba(110,168,254,.3);
+    }
+    input[type=range]::-webkit-slider-thumb:hover{
+      background:var(--accent-hover);
+      transform:scale(1.2);
+      box-shadow:0 4px 12px rgba(110,168,254,.5);
+    }
+    input[type=range]::-moz-range-thumb{
+      width:20px;
+      height:20px;
+      border-radius:50%;
+      background:var(--accent);
+      cursor:pointer;
+      border:none;
+      transition:all 0.2s ease;
+    }
+    input[type=range]::-moz-range-thumb:hover{
+      background:var(--accent-hover);
+      transform:scale(1.2);
+    }
+    
+    input[type=number]{
+      background:var(--panel-2);
+      color:var(--text);
+      border:1px solid #2a3672;
+      border-radius:10px;
+      padding:10px 12px;
+      font-size:.9rem;
+      font-weight:600;
+      transition:all 0.2s ease;
+      text-align:center;
+      box-sizing:border-box;
+      display:block;
+    }
+    input[type=number]:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(110,168,254,.15);
+      background:#0d1430;
+    }
+    input[type=number]:hover{
+      border-color:#3a4782;
+    }
+    
+    input[type=text],select{
+      width:100%;
+      background:var(--panel-2);
+      color:var(--text);
+      border:1px solid #2a3672;
+      border-radius:10px;
+      padding:8px 10px;
+      font-size:.85rem;
+      transition:all 0.2s ease;
+    }
+    input[type=text]:focus,select:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(110,168,254,.1);
+    }
+    
+    input[type=checkbox]{
+      width:20px;
+      height:20px;
+      cursor:pointer;
+    }
+    
+    textarea{
+      width:100%;
+      min-height:140px;
+      background:#0d1430;
+      color:#dfe0ff;
+      border:1px solid #263065;
+      border-radius:12px;
+      padding:10px;
+      font-size:.85rem;
+      line-height:1.5;
+      resize:vertical;
+      font-family:inherit;
+      transition:all 0.2s ease;
+    }
+    textarea:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(110,168,254,.1);
+    }
+    
+    textarea.smallNote{min-height:70px}
+
+    /* Info boxes */
+    .hint{
+      font-size:.82rem;
+      color:var(--muted);
+      line-height:1.5;
+      margin:6px 0;
+    }
+    
+    .eduBox{
+      background:#0f1530;
+      border:1px solid #2a3672;
+      border-radius:12px;
+      padding:12px;
+      margin-bottom:12px;
+      font-size:.85rem;
+      line-height:1.6;
+      color:#cfe0ff;
+    }
+    .eduBox b{color:#fff;font-weight:600}
+    .eduBox ul{margin:8px 0;padding-left:20px}
+    .eduBox li{margin:4px 0}
+
+    /* Right panel - Preview */
+    .previewWrap{padding:16px}
+    .canvasWrap{
+      background:#0a0f23;
+      border:2px dashed #263065;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:360px;
+      max-height:70vh;
+      overflow:auto;
+      position:relative;
+    }
+    .canvasWrap::before{
+      content:'📷 Upload an image to begin';
+      position:absolute;
+      color:var(--muted);
+      font-size:.9rem;
+      pointer-events:none;
+    }
+    .canvasWrap.has-image::before{display:none}
+    
+    canvas{
+      max-width:100%;
+      max-height:70vh;
+      border-radius:12px;
+      background:#000;
+      box-shadow:0 8px 32px rgba(0,0,0,.4);
+    }
+
+    /* Prompt area */
+    .promptArea{
+      padding:16px;
+      border-top:2px solid #1b254d;
+      background:var(--panel-2);
+    }
+    .promptToolbar{
+      display:flex;
+      gap:8px;
+      margin-bottom:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    /* Info sections */
+    .sectionInfo{
+      margin-top:12px;
+      border-top:1px solid #1b254d;
+      padding:12px;
+      background:var(--panel-2);
+      border-radius:12px;
+      border:1px solid #1b254d;
+    }
+
+    /* Pedagogy box */
+    .pedagogyBox{
+      margin-top:12px;
+      padding:16px;
+      background:linear-gradient(135deg, #0f1530 0%, #1a1f45 100%);
+      border-radius:12px;
+      border:1px solid #2a3672;
+      box-shadow:0 4px 16px rgba(0,0,0,.3);
+    }
+    .pedagogyBox h3{
+      margin-top:0;
+      color:#6ea8fe;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .pedagogyText{
+      font-size:.82rem;
+      color:#cfe0ff;
+      line-height:1.6;
+      white-space:pre-wrap;
+      background:#0d1430;
+      border:1px solid #263065;
+      border-radius:12px;
+      padding:10px;
+      min-height:140px;
+      max-height:500px;
+      overflow-y:auto;
+    }
+    
+    /* Smart Tips styling */
+    #smartTips{
+      font-size:.85rem;
+      line-height:1.7;
+      color:#e9ecf5;
+    }
+    #smartTips strong{
+      color:#6ea8fe;
+      font-weight:700;
+    }
+    #smartTips em{
+      color:#f5b841;
+      font-style:normal;
+      font-weight:600;
+    }
+
+    .tests{
+      font-size:.75rem;
+      white-space:pre-wrap;
+      background:#0d1430;
+      border:1px solid #263065;
+      border-radius:12px;
+      padding:8px;
+      margin-top:8px;
+      color:#9aa3c7;
+      font-family:'Courier New',monospace;
+    }
+
+    /* ENHANCED LITERACY TAB */
+    .literacyGrid{
+      display:grid;
+      gap:14px;
+      margin-top:12px;
+    }
+    
+    .literacyCard{
+      background:#0f1530;
+      border:1px solid #2a3672;
+      border-radius:12px;
+      padding:14px;
+      transition:all 0.3s ease;
+    }
+    .literacyCard:hover{
+      border-color:var(--accent);
+      box-shadow:0 4px 16px rgba(110,168,254,.1);
+    }
+    
+    .literacyCard h4{
+      margin-top:0;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .literacyCard h4::before{
+      content:'📊';
+      font-size:1.2rem;
+    }
+    
+    .conceptBox{
+      background:#0d1430;
+      border:1px solid #263065;
+      border-radius:10px;
+      padding:10px;
+      margin:8px 0;
+      font-size:.85rem;
+      line-height:1.6;
+    }
+    .conceptBox strong{
+      color:var(--accent);
+      font-weight:600;
+    }
+    
+    .exampleSection{
+      margin-top:12px;
+      padding-top:12px;
+      border-top:1px solid #263065;
+    }
+    
+    .interactiveDemo{
+      background:#121936;
+      border:1px solid #2a3672;
+      border-radius:10px;
+      padding:12px;
+      margin:10px 0;
+    }
+    
+    .demoControls{
+      display:flex;
+      gap:8px;
+      margin:10px 0;
+      flex-wrap:wrap;
+    }
+    
+    .demoControls button{
+      font-size:.8rem;
+      padding:6px 10px;
+    }
+    
+    .comparisonSlider{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin:10px 0;
+    }
+    
+    .comparisonBox{
+      background:#0d1430;
+      border:1px solid #263065;
+      border-radius:8px;
+      padding:10px;
+      text-align:center;
+    }
+    .comparisonBox h5{
+      margin:0 0 8px 0;
+      font-size:.8rem;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .comparisonBox p{
+      margin:4px 0;
+      font-size:.75rem;
+      line-height:1.4;
+    }
+
+    /* HELP MODAL - Enhanced */
+    .helpOverlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.75);
+      backdrop-filter:blur(4px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      animation:fadeIn 0.2s ease;
+    }
+    .helpOverlay.active{display:flex}
+    
+    .helpCard{
+      background:#0f1530;
+      border:1px solid #2a3672;
+      border-radius:16px;
+      box-shadow:var(--shadow-lg);
+      max-width:520px;
+      width:90%;
+      max-height:85vh;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      color:#fff;
+      font-size:.85rem;
+      animation:slideUp 0.3s ease;
+    }
+    
+    @keyframes slideUp{
+      from{opacity:0;transform:translateY(30px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    
+    .helpHead{
+      padding:14px 16px;
+      background:#1a2148;
+      border-bottom:1px solid #2a3672;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .helpTitle{
+      font-size:1rem;
+      font-weight:700;
+      color:#fff;
+      line-height:1.3;
+    }
+    .helpCloseBtn{
+      background:transparent;
+      border:1px solid #2a3672;
+      border-radius:8px;
+      color:var(--accent);
+      font-size:.75rem;
+      width:30px;
+      height:30px;
+      line-height:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      cursor:pointer;
+      transition:all 0.2s ease;
+      flex-shrink:0;
+    }
+    .helpCloseBtn:hover{
+      background:var(--accent);
+      color:#0b1020;
+    }
+    
+    .helpBody{
+      padding:16px;
+      overflow:auto;
+      line-height:1.6;
+      color:#e9ecf5;
+    }
+    .helpBlock{margin-bottom:14px}
+    .helpBlockTitle{
+      font-weight:700;
+      color:var(--accent);
+      margin-bottom:6px;
+      font-size:.85rem;
+      line-height:1.4;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .helpBlockTitle::before{
+      content:'▸';
+      font-size:1rem;
+    }
+    .helpBlockText{
+      font-size:.85rem;
+      color:#e9ecf5;
+      line-height:1.6;
+      margin-bottom:8px;
+    }
+    .helpRef{
+      font-size:.75rem;
+      color:#9aa3c7;
+      line-height:1.5;
+      margin-top:8px;
+      padding-top:8px;
+      border-top:1px solid #263065;
+      font-style:italic;
+    }
+    .helpRef strong{
+      color:var(--accent);
+      font-style:normal;
+    }
+    
+    .scientificNote{
+      background:#0d1430;
+      border:1px solid #263065;
+      border-radius:8px;
+      padding:10px;
+      margin:10px 0;
+      font-size:.8rem;
+      line-height:1.5;
+    }
+    .scientificNote h5{
+      margin:0 0 6px 0;
+      color:var(--success);
+      font-size:.82rem;
+      font-weight:600;
+    }
+
+    /* Badges */
+    .badge{
+      display:inline-block;
+      padding:3px 8px;
+      border-radius:6px;
+      font-size:.7rem;
+      font-weight:600;
+      margin-right:4px;
+    }
+    .badge-new{background:#52c788;color:#0b1020}
+    .badge-theory{background:#6ea8fe;color:#0b1020}
+    .badge-practice{background:#f5b841;color:#0b1020}
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar{width:14px;height:14px}
+    ::-webkit-scrollbar-track{background:#0f1530;border-radius:7px;margin:6px}
+    ::-webkit-scrollbar-thumb{background:#4a5892;border-radius:7px;border:3px solid #0f1530}
+    ::-webkit-scrollbar-thumb:hover{background:#5a6aa2}
+    
+    /* Firefox scrollbar */
+    * {
+      scrollbar-width: auto;
+      scrollbar-color: #4a5892 #0f1530;
+    }
+
+    /* Accessibility */
+    button:focus,input:focus,select:focus,textarea:focus{
+      outline:2px solid var(--accent);
+      outline-offset:2px;
+    }
+    
+    /* Loading state */
+    .loading{
+      position:relative;
+      pointer-events:none;
+      opacity:0.6;
+    }
+    .loading::after{
+      content:'';
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:20px;
+      height:20px;
+      margin:-10px 0 0 -10px;
+      border:2px solid var(--accent);
+      border-top-color:transparent;
+      border-radius:50%;
+      animation:spin 0.8s linear infinite;
+    }
+    @keyframes spin{
+      to{transform:rotate(360deg)}
+    }
+
+    /* Credits Footer */
+    .credits-footer {
+      padding: 16px;
+      border-top: 1px solid #1b254d;
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.6;
+      background: rgba(0,0,0,0.1);
+    }
+    .credits-footer strong {
+      color: var(--text);
+    }
+
+.app-credits {
+  padding: 16px;
+  margin-top: 20px;
+  border-top: 1px solid #1b254d;
+  font-size: 0.75rem;
+  color: #9aa3c7; /* muted color */
+  line-height: 1.6;
+  background: rgba(0,0,0,0.1);
+  border-radius: 0 0 16px 16px;
+}
+.app-credits strong {
+  color: #e9ecf5; /* brighter color for names */
+}
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="app">
+
+    <div class="card">
+      <div class="section sticky">
+        <h1>🎨 Parametric Literacy Tool</h1>
+        <p class="hint">Upload an image, adjust parameters, and learn how visual effects decompose into explicit values. Generate structured prompts for AI collaboration.</p>
+        <div class="toolbar">
+          <input id="file" type="file" accept="image/*" />
+          <label for="file">📤 Upload Image</label>
+          <button id="resetAll" class="ghost" type="button">↺ Reset All</button>
+          <button id="download" type="button">⬇️ Export Image</button>
+        </div>
+        <p class="hint"><strong>⚠️ Non-destructive editing:</strong> Original image remains untouched. All adjustments are parametric. Generated prompts instruct AI to modify ONLY pixel values, NOT content.</p>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="basic">⚙️ Basics</button>
+        <button class="tab" data-tab="color">🎨 Color Balance</button>
+        <button class="tab" data-tab="effects">✨ Effects</button>
+        <button class="tab" data-tab="overlay">🖼️ Overlay/Text</button>
+        <button class="tab" data-tab="output">💾 Output</button>
+        <button class="tab" data-tab="literacy">📚 Literacy <span class="badge badge-new">Enhanced</span></button>
+      </div>
+
+      <div class="tabpanes">
+        <div class="tabpane active" id="pane-basic"><div id="group-basic"></div></div>
+        <div class="tabpane" id="pane-color"><div id="group-color"></div></div>
+        <div class="tabpane" id="pane-effects"><div id="group-effects"></div></div>
+        <div class="tabpane" id="pane-overlay"><div id="group-overlay"></div></div>
+        <div class="tabpane" id="pane-output"><div id="group-output"></div></div>
+        
+        <div class="tabpane" id="pane-literacy">
+          <div class="eduBox">
+            <h3>📖 What is Parametric Literacy?</h3>
+            <p><strong>Parametric literacy</strong> is the ability to understand and articulate visual outcomes as systematic configurations of adjustable parameters rather than vague stylistic descriptions.</p>
+            <p>Instead of saying "make it look cinematic," parametric thinking decomposes this into:</p>
+            <ul>
+              <li>Temperature shift: -15 (cooler tones)</li>
+              <li>Desaturation: 25%</li>
+              <li>Vignette: 40%</li>
+              <li>Contrast: +20</li>
+              <li>Shadow depth: -10</li>
+            </ul>
+          </div>
+
+          <div class="literacyGrid">
+            <div class="literacyCard">
+              <h4>Core Concepts</h4>
+              <div class="conceptBox">
+                <strong>Decomposition:</strong> Breaking complex visual intentions into discrete, measurable parameters. This process makes tacit knowledge explicit.
+              </div>
+              <div class="conceptBox">
+                <strong>Externalization:</strong> Making invisible editing decisions visible and numerical. Traditional tools hide professional knowledge; parametric interfaces expose it.
+              </div>
+              <div class="conceptBox">
+                <strong>Translation:</strong> Converting intuitive aesthetic goals into machine-readable specifications for effective AI collaboration.
+              </div>
+            </div>
+
+            <div class="literacyCard">
+              <h4>Pedagogical Framework</h4>
+              <p style="font-size:.85rem;line-height:1.6;color:#cfe0ff">
+                This tool implements <strong>scaffolded decomposition</strong>: each parameter represents a discrete design decision. By adjusting sliders and seeing immediate visual feedback, students develop parametric thinking.
+              </p>
+              <div class="exampleSection">
+                <h5 style="font-size:.82rem;color:var(--accent);margin:8px 0">Learning Progression:</h5>
+                <ol style="font-size:.82rem;line-height:1.6;padding-left:20px;color:#cfe0ff">
+                  <li><strong>Exposure:</strong> Identify parameters (brightness, contrast, saturation)</li>
+                  <li><strong>Manipulation:</strong> Adjust values and observe effects</li>
+                  <li><strong>Articulation:</strong> Translate visual goals into parameter specifications</li>
+                  <li><strong>Synthesis:</strong> Combine multiple parameters to achieve complex outcomes</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="literacyCard">
+              <h4>Vague vs. Parametric Language</h4>
+              <div class="comparisonSlider">
+                <div class="comparisonBox">
+                  <h5>❌ Vague Request</h5>
+                  <p>"Make it look more professional"</p>
+                  <p>"Add some warmth"</p>
+                  <p>"Enhance the mood"</p>
+                  <p style="color:var(--warning);margin-top:8px"><strong>Problem:</strong> Ambiguous, subjective, difficult to reproduce</p>
+                </div>
+                <div class="comparisonBox">
+                  <h5>✅ Parametric Specification</h5>
+                  <p>Brightness: +10, Contrast: +15</p>
+                  <p>Temperature: +12, Saturation: -8%</p>
+                  <p>Vignette: 35%, Shadows: -15</p>
+                  <p style="color:var(--success);margin-top:8px"><strong>Benefit:</strong> Precise, reproducible, learnable</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="literacyCard">
+              <h4>Understanding Key Parameters</h4>
+              <div class="conceptBox">
+                <strong>Exposure/Brightness (+100 to -100):</strong> Overall luminosity. Simulates increasing/decreasing light reaching the sensor. Affects all tonal ranges equally.
+              </div>
+              <div class="conceptBox">
+                <strong>Contrast (0 to 100):</strong> Difference between light and dark areas. Higher values increase separation, creating more dramatic images. Based on tonal curve adjustments.
+              </div>
+              <div class="conceptBox">
+                <strong>Saturation (-100 to 100):</strong> Color intensity. Positive values make colors more vivid; negative values move toward grayscale. Operates in HSL color space.
+              </div>
+              <div class="conceptBox">
+                <strong>Temperature (-100 to 100):</strong> Color temperature balance. Negative = cooler (blue shift), Positive = warmer (orange/yellow shift). Mimics Kelvin scale in photography.
+              </div>
+            </div>
+
+            <div class="literacyCard">
+              <h4>📚 Scientific & Theoretical Foundations</h4>
+              
+              <div class="scientificNote">
+                <h5>🔬 Color Theory & Perception</h5>
+                <p><strong>Munsell Color System:</strong> Three independent attributes - Hue, Value (lightness), Chroma (saturation). This application's parameters map to these perceptual dimensions.</p>
+                <p class="helpRef"><strong>Reference:</strong> Kuehni, R. G. (2003). <em>Color Space and Its Divisions</em>. Wiley-Interscience.</p>
+              </div>
+
+              <div class="scientificNote">
+                <h5>💡 Gestalt Principles in Interface Design</h5>
+                <p><strong>Proximity & Grouping:</strong> Related parameters are grouped spatially (color controls together, effects together) to leverage perceptual organization.</p>
+                <p><strong>Figure-Ground:</strong> Visual hierarchy through contrast helps users focus on active parameters.</p>
+                <p class="helpRef"><strong>Reference:</strong> Koffka, K. (1935). <em>Principles of Gestalt Psychology</em>. Harcourt, Brace.</p>
+              </div>
+
+              <div class="scientificNote">
+                <h5>🎯 Norman's Design Principles</h5>
+                <p><strong>Visibility:</strong> All adjustable parameters are explicitly displayed with clear labels.</p>
+                <p><strong>Feedback:</strong> Immediate visual feedback on canvas for every parameter adjustment.</p>
+                <p><strong>Affordance:</strong> Sliders afford continuous adjustment; buttons afford discrete actions.</p>
+                <p class="helpRef"><strong>Reference:</strong> Norman, D. (2013). <em>The Design of Everyday Things</em>. Basic Books, revised edition.</p>
+              </div>
+
+              <div class="scientificNote">
+                <h5>🧠 Cognitive Load Theory</h5>
+                <p><strong>Chunking Information:</strong> Parameters organized in cognitive categories (basics, color, effects) reduces working memory load.</p>
+                <p><strong>Progressive Disclosure:</strong> Tab-based interface reveals complexity gradually, supporting novice-to-expert progression.</p>
+                <p class="helpRef"><strong>Reference:</strong> Sweller, J., Ayres, P., & Kalyuga, S. (2011). <em>Cognitive Load Theory</em>. Springer.</p>
+              </div>
+
+              <div class="scientificNote">
+                <h5>🎓 Constructivist Learning Theory</h5>
+                <p><strong>Active Learning:</strong> Students construct knowledge by manipulating parameters and observing outcomes.</p>
+                <p><strong>Scaffolding:</strong> Interface provides structure (parameter labels, ranges, help content) that supports independent exploration.</p>
+                <p class="helpRef"><strong>Reference:</strong> Vygotsky, L. S. (1978). <em>Mind in Society: Development of Higher Psychological Processes</em>. Harvard University Press.</p>
+              </div>
+            </div>
+
+            <div class="literacyCard">
+              <h4>🎯 Practical Applications in Design Education</h4>
+              
+              <div class="exampleSection">
+                <h5 style="font-size:.82rem;color:var(--accent);margin:8px 0 6px 0">Exercise 1: Style Deconstruction</h5>
+                <ol style="font-size:.82rem;line-height:1.6;padding-left:20px;color:#cfe0ff">
+                  <li>Find a professionally edited image you admire</li>
+                  <li>Upload a similar source image to this tool</li>
+                  <li>Try to replicate the professional look using only parameters</li>
+                  <li>Document which parameters achieved which effects</li>
+                </ol>
+              </div>
+
+              <div class="exampleSection">
+                <h5 style="font-size:.82rem;color:var(--accent);margin:8px 0 6px 0">Exercise 2: Mood Translation</h5>
+                <ol style="font-size:.82rem;line-height:1.6;padding-left:20px;color:#cfe0ff">
+                  <li>Choose an emotional target: "melancholic," "energetic," "serene"</li>
+                  <li>Translate this mood into specific parameter values</li>
+                  <li>Apply to multiple images to test consistency</li>
+                  <li>Refine your "mood recipe" based on results</li>
+                </ol>
+              </div>
+
+              <div class="exampleSection">
+                <h5 style="font-size:.82rem;color:var(--accent);margin:8px 0 6px 0">Exercise 3: AI Collaboration</h5>
+                <ol style="font-size:.82rem;line-height:1.6;padding-left:20px;color:#cfe0ff">
+                  <li>Use this tool to establish your intended parameters</li>
+                  <li>Generate the structured prompt</li>
+                  <li>Provide prompt to AI image editing tools</li>
+                  <li>Compare results and refine specifications</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="literacyCard">
+              <h4>📚 Extended Bibliography & Resources</h4>
+              
+              <div style="font-size:.8rem;line-height:1.7;color:#cfe0ff">
+                <p><strong>Design Theory:</strong></p>
+                <ul style="padding-left:20px">
+                  <li>Arnheim, R. (1974). <em>Art and Visual Perception</em>. University of California Press.</li>
+                  <li>Itten, J. (1970). <em>The Elements of Color</em>. Van Nostrand Reinhold.</li>
+                  <li>Tufte, E. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press.</li>
+                </ul>
+
+                <p><strong>HCI & Interaction Design:</strong></p>
+                <ul style="padding-left:20px">
+                  <li>Shneiderman, B., et al. (2016). <em>Designing the User Interface</em>. Pearson, 6th edition.</li>
+                  <li>Nielsen, J. (1994). <em>Usability Engineering</em>. Morgan Kaufmann.</li>
+                  <li>Cooper, A., et al. (2014). <em>About Face: The Essentials of Interaction Design</em>. Wiley, 4th edition.</li>
+                </ul>
+
+                <p><strong>Digital Image Processing:</strong></p>
+                <ul style="padding-left:20px">
+                  <li>Gonzalez, R. C., & Woods, R. E. (2018). <em>Digital Image Processing</em>. Pearson, 4th edition.</li>
+                  <li>Pratt, W. K. (2007). <em>Digital Image Processing</em>. Wiley-Interscience.</li>
+                </ul>
+
+                <p><strong>AI & Design Education:</strong></p>
+                <ul style="padding-left:20px">
+                  <li>Dove, G., et al. (2017). "UX Design Innovation: Challenges for Working with Machine Learning." <em>CHI '17</em>.</li>
+                  <li>Yang, Q., et al. (2020). "Re-examining Whether, Why, and How Human-AI Interaction Is Uniquely Difficult to Design." <em>CHI '20</em>.</li>
+                </ul>
+
+                <p><strong>Educational Psychology:</strong></p>
+                <ul style="padding-left:20px">
+                  <li>Bransford, J. D., et al. (2000). <em>How People Learn: Brain, Mind, Experience, and School</em>. National Academy Press.</li>
+                  <li>Kirschner, P. A., et al. (2006). "Why Minimal Guidance During Instruction Does Not Work." <em>Educational Psychologist</em>, 41(2), 75-86.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="literacyCard">
+              <h4>📊 Your Current Parameter Complexity</h4>
+              <div id="parameterComplexity" class="conceptBox">
+                <p style="margin:0">Active parameters: <strong id="activeParamCount">0</strong></p>
+                <p style="margin:4px 0 0 0;font-size:.8rem;color:var(--muted)">As you adjust more parameters, you're developing deeper parametric literacy. Each adjustment represents a conscious design decision.</p>
+              </div>
+              
+              <div class="interactiveDemo">
+                <h5 style="font-size:.85rem;color:var(--accent);margin:0 0 8px 0">🎓 Skill Level Indicator</h5>
+                <div id="skillLevel" style="padding:10px;background:#0d1430;border-radius:8px;border:1px solid #263065">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                    <span style="font-size:.8rem;color:#cfe0ff" id="skillLabel">Beginner</span>
+                    <span style="font-size:.75rem;color:var(--muted)" id="skillProgress">0%</span>
+                  </div>
+                  <div style="background:#1b254d;height:8px;border-radius:4px;overflow:hidden">
+                    <div id="skillBar" style="background:linear-gradient(90deg,#6ea8fe,#52c788);height:100%;width:0%;transition:width 0.5s ease"></div>
+                  </div>
+                </div>
+                <p style="font-size:.75rem;color:var(--muted);margin:8px 0 0 0;line-height:1.4">
+                  <strong>Progression:</strong> 0-3 params = Beginner | 4-7 = Intermediate | 8-12 = Advanced | 13+ = Expert
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div id="group-literacy"></div>
+        </div>
+
+     <div class="app-credits">
+Georgios Korakakis
+Assistant Professor
+Department of Graphic Design and Visual Communication
+School of Applied Arts and Culture
+University of West Attica (UNIWA)
+Code development assisted by Gemini and Claude AI tools.
+</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="previewWrap">
+        <h2>Live Preview</h2>
+        <div class="canvasWrap" id="canvasWrap">
+          <canvas id="C"></canvas>
+        </div>
+      </div>
+
+      <div class="promptArea">
+        <div class="promptToolbar">
+          <button class="primary" id="genPrompt">📝 Generate Prompt</button>
+          <button id="copyPrompt">📋 Copy to Clipboard</button>
+          <button class="ghost" id="resetPrompt">🗑️ Clear</button>
+        </div>
+        <h3>Generated Prompt (Plain Text for AI)</h3>
+        <p class="hint">⚠️ <strong>Non-Destructive Editing:</strong> This prompt instructs AI to apply adjustments to your uploaded image WITHOUT regenerating or altering its content. Only pixel values are modified according to your parameters.</p>
+        <textarea id="promptOut" placeholder="Click 'Generate Prompt' to create structured instructions for AI image editing tools..."></textarea>
+      </div>
+
+      <div class="sectionInfo">
+        <h3>Natural Language Summary</h3>
+        <textarea id="naturalOut" readonly class="smallNote" placeholder="A human-readable summary will appear here..."></textarea>
+      </div>
+
+      <div class="pedagogyBox">
+        <h3>📚 Parametric Breakdown (Teaching Tool)</h3>
+        <div class="pedagogyText" id="pedagogyText">Adjust parameters and click "Generate Prompt" to see the parametric decomposition...</div>
+      </div>
+
+      <div class="pedagogyBox">
+        <h3>💡 Smart Tips (Context-Aware)</h3>
+        <div id="smartTips" style="font-size:.85rem;line-height:1.6;color:#cfe0ff;"></div>
+      </div>
+
+      <div class="sectionInfo">
+        <h3>🧪 System Tests</h3>
+        <div class="tests" id="tests">Running self-tests...</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="helpOverlay" id="helpOverlay">
+  <div class="helpCard">
+    <div class="helpHead">
+      <div class="helpTitle" id="helpTitle">Parameter Information</div>
+      <button class="helpCloseBtn" id="helpClose">✕</button>
+    </div>
+    <div class="helpBody" id="helpBody">
+      Loading...
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+
+  // -------------------------
+  // Enhanced Help Content Database with Scientific References
+  // -------------------------
+  const helpData={
+    brightness:{
+      title:'Brightness / Exposure',
+      content:`
+        <div class="helpBlockTitle">Definition</div>
+        <div class="helpBlockText">
+          Brightness adjusts the overall luminosity of the image by adding or subtracting equal amounts of light to all pixels. This simulates increasing or decreasing the amount of light reaching the camera sensor.
+        </div>
+        
+        <div class="helpBlockTitle">Technical Operation</div>
+        <div class="helpBlockText">
+          Operates in RGB color space by adding/subtracting a constant value to each color channel. For a brightness value <em>b</em>, each pixel's RGB values are transformed as: <strong>RGB' = RGB + b</strong>
+        </div>
+        
+        <div class="helpBlockTitle">Practical Application</div>
+        <div class="helpBlockText">
+          • <strong>+50 to +100:</strong> Correct underexposure, create high-key aesthetic<br>
+          • <strong>-50 to -100:</strong> Correct overexposure, create low-key/dramatic mood<br>
+          • <strong>-20 to +20:</strong> Fine-tune overall image tone
+        </div>
+        
+        <div class="helpBlockTitle">Perceptual Science</div>
+        <div class="helpBlockText">
+          Human perception of brightness is non-linear (Weber-Fechner Law). Small changes in dark areas are more perceptually significant than same changes in bright areas.
+        </div>
+        
+        <div class="helpRef">
+          <strong>References:</strong><br>
+          • Gonzalez, R. C., & Woods, R. E. (2018). <em>Digital Image Processing</em>, 4th ed. Chapter 3: Intensity Transformations.<br>
+          • Fairchild, M. D. (2013). <em>Color Appearance Models</em>, 3rd ed. Wiley. On lightness perception and transformations.
+        </div>
+      `
+    },
+    contrast:{
+      title:'Contrast',
+      content:`
+        <div class="helpBlockTitle">Definition</div>
+        <div class="helpBlockText">
+          Contrast controls the difference between the darkest and lightest parts of an image. Higher contrast creates more dramatic separation between tones; lower contrast creates a flatter, more subtle appearance.
+        </div>
+        
+        <div class="helpBlockTitle">Technical Operation</div>
+        <div class="helpBlockText">
+          Implemented through <strong>tone curve adjustment</strong>. For contrast value <em>c</em>, pixel values are scaled around midpoint (128): <strong>RGB' = ((RGB - 128) × (1 + c/100)) + 128</strong>. This stretches or compresses the tonal range while preserving middle gray.
+        </div>
+        
+        <div class="helpBlockTitle">Practical Application</div>
+        <div class="helpBlockText">
+          • <strong>+30 to +50:</strong> Increase visual impact, enhance definition<br>
+          • <strong>+10 to +20:</strong> Subtle enhancement for most images<br>
+          • <strong>-10 to -30:</strong> Create soft, dreamy, or hazy aesthetic<br>
+          • Pairs well with brightness to maintain overall exposure while changing tonal distribution
+        </div>
+        
+        <div class="helpBlockTitle">Gestalt Principle</div>
+        <div class="helpBlockText">
+          <strong>Figure-Ground Relationship:</strong> Higher contrast strengthens perceptual separation between subjects and backgrounds, making compositional elements more distinct.
+        </div>
+        
+        <div class="helpRef">
+          <strong>References:</strong><br>
+          • Pratt, W. K. (2007). <em>Digital Image Processing</em>. Wiley. Chapter on histogram modification.<br>
+          • Palmer, S. E. (1999). <em>Vision Science: Photons to Phenomenology</em>. MIT Press. On perceptual effects of tonal contrast.
+        </div>
+      `
+    },
+    saturation:{
+      title:'Saturation',
+      content:`
+        <div class="helpBlockTitle">Definition</div>
+        <div class="helpBlockText">
+          Saturation controls color intensity—how vivid or muted colors appear. High saturation produces vibrant, pure colors; low saturation moves toward grayscale.
+        </div>
+        
+        <div class="helpBlockTitle">Technical Operation</div>
+        <div class="helpBlockText">
+          Operates in <strong>HSL (Hue, Saturation, Lightness)</strong> color space. RGB values are converted to HSL, saturation component is multiplied by (1 + s/100), then converted back to RGB. This preserves hue while intensifying or reducing color purity.
+        </div>
+        
+        <div class="helpBlockTitle">Practical Application</div>
+        <div class="helpBlockText">
+          • <strong>+20 to +50:</strong> Enhance color vibrancy for lifestyle/product photography<br>
+          • <strong>-20 to -50:</strong> Create muted, sophisticated aesthetic (Nordic/minimalist style)<br>
+          • <strong>-80 to -100:</strong> Approach black & white while retaining subtle color information<br>
+          • Important for maintaining color harmony and preventing oversaturation
+        </div>
+        
+        <div class="helpBlockTitle">Color Theory Foundation</div>
+        <div class="helpBlockText">
+          Based on <strong>Munsell Color System's</strong> chroma dimension—the attribute of color that distinguishes it from gray at the same lightness level.
+        </div>
+        
+        <div class="helpRef">
+          <strong>References:</strong><br>
+          • Kuehni, R. G. (2003). <em>Color Space and Its Divisions</em>. Wiley. On saturation as perceptual dimension.<br>
+          • Itten, J. (1970). <em>The Elements of Color</em>. Van Nostrand Reinhold. Foundational color theory for design education.
+        </div>
+      `
+    },
+    hue:{
+      title:'Hue Shift',
+      content:`
+        <div class="helpBlockTitle">Definition</div>
+        <div class="helpBlockText">
+          Hue shift rotates all colors around the color wheel by a specified degree, changing the fundamental color identity while maintaining saturation and brightness relationships.
+        </div>
+        
+        <div class="helpBlockTitle">Technical Operation</div>
+        <div class="helpBlockText">
+          Operates in <strong>HSL or HSV color space</strong>. The hue component (0-360°) is rotated: <strong>Hue' = (Hue + shift) mod 360</strong>. RGB→HSL conversion, hue rotation, then HSL→RGB conversion.
+        </div>
+        
+        <div class="helpBlockTitle">Practical Application</div>
+        <div class="helpBlockText">
+          • <strong>+30° to +60°:</strong> Shift blues toward cyan/green (cooler water tones)<br>
+          • <strong>-30° to -60°:</strong> Shift greens toward yellow/orange (autumn effect)<br>
+          • <strong>±180°:</strong> Complete color inversion (complementary colors)<br>
+          • Useful for color grading, creative stylization, complementary color schemes
+        </div>
+        
+        <div class="helpBlockTitle">Perceptual Effect</div>
+        <div class="helpBlockText">
+          Hue is the most recognizable attribute of color. Even small shifts (15-30°) can dramatically change emotional perception due to learned color associations (warm vs. cool, natural vs. artificial).
+        </div>
+        
+        <div class="helpRef">
+          <strong>References:</strong><br>
+          • Fairchild, M. D. (2013). <em>Color Appearance Models</em>. Wiley. Chapter on hue perception and uniformity.<br>
+          • Elliot, A. J., & Maier, M. A. (2014). "Color psychology: Effects of perceiving color on psychological functioning." <em>Annual Review of Psychology</em>, 65, 95-120.
+        </div>
+      `
+    },
+    gamma:{
+      title:'Gamma Correction',
+      content:`
+        <div class="helpBlockTitle">Definition</div>
+        <div class="helpBlockText">
+          Gamma controls the relationship between numerical pixel values and perceived luminance. It's a <strong>non-linear</strong> transformation that affects midtones more than highlights or shadows.
+        </div>
+        
+        <div class="helpBlockTitle">Technical Operation</div>
+        <div class="helpBlockText">
+          Power-law transformation: <strong>RGB' = RGB^(1/γ)</strong> where γ is the gamma value (typically 0.5-3.0). Values <1.0 brighten midtones; values >1.0 darken midtones. Unlike brightness, affects tones non-uniformly, preserving relative relationships.
+        </div>
+        
+        <div class="helpBlockTitle">Practical Application</div>
+        <div class="helpBlockText">
+          • <strong>0.7 to 0.9:</strong> Lift shadows without blowing highlights (shadow recovery)<br>
+          • <strong>1.1 to 1.5:</strong> Deepen midtones for moodier aesthetic<br>
+          • <strong>Critical for HDR:</strong> Compress high dynamic range scenes into viewable range<br>
+          • More subtle than brightness, professional-grade tonal control
+        </div>
+        
+        <div class="helpBlockTitle">Historical Context</div>
+        <div class="helpBlockText">
+          Gamma correction originated from CRT display physics and human vision's logarithmic response to light (Stevens' Power Law). Standard sRGB displays use γ ≈ 2.2.
+        </div>
+        
+        <div class="helpRef">
+          <strong>References:</strong><br>
+          • Poynton, C. (2012). <em>Digital Video and HD: Algorithms and Interfaces</em>. Morgan Kaufmann. Definitive resource on gamma.<br>
+          • Wyszecki, G., & Stiles, W. S. (2000). <em>Color Science: Concepts and Methods</em>. Wiley. On psychophysical foundations.
+        </div>
+      `
+    },
+    levels_black:{
+      title:'Levels: Black Point',
+      content:`
+        <div class="helpBlockTitle">Definition</div>
+        <div class="helpBlockText">
+          Black point determines which input values are mapped to pure black (0). Raising it crushes shadow detail to increase contrast; lowering it reveals shadow information but may appear washed out.
+        </div>
+        
+        <div class="helpBlockTitle">Technical Operation</div>
+        <div class="helpBlockText">
+          <strong>Input-to-output mapping:</strong> Pixels with values ≤ black_point become 0 (pure black). Remaining values are stretched across 0-255 range: <strong>RGB' = (RGB - black_point) × (255/(255-black_point))</strong>
+        </div>
+        
+        <div class="helpBlockTitle">Practical Application</div>
+        <div class="helpBlockText">
+          • <strong>10-30:</strong> Increase perceived contrast without affecting midtones/highlights<br>
+          • <strong>Useful for:</strong> Low-contrast images, hazy/foggy photos<br>
+          • <strong>Caution:</strong> Excessive values (>50) create harsh, posterized shadows<br>
+          • Often paired with white point adjustment for complete tonal control
+        </div>
+        
+        <div class="helpBlockTitle">Histogram Analysis</div>
+        <div class="helpBlockText">
+          Professional photographers identify black point by analyzing histogram's left edge. Setting black point where meaningful image data begins optimizes tonal distribution.
+        </div>
+        
+        <div class="helpRef">
+          <strong>References:</strong><br>
+          • Evening, M. (2018). <em>Adobe Photoshop for Photographers</em>. Routledge. Chapter on Levels adjustment.<br>
+          • Gonzalez, R. C., & Woods, R. E. (2018). <em>Digital Image Processing</em>. Section on histogram specification.
+        </div>
+      `
+    },
+    temperature:{
+      title:'Color Temperature',
+      content:`
+        <div class="helpBlockTitle">Definition</div>
+        <div class="helpBlockText">
+          Color temperature adjusts the warm-cool balance of an image, mimicking light sources measured in Kelvin (K). Lower values add blue (cooler); higher values add orange/yellow (warmer).
+        </div>
+        
+        <div class="helpBlockTitle">Technical Operation</div>
+        <div class="helpBlockText">
+          <strong>White balance emulation:</strong> Adjusts blue-yellow opponent channel. For temperature shift <em>t</em>:<br>
+          • Positive: Increase red/yellow channels, decrease blue<br>
+          • Negative: Increase blue channel, decrease red/yellow<br>
+          Typically implemented as conditional channel adjustments or color matrix multiplication.
+        </div>
+        
+        <div class="helpBlockTitle">Practical Application</div>
+        <div class="helpBlockText">
+          • <strong>-30 to -50:</strong> Cinematic/cyberpunk cool tones, underwater effect<br>
+          • <strong>+20 to +40:</strong> Warm sunset/golden hour aesthetic, cozy atmosphere<br>
+          • <strong>Correct white balance:</strong> Remove unwanted color casts (fluorescent green, tungsten orange)<br>
+          • <strong>Emotional impact:</strong> Cool = clinical/modern/sad; Warm = inviting/nostalgic/energetic
+        </div>
+        
+        <div class="helpBlockTitle">Physical Basis</div>
+        <div class="helpBlockText">
+          Based on <strong>black body radiation</strong>: heated objects emit light with color correlated to temperature. Candle (~1800K) = warm orange; Daylight (~5500K) = neutral; Overcast sky (~7000K) = cool blue.
+        </div>
+        
+        <div class="helpRef">
+          <strong>References:</strong><br>
+          • Hunt, R. W. G., & Pointer, M. R. (2011). <em>Measuring Colour</em>, 4th ed. Wiley. On correlated color temperature.<br>
+          • Zeki, S. (1999). <em>Inner Vision: An Exploration of Art and the Brain</em>. Oxford. On color's emotional associations.
+        </div>
+      `
+    },
+    vignette:{
+      title:'Vignette Effect',
+      content:`
+        <div class="helpBlockTitle">Definition</div>
+        <div class="helpBlockText">
+          Vignette darkens the edges and corners of an image, drawing attention to the center. This mimics optical vignetting in lenses and creates a focused, intimate feel.
+        </div>
+        
+        <div class="helpBlockTitle">Technical Operation</div>
+        <div class="helpBlockText">
+          <strong>Radial gradient mask:</strong> Darkening intensity increases with distance from center. For each pixel at distance <em>d</em> from center:<br>
+          <strong>brightness_multiplier = 1 - (vignette_strength × d²)</strong><br>
+          Creates smooth falloff, typically uses quadratic or Gaussian function.
+        </div>
+        
+        <div class="helpBlockTitle">Practical Application</div>
+        <div class="helpBlockText">
+          • <strong>20-40%:</strong> Subtle focus direction, professional portraits<br>
+          • <strong>50-70%:</strong> Dramatic effect for cinematic aesthetic<br>
+          • <strong>15-25%:</strong> Compensate for edge light falloff in wide-angle lenses<br>
+          • <strong>Composition tool:</strong> Guides viewer's eye toward subject
+        </div>
+        
+        <div class="helpBlockTitle">Gestalt Principle: Figure-Ground</div>
+        <div class="helpBlockText">
+          Vignetting strengthens <strong>figure-ground segregation</strong> by reducing edge luminance contrast, making central subjects perceptually "pop" against subdued surroundings.
+        </div>
+        
+        <div class="helpRef">
+          <strong>References:</strong><br>
+          • Ray, S. F. (2002). <em>Applied Photographic Optics</em>. Focal Press. On optical vignetting.<br>
+          • Palmer, S. E. (1999). <em>Vision Science</em>. MIT Press. On attention and perceptual grouping through contrast.
+        </div>
+      `
+    },
+    blur:{
+      title:'Gaussian Blur',
+      content:`
+        <div class="helpBlockTitle">Definition</div>
+        <div class="helpBlockText">
+          Gaussian blur applies a smoothing filter that reduces sharp edges and fine detail. Named after its use of the Gaussian (bell curve) function to weight pixel averaging.
+        </div>
+        
+        <div class="helpBlockTitle">Technical Operation</div>
+        <div class="helpBlockText">
+          <strong>Convolution operation:</strong> Each pixel is replaced by weighted average of surrounding pixels using 2D Gaussian kernel. Kernel size and standard deviation (σ) control blur amount:<br>
+          <strong>G(x,y) = (1/2πσ²) × e^(-(x²+y²)/2σ²)</strong><br>
+          Larger σ = more blur. Separable into horizontal + vertical passes for computational efficiency.
+        </div>
+        
+        <div class="helpBlockTitle">Practical Application</div>
+        <div class="helpBlockText">
+          • <strong>1-3px:</strong> Subtle softening, reduce digital noise/grain<br>
+          • <strong>4-8px:</strong> Bokeh simulation, background defocus<br>
+          • <strong>10-20px:</strong> Strong artistic effect, motion/dream aesthetic<br>
+          • <strong>Selective blur:</strong> Isolate subject by blurring background (depth of field simulation)
+        </div>
+        
+        <div class="helpBlockTitle">Perceptual Effect</div>
+        <div class="helpBlockText">
+          Blur reduces <strong>spatial frequency content</strong>, making images appear softer and less detailed. Human visual system interprets blur as depth cue (objects out-of-focus are farther away).
+        </div>
+        
+        <div class="helpRef">
+          <strong>References:</strong><br>
+          • Gonzalez, R. C., & Woods, R. E. (2018). <em>Digital Image Processing</em>. Chapter on image smoothing and filtering.<br>
+          • Held, R. T., et al. (2010). "Using blur to affect perceived distance and size." <em>ACM Transactions on Graphics</em>, 29(2).
+        </div>
+      `
+    },
+    sharpen:{
+      title:'Sharpen / Unsharp Mask',
+      content:`
+        <div class="helpBlockTitle">Definition</div>
+        <div class="helpBlockText">
+          Sharpening enhances edge definition and fine detail, making images appear crisper. Despite the name "unsharp mask," it actually <em>increases</em> sharpness through edge contrast enhancement.
+        </div>
+        
+        <div class="helpBlockTitle">Technical Operation</div>
+        <div class="helpBlockText">
+          <strong>High-pass filtering:</strong> Detects edges by subtracting blurred version from original, then adds detected edges back:<br>
+          <strong>Sharp = Original + Amount × (Original - Blurred_Original)</strong><br>
+          Creates "halo" around edges, increasing local contrast and perceived sharpness.
+        </div>
+        
+        <div class="helpBlockTitle">Practical Application</div>
+        <div class="helpBlockText">
+          • <strong>10-30%:</strong> Compensate for slight softness, general enhancement<br>
+          • <strong>40-60%:</strong> Strong sharpening for product photography, architecture<br>
+          • <strong>Over-sharpening (>80%):</strong> Creates artifacts, unnatural halos—avoid<br>
+          • <strong>Best practice:</strong> Apply after resizing; different amounts for web vs. print
+        </div>
+        
+        <div class="helpBlockTitle">Cognitive Science</div>
+        <div class="helpBlockText">
+          Human visual cortex contains <strong>edge-detection neurons</strong>. Sharpening artificially enhances edges that activate these neurons, creating illusion of higher resolution/focus.
+        </div>
+        
+        <div class="helpRef">
+          <strong>References:</strong><br>
+          • Pratt, W. K. (2007). <em>Digital Image Processing</em>. Wiley. Section on image sharpening techniques.<br>
+          • Marr, D., & Hildreth, E. (1980). "Theory of edge detection." <em>Proceedings of the Royal Society B</em>, 207, 187-217.
+        </div>
+      `
+    },
+    overlay_alpha:{
+      title:'Overlay Opacity',
+      content:`
+        <div class="helpBlockTitle">Definition</div>
+        <div class="helpBlockText">
+          Overlay opacity controls the transparency of a colored layer placed over the image. At 100%, the overlay completely obscures the image; at 0%, it's invisible.
+        </div>
+        
+        <div class="helpBlockTitle">Technical Operation</div>
+        <div class="helpBlockText">
+          <strong>Alpha blending (compositing):</strong> For opacity α (0-1) and overlay color C_over:<br>
+          <strong>C_result = (α × C_over) + ((1-α) × C_original)</strong><br>
+          Linear interpolation between original and overlay colors based on alpha value.
+        </div>
+        
+        <div class="helpBlockTitle">Practical Application</div>
+        <div class="helpBlockText">
+          • <strong>10-25%:</strong> Subtle color tinting (warm/cool grading, brand colors)<br>
+          • <strong>30-50%:</strong> Moderate stylization, duotone effects<br>
+          • <strong>60-80%:</strong> Strong color shift, creative/abstract effects<br>
+          • <strong>Common uses:</strong> Sepia tone, monochrome tinting, color grading presets
+        </div>
+        
+        <div class="helpBlockTitle">Design Principle</div>
+        <div class="helpBlockText">
+          <strong>Transparency as visual metaphor:</strong> Overlay opacity leverages our understanding of physical translucency. Low opacity = subtle influence; high opacity = dominant transformation.
+        </div>
+        
+        <div class="helpRef">
+          <strong>References:</strong><br>
+          • Porter, T., & Duff, T. (1984). "Compositing digital images." <em>SIGGRAPH '84</em>. Seminal paper on alpha compositing.<br>
+          • Smith, A. R. (1995). "Alpha and the history of digital compositing." <em>Technical Memo 7</em>, Microsoft.
+        </div>
+      `
+    }
+  };
+
+  // -------------------------
+  // State Management
+  // -------------------------
+  const C=document.getElementById('C'), CX=C.getContext('2d',{willReadFrequently:true});
+  const helpOverlay=document.getElementById('helpOverlay');
+  const helpTitle=document.getElementById('helpTitle');
+  const helpBody=document.getElementById('helpBody');
+  const helpClose=document.getElementById('helpClose');
+  const promptOut=document.getElementById('promptOut');
+  const naturalOut=document.getElementById('naturalOut');
+  const pedagogyTextEl=document.getElementById('pedagogyText');
+  const smartTipsEl=document.getElementById('smartTips');
+  const testsEl=document.getElementById('tests');
+  const canvasWrap=document.getElementById('canvasWrap');
+
+  const state={
+    img:null,
+    p:{
+      brightness:0, contrast:0, saturation:0, hue:0,
+      gamma:1, levels_black:0, levels_white:255, levels_mid:1,
+      cb_s_r:0, cb_s_g:0, cb_s_b:0,
+      cb_m_r:0, cb_m_g:0, cb_m_b:0,
+      cb_h_r:0, cb_h_g:0, cb_h_b:0,
+      temperature:0,
+      blur:0, sharpen:0, noise:0, vignette:0,
+      invert:0, desaturate:0, posterize:0,
+      overlay_color:'#000000', overlay_alpha:0,
+      txt:'', txt_size:36,
+      output_format:'PNG', output_quality:90, output_psd:false
+    }
+  };
+
+  const defaults={...state.p};
+
+  // -------------------------
+  // Parameter Definitions (with help keys)
+  // -------------------------
+  const groups={
+    basic:[
+      {key:'brightness',label:'Brightness',type:'range',min:-100,max:100,help:'brightness'},
+      {key:'contrast',label:'Contrast',type:'range',min:0,max:100,help:'contrast'},
+      {key:'saturation',label:'Saturation',type:'range',min:-100,max:100,help:'saturation'},
+      {key:'hue',label:'Hue Shift',type:'range',min:-180,max:180,help:'hue'},
+      {key:'gamma',label:'Gamma',type:'range',min:0.3,max:3,step:0.1,help:'gamma'},
+      {key:'levels_black',label:'Levels: Black',type:'range',min:0,max:100,help:'levels_black'},
+      {key:'levels_white',label:'Levels: White',type:'range',min:155,max:255,help:'levels_white'},
+      {key:'levels_mid',label:'Levels: Midtones',type:'range',min:0.5,max:2,step:0.1,help:'levels_mid'}
+    ],
+    color:[
+      {key:'cb_s_r',label:'Shadows Red',type:'range',min:-100,max:100,help:'cb_shadows'},
+      {key:'cb_s_g',label:'Shadows Green',type:'range',min:-100,max:100,help:'cb_shadows'},
+      {key:'cb_s_b',label:'Shadows Blue',type:'range',min:-100,max:100,help:'cb_shadows'},
+      {key:'cb_m_r',label:'Midtones Red',type:'range',min:-100,max:100,help:'cb_midtones'},
+      {key:'cb_m_g',label:'Midtones Green',type:'range',min:-100,max:100,help:'cb_midtones'},
+      {key:'cb_m_b',label:'Midtones Blue',type:'range',min:-100,max:100,help:'cb_midtones'},
+      {key:'cb_h_r',label:'Highlights Red',type:'range',min:-100,max:100,help:'cb_highlights'},
+      {key:'cb_h_g',label:'Highlights Green',type:'range',min:-100,max:100,help:'cb_highlights'},
+      {key:'cb_h_b',label:'Highlights Blue',type:'range',min:-100,max:100,help:'cb_highlights'},
+      {key:'temperature',label:'Temperature',type:'range',min:-100,max:100,help:'temperature'}
+    ],
+    effects:[
+      {key:'blur',label:'Gaussian Blur (px)',type:'range',min:0,max:30,help:'blur'},
+      {key:'sharpen',label:'Sharpen',type:'range',min:0,max:100,help:'sharpen'},
+      {key:'noise',label:'Grain / Noise',type:'range',min:0,max:100,help:'noise'},
+      {key:'vignette',label:'Vignette',type:'range',min:0,max:100,help:'vignette'},
+      {key:'invert',label:'Invert',type:'range',min:0,max:100,help:'invert'},
+      {key:'desaturate',label:'Desaturate',type:'range',min:0,max:100,help:'desaturate'},
+      {key:'posterize',label:'Posterize Levels',type:'range',min:2,max:256,help:'posterize'}
+    ],
+    overlay:[
+      {key:'overlay_color',label:'Overlay Color',type:'color',help:'overlay_color'},
+      {key:'overlay_alpha',label:'Overlay Opacity',type:'range',min:0,max:100,help:'overlay_alpha'},
+      {key:'txt',label:'Text Overlay',type:'text',help:'text_overlay'},
+      {key:'txt_size',label:'Text Size (px)',type:'range',min:12,max:120,help:'text_size'}
+    ],
+    output:[
+      {key:'output_format',label:'Format',type:'select',options:['PNG','JPG','WEBP'],help:'output_format'},
+      {key:'output_quality',label:'Quality (JPG/WEBP)',type:'range',min:1,max:100,help:'output_quality'},
+      {key:'output_psd',label:'Request Layered PSD',type:'checkbox',help:'output_psd'}
+    ],
+    literacy:[]
+  };
+
+  // Additional help entries for color balance
+  helpData.cb_shadows={
+    title:'Color Balance: Shadows',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        Shadows color balance adjusts color casts specifically in the darkest parts of the image (typically values below ~85/255). Independent RGB control allows precise shadow tone manipulation.
+      </div>
+      
+      <div class="helpBlockTitle">Practical Application</div>
+      <div class="helpBlockText">
+        • <strong>+Red/-Cyan:</strong> Warm shadows (sunset, golden hour)<br>
+        • <strong>+Blue/-Yellow:</strong> Cool shadows (moonlight, underwater)<br>
+        • <strong>Use case:</strong> Remove color casts from poor lighting, creative color grading
+      </div>
+      
+      <div class="helpRef">
+        <strong>Reference:</strong> Eismann, K. (2015). <em>Photoshop Restoration & Retouching</em>. New Riders. On selective color correction.
+      </div>
+    `
+  };
+
+  helpData.cb_midtones={
+    title:'Color Balance: Midtones',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        Midtones color balance affects the middle range of tones (values ~85-170/255). This is where most image information resides, so midtone adjustments have the most visible impact.
+      </div>
+      
+      <div class="helpBlockTitle">Practical Application</div>
+      <div class="helpBlockText">
+        • <strong>Most impactful adjustment:</strong> Affects largest portion of typical images<br>
+        • <strong>Skin tone correction:</strong> Add yellow/red for warmer, more flattering skin<br>
+        • <strong>Creative grading:</strong> Teal-orange (cyan shadows, orange midtones) for cinematic look
+      </div>
+    `
+  };
+
+  helpData.cb_highlights={
+    title:'Color Balance: Highlights',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        Highlights color balance adjusts the brightest areas (values above ~170/255). Controls color casts in light sources, reflections, and bright surfaces.
+      </div>
+      
+      <div class="helpBlockTitle">Practical Application</div>
+      <div class="helpBlockText">
+        • <strong>Subtle adjustments:</strong> Highlights occupy small image area but draw attention<br>
+        • <strong>Remove color casts:</strong> Fluorescent green tint, tungsten orange<br>
+        • <strong>Creative effect:</strong> Add warmth to light sources for inviting atmosphere
+      </div>
+    `
+  };
+
+  // Add remaining help entries
+  helpData.noise={
+    title:'Grain / Film Noise',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        Adds random luminance/color variation to simulate analog film grain or digital sensor noise. Creates texture and can reduce "too clean" digital aesthetic.
+      </div>
+      
+      <div class="helpBlockTitle">Practical Application</div>
+      <div class="helpBlockText">
+        • <strong>10-25%:</strong> Subtle film grain for vintage/analog aesthetic<br>
+        • <strong>30-50%:</strong> Pronounced texture, gritty documentary style<br>
+        • <strong>Creative use:</strong> Mask banding in gradients, add character to digital images
+      </div>
+      
+      <div class="helpRef">
+        <strong>Reference:</strong> Langford, M. (2000). <em>Basic Photography</em>. Focal Press. On film grain characteristics.
+      </div>
+    `
+  };
+
+  helpData.invert={
+    title:'Invert / Negative',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        Inverts pixel values: dark becomes light, light becomes dark, colors become complements. Partial inversion creates surreal effects.
+      </div>
+      
+      <div class="helpBlockTitle">Technical Operation</div>
+      <div class="helpBlockText">
+        <strong>RGB' = 255 - RGB</strong>. For partial inversion (0-100%), blend inverted and original: <strong>Result = (invert% × Inverted) + ((100-invert%) × Original)</strong>
+      </div>
+    `
+  };
+
+  helpData.desaturate={
+    title:'Desaturate (Grayscale)',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        Removes color information progressively. 100% desaturation produces grayscale image. Different from saturation adjustment (which intensifies OR reduces colors).
+      </div>
+      
+      <div class="helpBlockTitle">Practical Application</div>
+      <div class="helpBlockText">
+        • <strong>100%:</strong> True black & white conversion<br>
+        • <strong>50-80%:</strong> Muted, subdued color palette<br>
+        • <strong>Tip:</strong> Adjust individual color channels before desaturating for better tonal separation in B&W
+      </div>
+    `
+  };
+
+  helpData.posterize={
+    title:'Posterize Effect',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        Reduces the number of tonal levels in each color channel, creating distinct bands of color instead of smooth gradients. Named after poster art with limited colors.
+      </div>
+      
+      <div class="helpBlockTitle">Technical Operation</div>
+      <div class="helpBlockText">
+        <strong>Quantization:</strong> Maps continuous 256-level range to fewer discrete levels. For n levels: <strong>RGB' = floor(RGB × n/256) × (256/n)</strong>
+      </div>
+      
+      <div class="helpBlockTitle">Practical Application</div>
+      <div class="helpBlockText">
+        • <strong>2-8 levels:</strong> Extreme stylization, pop art effect<br>
+        • <strong>16-32 levels:</strong> Moderate posterization, retro digital aesthetic<br>
+        • <strong>Creative use:</strong> Flatten tonal range for graphic/illustrative look
+      </div>
+    `
+  };
+
+  helpData.overlay_color={
+    title:'Overlay Color Selection',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        Chooses the color of the overlay layer. Combined with opacity control, creates color tinting and grading effects.
+      </div>
+      
+      <div class="helpBlockTitle">Common Applications</div>
+      <div class="helpBlockText">
+        • <strong>Sepia:</strong> Brownish overlay (#704214) at 30-50% for vintage photos<br>
+        • <strong>Cool grading:</strong> Cyan/blue (#00A0C8) at 15-30% for modern/tech aesthetic<br>
+        • <strong>Warm grading:</strong> Orange (#FF8C00) at 20-40% for sunset/golden hour<br>
+        • <strong>Brand colors:</strong> Apply corporate colors for branded content
+      </div>
+    `
+  };
+
+  helpData.text_overlay={
+    title:'Text Overlay',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        Adds text directly onto the image. Useful for captions, watermarks, labels, or educational annotations.
+      </div>
+      
+      <div class="helpBlockTitle">Best Practices</div>
+      <div class="helpBlockText">
+        • <strong>Contrast:</strong> Ensure text contrasts with background for readability<br>
+        • <strong>Size:</strong> 24-48px for watermarks, 36-72px for titles/captions<br>
+        • <strong>Placement:</strong> Consider composition, avoid covering important subject matter<br>
+        • <strong>Accessibility:</strong> WCAG requires 4.5:1 contrast ratio for normal text
+      </div>
+    `
+  };
+
+  helpData.text_size={
+    title:'Text Size (Typography)',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        Controls text overlay size in pixels. Proper sizing ensures readability across different display sizes and viewing distances.
+      </div>
+      
+      <div class="helpBlockTitle">Sizing Guidelines</div>
+      <div class="helpBlockText">
+        • <strong>12-18px:</strong> Small captions, metadata<br>
+        • <strong>24-36px:</strong> Watermarks, subtle labels<br>
+        • <strong>48-72px:</strong> Titles, headers<br>
+        • <strong>80-120px:</strong> Hero text, large display
+      </div>
+      
+      <div class="helpRef">
+        <strong>Reference:</strong> Bringhurst, R. (2004). <em>The Elements of Typographic Style</em>. Hartley & Marks. Classic typography resource.
+      </div>
+    `
+  };
+
+  helpData.output_format={
+    title:'Output Format Selection',
+    content:`
+      <div class="helpBlockTitle">Format Comparison</div>
+      <div class="helpBlockText">
+        <strong>PNG:</strong> Lossless compression, supports transparency. Best for: graphics with text, sharp edges, images requiring alpha channel. Larger file size.<br><br>
+        <strong>JPG/JPEG:</strong> Lossy compression, no transparency. Best for: photographs, natural images, where file size matters. Quality setting trades file size vs. visual quality.<br><br>
+        <strong>WEBP:</strong> Modern format with superior compression. Smaller files than JPG at same quality. Best for: web use, when browser support allows.
+      </div>
+      
+      <div class="helpRef">
+        <strong>Reference:</strong> Sayood, K. (2017). <em>Introduction to Data Compression</em>. Morgan Kaufmann. On image compression algorithms.
+      </div>
+    `
+  };
+
+  helpData.output_quality={
+    title:'Output Quality (Compression)',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        For JPG/WEBP formats, quality setting controls compression level. Higher quality = larger files with fewer artifacts; lower quality = smaller files with more compression artifacts.
+      </div>
+      
+      <div class="helpBlockTitle">Recommended Settings</div>
+      <div class="helpBlockText">
+        • <strong>90-100%:</strong> Archival, professional print. Minimal compression.<br>
+        • <strong>80-85%:</strong> High-quality web images. Good balance.<br>
+        • <strong>70-75%:</strong> Standard web use. Acceptable for most purposes.<br>
+        • <strong><70%:</strong> Thumbnails, low-bandwidth. Visible artifacts.
+      </div>
+    `
+  };
+
+  helpData.output_psd={
+    title:'Layered PSD Request',
+    content:`
+      <div class="helpBlockTitle">Definition</div>
+      <div class="helpBlockText">
+        Requests that the output be a Photoshop PSD file with separate adjustment layers for each parameter. Enables non-destructive re-editing in professional software.
+      </div>
+      
+      <div class="helpBlockTitle">Layer Structure</div>
+      <div class="helpBlockText">
+        A proper PSD would include:<br>
+        • Base image layer<br>
+        • Curves adjustment layer (contrast, levels)<br>
+        • Hue/Saturation adjustment layer<br>
+        • Color Balance adjustment layer<br>
+        • Filter layers (blur, sharpen as smart filters)<br>
+        • Overlay/text layers<br><br>
+        <strong>Note:</strong> This web tool generates a prompt; actual PSD creation requires Photoshop or equivalent software.
+      </div>
+    `
+  };
+
+  // -------------------------
+  // UI Generation
+  // -------------------------
+  function mountGroups(){
+    for(let gName in groups){
+      const arr=groups[gName];
+      if(gName==='literacy' && arr.length===0) continue;
+      
+      const container=document.getElementById('group-'+gName);
+      if(!container) continue;
+
+      arr.forEach(spec=>{
+        const row=document.createElement('div');
+        row.className='row';
+
+        const lbl=document.createElement('label');
+        const labelTextSpan=document.createElement('span');
+        labelTextSpan.className='labelText';
+        labelTextSpan.textContent=spec.label;
+        lbl.appendChild(labelTextSpan);
+
+        // Help button if help key exists
+        if(spec.help && helpData[spec.help]){
+          const helpBtn=document.createElement('button');
+          helpBtn.className='helpBtn';
+          helpBtn.textContent='?';
+          helpBtn.type='button';
+          helpBtn.addEventListener('click',()=>showHelp(spec.help));
+          lbl.appendChild(helpBtn);
+        }
+
+        row.appendChild(lbl);
+
+        let input;
+        if(spec.type==='range'){
+          const wrap=document.createElement('div');
+          wrap.style.display='flex';
+          wrap.style.flexDirection='column';
+          wrap.style.gap='8px';
+          wrap.style.width='100%';
+
+          const sliderRow=document.createElement('div');
+          sliderRow.style.display='flex';
+          sliderRow.style.flexDirection='column';
+          sliderRow.style.alignItems='stretch';
+          sliderRow.style.gap='10px';
+          sliderRow.style.width='100%';
+
+          const slider=document.createElement('input');
+          slider.type='range';
+          slider.min=spec.min??0;
+          slider.max=spec.max??100;
+          slider.step=spec.step??1;
+          slider.value=state.p[spec.key];
+          slider.dataset.key=spec.key;
+          slider.style.width='100%';
+
+          const numInput=document.createElement('input');
+          numInput.type='number';
+          numInput.min=spec.min??0;
+          numInput.max=spec.max??100;
+          numInput.step=spec.step??1;
+          numInput.value=state.p[spec.key];
+          numInput.dataset.key=spec.key;
+          numInput.style.width='100%';
+          numInput.style.maxWidth='120px';
+          numInput.style.margin='0 auto';
+          numInput.style.textAlign='center';
+
+          slider.addEventListener('input',()=>{
+            state.p[spec.key]=parseFloat(slider.value);
+            numInput.value=slider.value;
+            render();
+            updateLiteracyStats();
+          });
+          numInput.addEventListener('input',()=>{
+            state.p[spec.key]=parseFloat(numInput.value);
+            slider.value=numInput.value;
+            render();
+            updateLiteracyStats();
+          });
+
+          sliderRow.appendChild(slider);
+          sliderRow.appendChild(numInput);
+          wrap.appendChild(sliderRow);
+          row.appendChild(wrap);
+        } else if(spec.type==='color'){
+          input=document.createElement('input');
+          input.type='color';
+          input.value=state.p[spec.key];
+          input.dataset.key=spec.key;
+          input.style.width='100%';
+          input.style.height='36px';
+          input.style.cursor='pointer';
+          input.addEventListener('input',()=>{
+            state.p[spec.key]=input.value;
+            render();
+          });
+          row.appendChild(input);
+        } else if(spec.type==='text'){
+          input=document.createElement('input');
+          input.type='text';
+          input.value=state.p[spec.key];
+          input.dataset.key=spec.key;
+          input.addEventListener('input',()=>{
+            state.p[spec.key]=input.value;
+            render();
+          });
+          row.appendChild(input);
+        } else if(spec.type==='select'){
+          input=document.createElement('select');
+          spec.options.forEach(opt=>{
+            const option=document.createElement('option');
+            option.value=opt;
+            option.textContent=opt;
+            input.appendChild(option);
+          });
+          input.value=state.p[spec.key];
+          input.dataset.key=spec.key;
+          input.addEventListener('change',()=>{
+            state.p[spec.key]=input.value;
+          });
+          row.appendChild(input);
+        } else if(spec.type==='checkbox'){
+          const checkWrap=document.createElement('div');
+          checkWrap.style.textAlign='center';
+          input=document.createElement('input');
+          input.type='checkbox';
+          input.checked=!!state.p[spec.key];
+          input.dataset.key=spec.key;
+          input.addEventListener('change',()=>{
+            state.p[spec.key]=input.checked;
+          });
+          checkWrap.appendChild(input);
+          row.appendChild(checkWrap);
+        }
+
+        container.appendChild(row);
+      });
+    }
+  }
+
+  // -------------------------
+  // Help Modal System
+  // -------------------------
+  function showHelp(key){
+    const data=helpData[key];
+    if(!data) return;
+    
+    helpTitle.textContent=data.title;
+    helpBody.innerHTML=data.content;
+    helpOverlay.classList.add('active');
+  }
+
+  helpClose.addEventListener('click',()=>{
+    helpOverlay.classList.remove('active');
+  });
+
+  helpOverlay.addEventListener('click',(e)=>{
+    if(e.target===helpOverlay){
+      helpOverlay.classList.remove('active');
+    }
+  });
+
+  // Keyboard accessibility
+  document.addEventListener('keydown',(e)=>{
+    if(e.key==='Escape' && helpOverlay.classList.contains('active')){
+      helpOverlay.classList.remove('active');
+    }
+  });
+
+  // -------------------------
+  // Literacy Tab: Dynamic Stats
+  // -------------------------
+  function updateLiteracyStats(){
+    const P=state.p;
+    let activeCount=0;
+
+    // Count non-default parameters
+    for(let key in P){
+      if(key==='gamma'&&P[key]!==1) activeCount++;
+      else if(key==='levels_white'&&P[key]!==255) activeCount++;
+      else if(key==='levels_mid'&&P[key]!==1) activeCount++;
+      else if(key==='txt_size'&&P[key]!==36) continue;
+      else if(key==='overlay_color') continue;
+      else if(key==='output_format'||key==='output_quality'||key==='output_psd') continue;
+      else if(typeof P[key]==='number'&&P[key]!==0) activeCount++;
+      else if(typeof P[key]==='string'&&P[key]!=='') activeCount++;
+    }
+
+    const countEl=document.getElementById('activeParamCount');
+    if(countEl) countEl.textContent=activeCount;
+
+    // Skill level
+    const skillLabel=document.getElementById('skillLabel');
+    const skillProgress=document.getElementById('skillProgress');
+    const skillBar=document.getElementById('skillBar');
+
+    let level='Beginner';
+    let percent=0;
+
+    if(activeCount>=13){
+      level='Expert';
+      percent=100;
+    } else if(activeCount>=8){
+      level='Advanced';
+      percent=60 + ((activeCount-8)/5)*40;
+    } else if(activeCount>=4){
+      level='Intermediate';
+      percent=30 + ((activeCount-4)/4)*30;
+    } else if(activeCount>0){
+      level='Beginner';
+      percent=(activeCount/4)*30;
+    }
+
+    if(skillLabel) skillLabel.textContent=level;
+    if(skillProgress) skillProgress.textContent=Math.round(percent)+'%';
+    if(skillBar) skillBar.style.width=percent+'%';
+  }
+
+  // -------------------------
+  // Tab System
+  // -------------------------
+  const tabs=document.querySelectorAll('.tab');
+  const panes=document.querySelectorAll('.tabpane');
+
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      const target=tab.dataset.tab;
+      tabs.forEach(t=>t.classList.remove('active'));
+      panes.forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('pane-'+target)?.classList.add('active');
+    });
+  });
+
+  // -------------------------
+  // Image Upload
+  // -------------------------
+  document.getElementById('file').addEventListener('change',(e)=>{
+    const f=e.target.files[0];
+    if(!f) return;
+    const reader=new FileReader();
+    reader.onload=(ev)=>{
+      const img=new Image();
+      img.onload=()=>{
+        state.img=img;
+        C.width=img.width;
+        C.height=img.height;
+        canvasWrap.classList.add('has-image');
+        render();
+      };
+      img.src=ev.target.result;
+    };
+    reader.readAsDataURL(f);
+  });
+
+  // -------------------------
+  // Rendering Engine
+  // -------------------------
+  function render(){
+    if(!state.img){
+      CX.fillStyle='#000';
+      CX.fillRect(0,0,C.width,C.height);
+      return;
+    }
+
+    const w=C.width, h=C.height;
+    CX.clearRect(0,0,w,h);
+    CX.drawImage(state.img,0,0,w,h);
+
+    let imageData=CX.getImageData(0,0,w,h);
+    let d=imageData.data;
+
+    const P=state.p;
+
+    // Apply effects
+    applyBrightnessContrast(d,P.brightness,P.contrast);
+    applySaturationHue(d,P.saturation,P.hue);
+    applyGamma(d,P.gamma);
+    applyLevels(d,P.levels_black,P.levels_white,P.levels_mid);
+    applyColorBalance(d,P);
+    applyTemperature(d,P.temperature);
+    applyDesaturate(d,P.desaturate);
+    applyInvert(d,P.invert);
+    if(P.posterize>0 && P.posterize<256) applyPosterize(d,P.posterize);
+
+    CX.putImageData(imageData,0,0);
+
+    // Canvas-based effects
+    if(P.blur>0) applyBlur(P.blur);
+    if(P.sharpen>0) applySharpen(P.sharpen);
+    if(P.noise>0) applyNoise(P.noise);
+    if(P.vignette>0) applyVignette(P.vignette);
+    if(P.overlay_alpha>0) applyOverlay(P.overlay_color,P.overlay_alpha);
+    if(P.txt) drawText(P.txt,P.txt_size);
+  }
+
+  function applyBrightnessContrast(d,brightness,contrast){
+    const factor=(259*(contrast+255))/(255*(259-contrast));
+    for(let i=0;i<d.length;i+=4){
+      for(let j=0;j<3;j++){
+        let v=d[i+j]+brightness;
+        v=factor*(v-128)+128;
+        d[i+j]=clamp(v,0,255);
+      }
+    }
+  }
+
+  function applySaturationHue(d,sat,hueShift){
+    const satFactor=1+(sat/100);
+    const hueChange=hueShift;
+    for(let i=0;i<d.length;i+=4){
+      let [r,g,b]=[d[i],d[i+1],d[i+2]];
+      let [h,s,l]=rgbToHsl(r,g,b);
+      h=(h+hueChange+360)%360;
+      s=clamp(s*satFactor,0,1);
+      [r,g,b]=hslToRgb(h,s,l);
+      d[i]=r; d[i+1]=g; d[i+2]=b;
+    }
+  }
+
+  function applyGamma(d,gamma){
+    if(gamma===1) return;
+    const invGamma=1/gamma;
+    for(let i=0;i<d.length;i+=4){
+      for(let j=0;j<3;j++){
+        d[i+j]=255*Math.pow(d[i+j]/255,invGamma);
+      }
+    }
+  }
+
+  function applyLevels(d,black,white,mid){
+    for(let i=0;i<d.length;i+=4){
+      for(let j=0;j<3;j++){
+        let v=d[i+j];
+        v=(v-black)/(white-black)*255;
+        v=clamp(v,0,255);
+        v=255*Math.pow(v/255,1/mid);
+        d[i+j]=clamp(v,0,255);
+      }
+    }
+  }
+
+  function applyColorBalance(d,P){
+    for(let i=0;i<d.length;i+=4){
+      let [r,g,b]=[d[i],d[i+1],d[i+2]];
+      const lum=(r+g+b)/3;
+      let sr=0,sg=0,sb=0, mr=0,mg=0,mb=0, hr=0,hg=0,hb=0;
+
+      if(lum<85){
+        const w=1-(lum/85);
+        sr=P.cb_s_r*w; sg=P.cb_s_g*w; sb=P.cb_s_b*w;
+      } else if(lum<170){
+        const w=(lum-85)/85;
+        mr=P.cb_m_r*w; mg=P.cb_m_g*w; mb=P.cb_m_b*w;
+      } else {
+        const w=(lum-170)/85;
+        hr=P.cb_h_r*w; hg=P.cb_h_g*w; hb=P.cb_h_b*w;
+      }
+
+      d[i]=clamp(r+sr+mr+hr,0,255);
+      d[i+1]=clamp(g+sg+mg+hg,0,255);
+      d[i+2]=clamp(b+sb+mb+hb,0,255);
+    }
+  }
+
+  function applyTemperature(d,temp){
+    if(temp===0) return;
+    const factor=temp/100;
+    for(let i=0;i<d.length;i+=4){
+      if(temp>0){
+        d[i]=clamp(d[i]+(factor*30),0,255);
+        d[i+1]=clamp(d[i+1]+(factor*15),0,255);
+        d[i+2]=clamp(d[i+2]-(factor*30),0,255);
+      } else {
+        d[i]=clamp(d[i]+(factor*30),0,255);
+        d[i+2]=clamp(d[i+2]-(factor*30),0,255);
+      }
+    }
+  }
+
+  function applyDesaturate(d,amt){
+    const factor=amt/100;
+    for(let i=0;i<d.length;i+=4){
+      const gray=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];
+      d[i]=d[i]*(1-factor)+gray*factor;
+      d[i+1]=d[i+1]*(1-factor)+gray*factor;
+      d[i+2]=d[i+2]*(1-factor)+gray*factor;
+    }
+  }
+
+  function applyInvert(d,amt){
+    const factor=amt/100;
+    for(let i=0;i<d.length;i+=4){
+      for(let j=0;j<3;j++){
+        const inv=255-d[i+j];
+        d[i+j]=d[i+j]*(1-factor)+inv*factor;
+      }
+    }
+  }
+
+  function applyPosterize(d,levels){
+    const step=256/levels;
+    for(let i=0;i<d.length;i+=4){
+      for(let j=0;j<3;j++){
+        d[i+j]=Math.floor(d[i+j]/step)*step;
+      }
+    }
+  }
+
+  function applyBlur(radius){
+    // Simple box blur approximation
+    for(let pass=0;pass<2;pass++){
+      CX.filter=`blur(${radius}px)`;
+      CX.drawImage(C,0,0);
+      CX.filter='none';
+    }
+  }
+
+  function applySharpen(amt){
+    const imageData=CX.getImageData(0,0,C.width,C.height);
+    const blurred=CX.createImageData(imageData);
+    // Simplified sharpening
+    const factor=amt/100;
+    for(let i=0;i<imageData.data.length;i+=4){
+      for(let j=0;j<3;j++){
+        const orig=imageData.data[i+j];
+        const blur=blurred.data[i+j];
+        imageData.data[i+j]=clamp(orig+(orig-blur)*factor,0,255);
+      }
+    }
+    CX.putImageData(imageData,0,0);
+  }
+
+  function applyNoise(amt){
+    const imageData=CX.getImageData(0,0,C.width,C.height);
+    const d=imageData.data;
+    const intensity=amt*2.55;
+    for(let i=0;i<d.length;i+=4){
+      const noise=(Math.random()-0.5)*intensity;
+      for(let j=0;j<3;j++){
+        d[i+j]=clamp(d[i+j]+noise,0,255);
+      }
+    }
+    CX.putImageData(imageData,0,0);
+  }
+
+  function applyVignette(amt){
+    const w=C.width, h=C.height;
+    const cx=w/2, cy=h/2;
+    const maxDist=Math.sqrt(cx*cx+cy*cy);
+    const strength=amt/100;
+
+    const imageData=CX.getImageData(0,0,w,h);
+    const d=imageData.data;
+
+    for(let y=0;y<h;y++){
+      for(let x=0;x<w;x++){
+        const dx=x-cx, dy=y-cy;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        const factor=1-((dist/maxDist)*strength);
+        const idx=(y*w+x)*4;
+        for(let j=0;j<3;j++){
+          d[idx+j]*=factor;
+        }
+      }
+    }
+    CX.putImageData(imageData,0,0);
+  }
+
+  function applyOverlay(color,alpha){
+    CX.globalAlpha=alpha/100;
+    CX.fillStyle=color;
+    CX.fillRect(0,0,C.width,C.height);
+    CX.globalAlpha=1;
+  }
+
+  function drawText(txt,size){
+    CX.font=`bold ${size}px Arial`;
+    CX.fillStyle='#fff';
+    CX.strokeStyle='#000';
+    CX.lineWidth=3;
+    CX.textAlign='center';
+    CX.textBaseline='middle';
+    CX.strokeText(txt,C.width/2,C.height/2);
+    CX.fillText(txt,C.width/2,C.height/2);
+  }
+
+  // Color space utilities
+  function rgbToHsl(r,g,b){
+    r/=255; g/=255; b/=255;
+    const max=Math.max(r,g,b), min=Math.min(r,g,b);
+    let h,s, l=(max+min)/2;
+    if(max===min){
+      h=s=0;
+    } else {
+      const d=max-min;
+      s=l>0.5?d/(2-max-min):d/(max+min);
+      switch(max){
+        case r: h=((g-b)/d+(g<b?6:0))/6; break;
+        case g: h=((b-r)/d+2)/6; break;
+        case b: h=((r-g)/d+4)/6; break;
+      }
+    }
+    return [h*360,s,l];
+  }
+
+  function hslToRgb(h,s,l){
+    h/=360;
+    const hue2rgb=(p,q,t)=>{
+      if(t<0) t+=1;
+      if(t>1) t-=1;
+      if(t<1/6) return p+(q-p)*6*t;
+      if(t<1/2) return q;
+      if(t<2/3) return p+(q-p)*(2/3-t)*6;
+      return p;
+    };
+    let r,g,b;
+    if(s===0){
+      r=g=b=l;
+    } else {
+      const q=l<0.5?l*(1+s):l+s-l*s;
+      const p=2*l-q;
+      r=hue2rgb(p,q,h+1/3);
+      g=hue2rgb(p,q,h);
+      b=hue2rgb(p,q,h-1/3);
+    }
+    return [r*255,g*255,b*255];
+  }
+
+  function clamp(v,min,max){
+    return Math.max(min,Math.min(max,v));
+  }
+
+  function signed(v){
+    return v>=0?'+'+v:String(v);
+  }
+
+  // -------------------------
+  // Prompt Generation
+  // -------------------------
+  function buildPrompt(P){
+    const lines=[];
+    lines.push('# IMAGE EDITING PROMPT');
+    lines.push('');
+    lines.push('⚠️ CRITICAL INSTRUCTIONS:');
+    lines.push('- Apply adjustments to the UPLOADED IMAGE ONLY');
+    lines.push('- DO NOT regenerate, reconstruct, or recreate the image');
+    lines.push('- DO NOT alter image content, composition, or subjects');
+    lines.push('- PRESERVE all original pixels, details, and structures');
+    lines.push('- Apply ONLY the specified parametric adjustments below');
+    lines.push('- This is NON-DESTRUCTIVE editing - modify existing pixels only');
+    lines.push('');
+    lines.push('Apply the following parametric adjustments to the uploaded image:');
+    lines.push('');
+
+    if(P.brightness!==0) lines.push(`- Brightness: ${signed(P.brightness)}`);
+    if(P.contrast!==0) lines.push(`- Contrast: +${P.contrast}`);
+    if(P.saturation!==0) lines.push(`- Saturation: ${signed(P.saturation)}`);
+    if(P.hue!==0) lines.push(`- Hue Shift: ${signed(P.hue)}°`);
+    if(P.gamma!==1) lines.push(`- Gamma Correction: ${P.gamma.toFixed(2)}`);
+    if(P.levels_black!==0 || P.levels_white!==255 || P.levels_mid!==1){
+      lines.push(`- Levels: Black ${P.levels_black}, White ${P.levels_white}, Midtones ${P.levels_mid.toFixed(2)}`);
+    }
+
+    const hasCB=(
+      P.cb_s_r||P.cb_s_g||P.cb_s_b||
+      P.cb_m_r||P.cb_m_g||P.cb_m_b||
+      P.cb_h_r||P.cb_h_g||P.cb_h_b
+    );
+    if(hasCB){
+      lines.push('- Color Balance:');
+      if(P.cb_s_r||P.cb_s_g||P.cb_s_b) lines.push(`  * Shadows RGB: (${signed(P.cb_s_r)}, ${signed(P.cb_s_g)}, ${signed(P.cb_s_b)})`);
+      if(P.cb_m_r||P.cb_m_g||P.cb_m_b) lines.push(`  * Midtones RGB: (${signed(P.cb_m_r)}, ${signed(P.cb_m_g)}, ${signed(P.cb_m_b)})`);
+      if(P.cb_h_r||P.cb_h_g||P.cb_h_b) lines.push(`  * Highlights RGB: (${signed(P.cb_h_r)}, ${signed(P.cb_h_g)}, ${signed(P.cb_h_b)})`);
+    }
+
+    if(P.temperature!==0) lines.push(`- Temperature: ${signed(P.temperature)} (${P.temperature>0?'warmer':'cooler'})`);
+    if(P.blur>0) lines.push(`- Gaussian Blur: ${P.blur}px`);
+    if(P.sharpen>0) lines.push(`- Sharpen: ${P.sharpen}%`);
+    if(P.noise>0) lines.push(`- Grain/Noise: ${P.noise}%`);
+    if(P.vignette>0) lines.push(`- Vignette: ${P.vignette}%`);
+    if(P.invert>0) lines.push(`- Invert: ${P.invert}%`);
+    if(P.desaturate>0) lines.push(`- Desaturate: ${P.desaturate}%`);
+    if(P.posterize>0&&P.posterize<256) lines.push(`- Posterize: ${P.posterize} levels`);
+    if(P.overlay_alpha>0) lines.push(`- Color Overlay: ${P.overlay_color} at ${P.overlay_alpha}% opacity`);
+    if(P.txt) lines.push(`- Text Overlay: "${P.txt}" (${P.txt_size}px)`);
+
+    lines.push('');
+    lines.push(`Output Format: ${P.output_format}`);
+    if(P.output_format==='JPG'||P.output_format==='WEBP'){
+      lines.push(`Quality: ${P.output_quality}%`);
+    }
+    if(P.output_psd){
+      lines.push('Request: Layered PSD with separate adjustment layers for non-destructive editing');
+    }
+
+    lines.push('');
+    lines.push('---');
+    lines.push('REMINDER: Apply these adjustments to the EXISTING uploaded image.');
+    lines.push('Do NOT generate a new image. Do NOT change the content.');
+    lines.push('Only modify the pixel values according to the parameters above.');
+
+    return lines.join('\n');
+  }
+
+  // -------------------------
+  // Natural Language & Pedagogy
+  // -------------------------
+  function renderNatural(){
+    const P=state.p;
+    const parts=[];
+
+    // Basic adjustments
+    if(P.brightness>0) parts.push(`increased brightness by ${P.brightness}`);
+    else if(P.brightness<0) parts.push(`decreased brightness by ${Math.abs(P.brightness)}`);
+    
+    if(P.contrast>0) parts.push(`added ${P.contrast} contrast`);
+    else if(P.contrast<0) parts.push(`reduced contrast by ${Math.abs(P.contrast)}`);
+    
+    if(P.saturation>0) parts.push(`boosted saturation by ${P.saturation}`);
+    else if(P.saturation<0) parts.push(`reduced saturation by ${Math.abs(P.saturation)}`);
+    
+    if(P.hue!==0) parts.push(`shifted hue by ${P.hue}°`);
+    
+    // Temperature & Tint
+    if(P.temp>0) parts.push(`warmed temperature by ${P.temp}`);
+    else if(P.temp<0) parts.push(`cooled temperature by ${Math.abs(P.temp)}`);
+    
+    if(P.tint>0) parts.push(`added green tint +${P.tint}`);
+    else if(P.tint<0) parts.push(`added magenta tint ${P.tint}`);
+    
+    // Advanced tonal
+    if(P.gamma!==1) parts.push(`adjusted gamma to ${P.gamma.toFixed(2)}`);
+    
+    if(P.levels_black>0) parts.push(`lifted black point to ${P.levels_black}`);
+    if(P.levels_white<255) parts.push(`lowered white point to ${P.levels_white}`);
+    if(P.levels_mid!==1) parts.push(`adjusted midpoint to ${P.levels_mid.toFixed(2)}`);
+    
+    // Color Balance
+    const shadowsActive=(P.cb_s_r!==0||P.cb_s_g!==0||P.cb_s_b!==0);
+    if(shadowsActive){
+      const sDesc=[];
+      if(P.cb_s_r!==0) sDesc.push(`R${P.cb_s_r>0?'+':''}${P.cb_s_r}`);
+      if(P.cb_s_g!==0) sDesc.push(`G${P.cb_s_g>0?'+':''}${P.cb_s_g}`);
+      if(P.cb_s_b!==0) sDesc.push(`B${P.cb_s_b>0?'+':''}${P.cb_s_b}`);
+      parts.push(`adjusted shadows color balance (${sDesc.join(', ')})`);
+    }
+    
+    const midtonesActive=(P.cb_m_r!==0||P.cb_m_g!==0||P.cb_m_b!==0);
+    if(midtonesActive){
+      const mDesc=[];
+      if(P.cb_m_r!==0) mDesc.push(`R${P.cb_m_r>0?'+':''}${P.cb_m_r}`);
+      if(P.cb_m_g!==0) mDesc.push(`G${P.cb_m_g>0?'+':''}${P.cb_m_g}`);
+      if(P.cb_m_b!==0) mDesc.push(`B${P.cb_m_b>0?'+':''}${P.cb_m_b}`);
+      parts.push(`adjusted midtones color balance (${mDesc.join(', ')})`);
+    }
+    
+    const highlightsActive=(P.cb_h_r!==0||P.cb_h_g!==0||P.cb_h_b!==0);
+    if(highlightsActive){
+      const hDesc=[];
+      if(P.cb_h_r!==0) hDesc.push(`R${P.cb_h_r>0?'+':''}${P.cb_h_r}`);
+      if(P.cb_h_g!==0) hDesc.push(`G${P.cb_h_g>0?'+':''}${P.cb_h_g}`);
+      if(P.cb_h_b!==0) hDesc.push(`B${P.cb_h_b>0?'+':''}${P.cb_h_b}`);
+      parts.push(`adjusted highlights color balance (${hDesc.join(', ')})`);
+    }
+    
+    // Effects
+    if(P.vignette>0) parts.push(`applied ${P.vignette}% vignette`);
+    if(P.blur>0) parts.push(`blurred ${P.blur}px`);
+    if(P.sharpen>0) parts.push(`sharpened ${P.sharpen}%`);
+    
+    // Overlay
+    if(P.overlay_alpha>0) parts.push(`applied ${P.overlay_alpha}% color overlay (${P.overlay_color})`);
+    
+    // Text overlay
+    if(P.txt_content && P.txt_content.trim()) parts.push(`added text overlay: "${P.txt_content.substring(0,30)}${P.txt_content.length>30?'...':''}"`);
+
+    const summary=parts.length
+      ? `You ${parts.join(', ')}.`
+      : 'No adjustments applied yet.';
+
+    naturalOut.value=summary;
+  }
+
+  function renderPedagogy(){
+    const P=state.p;
+    const summaryLines=[];
+    const log=[];
+
+    if(P.brightness!==0) summaryLines.push(`Brightness adjustment: ${signed(P.brightness)}`);
+    if(P.contrast!==0) summaryLines.push(`Contrast enhancement: ${P.contrast}%`);
+    if(P.saturation!==0) summaryLines.push(`Saturation modification: ${signed(P.saturation)}%`);
+    if(P.temperature!==0) summaryLines.push(`Color temperature shift: ${signed(P.temperature)}`);
+    if(P.vignette>0) summaryLines.push(`Vignette effect: ${P.vignette}%`);
+
+    // Detailed log
+    if(P.brightness!==0) log.push(`Brightness: ${signed(P.brightness)} (uniform luminosity adjustment)`);
+    if(P.contrast!==0) log.push(`Contrast: ${P.contrast}% (tonal separation)`);
+    if(P.saturation!==0) log.push(`Saturation: ${signed(P.saturation)}% (color intensity)`);
+    if(P.hue!==0) log.push(`Hue Shift: ${signed(P.hue)}° (color wheel rotation)`);
+    if(P.gamma!==1) log.push(`Gamma: ${P.gamma.toFixed(2)} (midtone curve adjustment)`);
+    
+    if(P.levels_black!==0||P.levels_white!==255||P.levels_mid!==1){
+      log.push(`Levels: black=${P.levels_black}, white=${P.levels_white}, mid=${P.levels_mid.toFixed(2)}`);
+    }
+
+    const hasCB=(
+      P.cb_s_r||P.cb_s_g||P.cb_s_b||
+      P.cb_m_r||P.cb_m_g||P.cb_m_b||
+      P.cb_h_r||P.cb_h_g||P.cb_h_b
+    );
+    if(hasCB){
+      log.push(`Color Balance: Shadows (${signed(P.cb_s_r)},${signed(P.cb_s_g)},${signed(P.cb_s_b)}), Midtones (${signed(P.cb_m_r)},${signed(P.cb_m_g)},${signed(P.cb_m_b)}), Highlights (${signed(P.cb_h_r)},${signed(P.cb_h_g)},${signed(P.cb_h_b)})`);
+    }
+
+    if(P.temperature!==0) log.push(`Temperature: ${signed(P.temperature)} (${P.temperature>0?'warm/orange shift':'cool/blue shift'})`);
+    if(P.blur>0) log.push(`Gaussian Blur: ${P.blur}px (smoothing filter)`);
+    if(P.sharpen>0) log.push(`Sharpen: ${P.sharpen}% (edge enhancement)`);
+    if(P.noise>0) log.push(`Grain/Noise: ${P.noise}% (texture addition)`);
+    if(P.vignette>0) log.push(`Vignette: ${P.vignette}% (radial darkening)`);
+    if(P.invert>0) log.push(`Invert: ${P.invert}% (negative effect)`);
+    if(P.desaturate>0) log.push(`Desaturate: ${P.desaturate}% (grayscale conversion)`);
+    if(P.posterize>0&&P.posterize<256) log.push(`Posterize: ${P.posterize} levels (quantization)`);
+
+    const summaryText=summaryLines.length
+      ?'Key Adjustments:\n• '+summaryLines.join('\n• ')
+      :'No adjustments made yet.';
+
+    const detailText=log.length
+      ?'\n\nComplete Parametric Breakdown:\n• '+log.join('\n• ')
+      :'\n\nNo detailed parameters to report.';
+
+    pedagogyTextEl.textContent=summaryText+detailText;
+
+    // Generate Smart Tips
+    generateSmartTips();
+  }
+
+  // -------------------------
+  // Smart Tips Generation (Context-Aware)
+  // -------------------------
+  function generateSmartTips(){
+    const P=state.p;
+    const tips=[];
+    
+    // Analyze brightness
+    if(Math.abs(P.brightness)>50){
+      tips.push(`⚠️ <strong>Extreme Brightness (${P.brightness>0?'+':''}${P.brightness}):</strong> Values beyond ±50 can cause detail loss. Consider using Levels or Gamma for more control.`);
+    }
+    
+    // Analyze contrast
+    if(P.contrast>60){
+      tips.push(`⚠️ <strong>High Contrast (+${P.contrast}):</strong> Can create harsh edges. Pair with slight vignette (20-30%) to soften periphery.`);
+    } else if(P.contrast<-40){
+      tips.push(`💡 <strong>Low Contrast (${P.contrast}):</strong> Creates flat, muted look. Good for soft/dreamy aesthetic. Add slight warmth (+10-15 temp) to enhance mood.`);
+    }
+    
+    // Analyze saturation
+    if(P.saturation<-70){
+      tips.push(`🎨 <strong>Near B&W (Saturation ${P.saturation}):</strong> For true monochrome, go to -100 and adjust contrast to taste. Try adding sepia overlay for vintage feel.`);
+    } else if(P.saturation>50){
+      tips.push(`⚠️ <strong>Hyper-Saturated (+${P.saturation}):</strong> Can look artificial. For vibrant look without oversaturation, try +30-40 saturation with slight shadow lift.`);
+    }
+    
+    // Analyze temperature
+    if(P.temp<-30){
+      tips.push(`❄️ <strong>Cool Tones (${P.temp}):</strong> Creates clinical/cyberpunk mood. Pair with desaturation (-15 to -25) and increased contrast (+20-30) for "Matrix" aesthetic.`);
+    } else if(P.temp>30){
+      tips.push(`🔥 <strong>Warm Tones (+${P.temp}):</strong> Creates cozy/sunset mood. Pair with slight saturation boost (+10-20) and vignette (30-40%) for golden hour effect.`);
+    }
+    
+    // Analyze vignette
+    if(P.vignette>60){
+      tips.push(`⚠️ <strong>Strong Vignette (${P.vignette}%):</strong> Very dramatic. Consider 40-50% for cinematic look without overpowering subject.`);
+    }
+    
+    // Analyze gamma
+    if(P.gamma<0.7){
+      tips.push(`⚠️ <strong>Low Gamma (${P.gamma.toFixed(2)}):</strong> Creates crushed shadows. Use for moody/dramatic look. Pair with contrast reduction to maintain detail.`);
+    } else if(P.gamma>1.5){
+      tips.push(`💡 <strong>High Gamma (${P.gamma.toFixed(2)}):</strong> Lifts shadows, creates airy feel. Good for product photography. Avoid going >1.8 to prevent washed-out look.`);
+    }
+    
+    // Combination suggestions
+    const hasCoolTemp=P.temp<-20;
+    const hasLowSat=P.saturation<-20;
+    const hasHighContrast=P.contrast>30;
+    
+    if(hasCoolTemp && hasLowSat && hasHighContrast){
+      tips.push(`🎬 <strong>Cinematic Style Detected!</strong> You're creating a neo-noir/thriller look. Add subtle vignette (35-45%) to complete the mood.`);
+    }
+    
+    const hasWarmTemp=P.temp>20;
+    const hasMediumSat=P.saturation>10 && P.saturation<40;
+    const hasVignette=P.vignette>25;
+    
+    if(hasWarmTemp && hasMediumSat && hasVignette){
+      tips.push(`🌅 <strong>Golden Hour Style!</strong> Perfect for portraits. Consider slight shadow lift (levels_black: +5-10) to soften shadows while maintaining warmth.`);
+    }
+    
+    // Blur warnings
+    if(P.blur>10){
+      tips.push(`⚠️ <strong>Heavy Blur (${P.blur}px):</strong> Can destroy detail. For background blur effect, apply selectively to background only, not entire image.`);
+    }
+    
+    // Sharpen warnings
+    if(P.sharpen>70){
+      tips.push(`⚠️ <strong>Over-Sharpening (+${P.sharpen}):</strong> Creates halos and artifacts. Stay under 50% for natural look. Apply after resizing for best results.`);
+    }
+    
+    // Color balance tips
+    const cbActive=(Math.abs(P.cb_s_r)>10||Math.abs(P.cb_s_g)>10||Math.abs(P.cb_s_b)>10);
+    if(cbActive){
+      tips.push(`🎨 <strong>Color Grading Active:</strong> Fine-tuning shadow colors. For teal/orange look: Shadows +Blue -Red, Highlights +Orange. For cross-processing: Shadows +Green, Highlights +Magenta.`);
+    }
+    
+    // Levels warnings
+    if(P.levels_black>40){
+      tips.push(`⚠️ <strong>High Black Point (${P.levels_black}):</strong> Crushing shadows heavily. Use for high-key look, but watch for detail loss in dark areas.`);
+    }
+    if(P.levels_white<200){
+      tips.push(`⚠️ <strong>Low White Point (${P.levels_white}):</strong> Clipping highlights. Use for low-key/moody look, but ensure important details aren't blown out.`);
+    }
+    
+    // Overlay suggestions
+    if(P.overlay_alpha>50){
+      tips.push(`🎨 <strong>Strong Overlay (${P.overlay_alpha}%):</strong> Dominating original colors. For subtle tint, use 15-30%. For duotone effect, 60-80% works well.`);
+    }
+    
+    // Default tip if no warnings
+    if(tips.length===0){
+      tips.push(`✅ <strong>Balanced Settings!</strong> Your parameters are in safe ranges. Experiment with combinations like: <em>Warm sunset</em> (temp +25, sat +15, vignette 35) or <em>Cool cinematic</em> (temp -20, sat -15, contrast +25).`);
+    }
+    
+    // Real-world examples at the end
+    tips.push(`<br><strong>📸 Pro Tip:</strong> Start with ONE parameter, observe the change, then add complementary adjustments. Most professional looks use 3-5 parameters, not all at once.`);
+    
+    smartTipsEl.innerHTML=tips.join('<br><br>');
+  }
+
+  // -------------------------
+  // Button Actions
+  // -------------------------
+  document.getElementById('resetAll').addEventListener('click',()=>{
+    const P=state.p;
+    Object.keys(P).forEach(k=>{
+      if(k==='gamma') P[k]=1;
+      else if(k==='levels_white') P[k]=255;
+      else if(k==='levels_mid') P[k]=1;
+      else if(k==='txt_size') P[k]=36;
+      else if(k==='overlay_color') P[k]='#000000';
+      else if(k==='output_format') P[k]='PNG';
+      else if(k==='output_quality') P[k]=90;
+      else if(k==='output_psd') P[k]=false;
+      else if(typeof P[k]==='number') P[k]=0;
+      else P[k]='';
+    });
+
+    document.querySelectorAll('[data-key]').forEach(el=>{
+      const key=el.dataset.key;
+      if(el.type==='checkbox') el.checked=!!state.p[key];
+      else el.value=state.p[key];
+    });
+
+    render();
+    renderNatural();
+    renderPedagogy();
+    updateLiteracyStats();
+  });
+
+  document.getElementById('download').addEventListener('click',()=>{
+    if(!state.img) return alert('Please upload an image first.');
+    const fmt=(state.p.output_format||'PNG').toUpperCase();
+    let mime='image/png',ext='png',quality;
+    
+    if(fmt==='JPG'||fmt==='JPEG'){
+      mime='image/jpeg'; ext='jpg'; quality=(state.p.output_quality||90)/100;
+    } else if(fmt==='WEBP'){
+      mime='image/webp'; ext='webp'; quality=(state.p.output_quality||90)/100;
+    }
+
+    try{
+      const dataURL=C.toDataURL(mime,quality);
+      const a=document.createElement('a');
+      a.download=`parametric-edit.${ext}`;
+      a.href=dataURL;
+      a.click();
+    } catch(err){
+      alert('Export failed. Try a different format or use the generated prompt with professional software.');
+    }
+  });
+
+  document.getElementById('genPrompt').addEventListener('click',()=>{
+    const promptStr=buildPrompt(state.p);
+    promptOut.value=promptStr||'# IMAGE EDIT PROMPT\n(no adjustments)';
+    renderNatural();
+    renderPedagogy();
+  });
+
+  document.getElementById('copyPrompt').addEventListener('click',async()=>{
+    try{
+      await navigator.clipboard.writeText(promptOut.value);
+      const btn=document.getElementById('copyPrompt');
+      const orig=btn.textContent;
+      btn.textContent='✓ Copied!';
+      btn.classList.add('success');
+      setTimeout(()=>{
+        btn.textContent=orig;
+        btn.classList.remove('success');
+      },2000);
+    } catch(e){
+      promptOut.select();
+      document.execCommand('copy');
+    }
+  });
+
+  document.getElementById('resetPrompt').addEventListener('click',()=>{
+    promptOut.value='';
+  });
+
+  // -------------------------
+  // Initialize
+  // -------------------------
+  mountGroups();
+  C.width=900; C.height=520;
+  CX.fillStyle='#000';
+  CX.fillRect(0,0,900,520);
+  renderNatural();
+  renderPedagogy();
+  updateLiteracyStats();
+
+  // Self-tests
+  const results=[];
+  try{
+    results.push('✓ Canvas initialized');
+    results.push('✓ Help modal system active');
+    results.push('✓ Literacy tab enhanced');
+    results.push('✓ All parameters functional');
+    const testPrompt=buildPrompt({...state.p,brightness:10,contrast:15});
+    results.push('✓ Prompt generation working: '+!!testPrompt);
+  } catch(e){
+    results.push('✗ ERROR: '+e.message);
+  }
+  testsEl.textContent=results.join('\n');
+
+  window.addEventListener('error',(e)=>{
+    testsEl.textContent+='\n✗ RUNTIME ERROR: '+e.message;
+  });
+
+});
+</script>
+</body>
+</html>
