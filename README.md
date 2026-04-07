@@ -1,1 +1,2 @@
 # Parametric_Literacy_Learning_Tool
+This application is based on the methodology of **Decomposed Interfaces**. Its purpose is to teach students **Parametric Literacy**—the ability to translate an intuitive visual intention (e.g., "cinematic mood") into **explicit numerical parameters** (e.g., contrast +15, temperature -5). By systematically exposing parameters such as tonal distribution, luminosity, saturation, and clarity, it aids in understanding the underlying structure of AI-mediated digital image editing.
