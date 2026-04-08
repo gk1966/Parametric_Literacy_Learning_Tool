@@ -1,4 +1,4 @@
-# Parametric_Literacy_Learning_Tool
+Parametric Literacy Tool: An Educational Application for AI-Mediated Digital Image Editing Through Decomposed Interfaces
 This application is based on the methodology of **Decomposed Interfaces**. Its purpose is to teach students **Parametric Literacy**—the ability to translate an intuitive visual intention (e.g., "cinematic mood") into **explicit numerical parameters** (e.g., contrast +15, temperature -5). By systematically exposing parameters such as tonal distribution, luminosity, saturation, and clarity, it aids in understanding the underlying structure of AI-mediated digital image editing.
 Citation
 If you use this software in academic work, you can cite it as:AI Prompt Architect Pro.
