@@ -25,8 +25,6 @@
 
 <p>Open any HTML file in a modern web browser. No installation or server required.</p>
 
-<p><strong>Companion paper:</strong> Korakakis, G., Dalacosta, K., Efstathiadou, O., &amp; Karamani, A. (2026). <em>Parametric Literacy Through Decomposed Interfaces: Teaching AI-Mediated Digital Image Editing in Design Education.</em> Cumulus Conference Proceedings, Athens 2026.</p>
-
 <p><strong>Author:</strong> Georgios Korakakis, Department of Graphic Design and Visual Communication, School of Applied Arts and Culture, University of West Attica (UNIWA), Athens, Greece.</p>
 
 Citation
