@@ -28,7 +28,8 @@
 <p><strong>Author:</strong> Georgios Korakakis, Department of Graphic Design and Visual Communication, School of Applied Arts and Culture, University of West Attica (UNIWA), Athens, Greece.</p>
 
 Citation
-If you use this software in academic work, you can cite it as:AI Prompt Architect Pro.
+If you use this software in academic work, you can cite it as:<br>
+Parametric Literacy Tool: An Educational Application for AI-Mediated Digital Image Editing Through Decomposed Interfaces
 Korakakis, G. (2026). 
 Department of Graphic Design and Visual Communication 
 School of Applied Arts and Culture
