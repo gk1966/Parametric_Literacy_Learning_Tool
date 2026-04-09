@@ -1,4 +1,4 @@
-<p><strong>Parametric Literacy Tool — Enhanced Educational Edition v1.0</strong></p>
+<p><strong>Parametric Literacy Tool for Digital Photography Education</strong></p>
 
 <p>A web-based educational application designed to teach <strong>parametric literacy</strong> in digital image processing — the ability to understand and articulate visual outcomes as systematic configurations of adjustable parameters rather than vague stylistic descriptions.</p>
 
@@ -29,7 +29,7 @@
 
 Citation
 If you use this software in academic work, you can cite it as:<br>
-Parametric Literacy Tool
+Parametric Literacy Tool for Digital Photography Education
 Korakakis, G. (2026). 
 Department of Graphic Design and Visual Communication 
 School of Applied Arts and Culture
