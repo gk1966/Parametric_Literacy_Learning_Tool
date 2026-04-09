@@ -29,7 +29,7 @@
 
 Citation
 If you use this software in academic work, you can cite it as:<br>
-Parametric Literacy Tool: An Educational Application for AI-Mediated Digital Image Editing Through Decomposed Interfaces
+Parametric Literacy Tool
 Korakakis, G. (2026). 
 Department of Graphic Design and Visual Communication 
 School of Applied Arts and Culture
