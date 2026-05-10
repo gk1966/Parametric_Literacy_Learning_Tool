@@ -12,6 +12,10 @@ Alternative direct application link:
 
 https://gk1966.github.io/Parametric_Literacy_Learning_Tool/enhanced_parametric_app.html
 
+## Repository
+
+https://github.com/gk1966/Parametric_Literacy_Learning_Tool
+
 ## Author
 
 Georgios Korakakis  
@@ -19,10 +23,6 @@ Assistant Professor
 Department of Graphic Design and Visual Communication  
 School of Applied Arts and Culture  
 University of West Attica (UniWA), Greece
-
-## Repository
-
-https://github.com/gk1966/Parametric_Literacy_Learning_Tool
 
 ## Archived Release
 
@@ -91,6 +91,7 @@ CITATION.cff
 IMAGE_ATTRIBUTION.md
 Parametric_Literacy_Technical_Manual.html
 parametric_manual_assets/
+```
 
 ## Documentation
 
@@ -111,7 +112,7 @@ IMAGE_ATTRIBUTION.md
 Please cite the archived Zenodo release corresponding to the version used:
 
 ```text
-[Author Name]. (2026). Parametric Literacy Tool: Enhanced Educational Edition (v2.0.0). Zenodo. [new Zenodo DOI]
+Korakakis, G. (2026). Parametric Literacy Tool: Enhanced Educational Edition (v2.0.0). Zenodo. [new Zenodo DOI]
 ```
 
 Previous archived version:
@@ -123,4 +124,3 @@ https://doi.org/10.5281/zenodo.19451351
 ## License
 
 This software is released under the MIT License. See `LICENSE` for details.
-
