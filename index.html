@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parametric Literacy Tool</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#121936;
+      --panel2:#0f1530;
+      --text:#eef3ff;
+      --muted:#aab5d6;
+      --line:#263469;
+      --accent:#6ea8fe;
+      --accent2:#52c788;
+      --warn:#f5b841;
+      --radius:8px;
+      --shadow:0 24px 70px rgba(0,0,0,.38);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:#0b1020;
+      color:var(--text);
+      font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.55;
+    }
+    .shell{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:minmax(320px,520px) minmax(420px,1fr);
+    }
+    .intro{
+      padding:42px 34px;
+      background:#101735;
+      border-right:1px solid var(--line);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .preview{
+      padding:34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#090e20;
+    }
+    .kicker{
+      color:var(--accent);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:.76rem;
+      font-weight:800;
+      margin-bottom:12px;
+    }
+    h1{
+      font-size:2.35rem;
+      line-height:1.08;
+      margin:0 0 14px;
+      letter-spacing:0;
+    }
+    p{color:var(--muted);margin:0 0 16px}
+    .actions{
+      display:grid;
+      gap:10px;
+      margin:24px 0 18px;
+    }
+    .button{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      text-decoration:none;
+      border:1px solid var(--line);
+      color:var(--text);
+      background:var(--panel);
+      border-radius:var(--radius);
+      padding:14px 16px;
+      font-weight:750;
+      box-shadow:0 8px 24px rgba(0,0,0,.18);
+    }
+    .button.primary{
+      background:linear-gradient(180deg,#6ea8fe,#4f86e8);
+      border-color:#77adff;
+      color:#071024;
+    }
+    .button.manual{background:#101c3d}
+    .button.repo{background:#111827}
+    .button small{
+      display:block;
+      color:inherit;
+      opacity:.76;
+      font-weight:600;
+      margin-top:2px;
+    }
+    .meta{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:8px;
+      margin-top:22px;
+    }
+    .chip{
+      border:1px solid var(--line);
+      background:var(--panel2);
+      border-radius:var(--radius);
+      padding:9px 10px;
+      color:var(--muted);
+      font-size:.82rem;
+    }
+    .chip strong{display:block;color:var(--text);font-size:.78rem}
+    figure{
+      margin:0;
+      width:min(100%,900px);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:#121936;
+      padding:12px;
+      box-shadow:var(--shadow);
+    }
+    figure img{
+      width:100%;
+      display:block;
+      border-radius:6px;
+      border:1px solid #253269;
+      background:#0b1020;
+    }
+    figcaption{
+      color:var(--muted);
+      font-size:.84rem;
+      margin-top:10px;
+    }
+    .note{
+      border-left:3px solid var(--warn);
+      padding:10px 12px;
+      background:rgba(245,184,65,.08);
+      border-radius:0 var(--radius) var(--radius) 0;
+      color:#d8def0;
+      font-size:.9rem;
+      margin-top:18px;
+    }
+    @media (max-width:900px){
+      .shell{grid-template-columns:1fr}
+      .intro{border-right:0;border-bottom:1px solid var(--line)}
+      .preview{padding:20px}
+      h1{font-size:2rem}
+      .meta{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="intro">
+      <div class="kicker">Enhanced Educational Edition</div>
+      <h1>Parametric Literacy Tool</h1>
+      <p>
+        A browser-based educational image-processing tool for learning how visual
+        outcomes can be described as explicit parameter configurations.
+      </p>
+      <p>
+        Use the live application, read the technical manual, or inspect the source
+        repository and archived release metadata.
+      </p>
+
+      <div class="actions">
+        <a class="button primary" href="enhanced_parametric_app.html">
+          <span>Launch Application<small>Open the interactive image-processing tool</small></span>
+          <span>→</span>
+        </a>
+        <a class="button manual" href="Parametric_Literacy_Technical_Manual.html">
+          <span>Open Technical Manual<small>Software architecture, user guide, screenshots, attribution</small></span>
+          <span>→</span>
+        </a>
+        <a class="button repo" href="https://github.com/gk1966/Parametric_Literacy_Learning_Tool">
+          <span>View Source Repository<small>GitHub repository and release files</small></span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="meta">
+        <div class="chip"><strong>Runtime</strong>HTML5 Canvas + JavaScript</div>
+        <div class="chip"><strong>Architecture</strong>Client-side core workflow</div>
+        <div class="chip"><strong>AI Module</strong>Optional Gemini API Tutor</div>
+        <div class="chip"><strong>Release</strong>v2.0.0 / Zenodo DOI forthcoming</div>
+      </div>
+
+      <div class="note">
+        Core image editing runs locally in the browser. The optional AI Tutor sends
+        data to Gemini only when explicitly invoked by the user.
+      </div>
+    </section>
+
+    <section class="preview" aria-label="Software screenshot">
+      <figure>
+        <img src="parametric_manual_assets/general-overview.png" alt="Screenshot of the Parametric Literacy Tool interface">
+        <figcaption>
+          Main interface with parameter controls, live preview, RGB/luminance histograms,
+          clipping diagnostics, image export, JSON metadata export, and AI prompt generation.
+        </figcaption>
+      </figure>
+    </section>
+  </main>
+</body>
+</html>

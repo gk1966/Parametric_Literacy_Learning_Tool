@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: "Parametric Literacy Tool: Enhanced Educational Edition"
+message: "If you use this software, please cite the archived Zenodo release corresponding to the version used."
+type: software
+authors:
+  - family-names: "[YOUR FAMILY NAME]"
+    given-names: "[YOUR GIVEN NAME]"
+year: 2026
+version: "2.0.0"
+repository-code: "https://github.com/gk1966/Parametric_Literacy_Learning_Tool"
+url: "https://gk1966.github.io/Parametric_Literacy_Learning_Tool/"
+doi: "10.5281/zenodo.19451351"
+license: MIT
+keywords:
+  - image processing
+  - digital imaging
+  - parametric literacy
+  - educational software
+  - HTML5 Canvas
+  - JavaScript
+  - AI literacy
+  - Gemini API
+  - reproducibility
+  - metadata export
+abstract: >-
+  The Parametric Literacy Tool is a browser-based educational software package
+  for teaching digital image processing through parametric literacy. It combines
+  HTML5 Canvas image manipulation, real-time RGB/luminance histograms,
+  diagnostic clipping visualization, structured prompt generation, JSON metadata
+  export, and an optional Google Gemini AI Tutor for parameter-aware feedback.
