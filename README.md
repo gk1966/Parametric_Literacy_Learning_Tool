@@ -89,17 +89,15 @@ README.md
 LICENSE
 CITATION.cff
 IMAGE_ATTRIBUTION.md
-docs/
-  Parametric_Literacy_Technical_Manual.html
-  parametric_manual_assets/
-```
+Parametric_Literacy_Technical_Manual.html
+parametric_manual_assets/
 
 ## Documentation
 
 The technical and educational manual is provided in:
 
 ```text
-docs/Parametric_Literacy_Technical_Manual.html
+Parametric_Literacy_Technical_Manual.html
 ```
 
 The sample lioness photograph visible in the screenshots is third-party material and is credited separately in:
