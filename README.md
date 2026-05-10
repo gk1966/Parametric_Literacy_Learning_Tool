@@ -12,6 +12,14 @@ Alternative direct application link:
 
 https://gk1966.github.io/Parametric_Literacy_Learning_Tool/enhanced_parametric_app.html
 
+## Author
+
+Georgios Korakakis  
+Assistant Professor  
+Department of Graphic Design and Visual Communication  
+School of Applied Arts and Culture  
+University of West Attica (UniWA), Greece
+
 ## Repository
 
 https://github.com/gk1966/Parametric_Literacy_Learning_Tool
