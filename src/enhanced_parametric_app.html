@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Parametric Literacy Tool — Enhanced Educational Edition </title>
+  <style>
+    :root{ 
+      --bg:#0b1020; 
+      --panel:#121936; 
+      --panel-2:#0f1530; 
+      --text:#e9ecf5; 
+      --muted:#9aa3c7; 
+      --accent:#6ea8fe; 
+      --accent-hover:#5a94e8;
+      --success:#52c788;
+      --warning:#f5b841;
+      --danger:#ff6b6b;
+      --radius:16px; 
+      --shadow: 0 6px 30px rgba(0,0,0,.25);
+      --shadow-lg: 0 30px 80px rgba(0,0,0,.8);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#0b1020,#0a0f23);
+      color:var(--text);
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.5;
+    }
+    
+    h1{font-size:1.3rem;margin:0;font-weight:700;letter-spacing:-0.02em}
+    h2{font-size:1rem;margin:0 0 8px 0;color:#fff;font-weight:600}
+    h3{font-size:.9rem;margin:12px 0 6px 0;color:#fff;font-weight:600}
+    h4{font-size:.85rem;margin:8px 0 4px 0;color:var(--accent);font-weight:600}
+
+    .container{max-width:1400px;margin:0 auto;padding:16px;overflow:hidden}
+    .app{display:grid;grid-template-columns:420px 1fr;gap:16px;min-height:calc(100vh - 32px);overflow:visible}
+    
+    @media (max-width: 1024px) {
+      .app{grid-template-columns:1fr;gap:12px}
+    }
+
+    .card{
+      background:var(--panel);
+      border:1px solid #1b254d;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow-x:hidden;
+      overflow-y:auto;
+      transition:box-shadow 0.3s ease;
+      scrollbar-gutter:stable;
+    }
+    .card:hover{box-shadow:0 8px 40px rgba(0,0,0,.35)}
+    
+    .section{padding:14px 16px;border-top:1px solid #1b254d}
+    .section:first-child{border-top:0}
+    .sticky{
+      position:sticky;
+      top:0;
+      background:linear-gradient(180deg,#121936 0%,#101733 100%);
+      z-index:3;
+      box-shadow:0 2px 8px rgba(0,0,0,.2);
+    }
+
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    button,.btn{
+      background:#192351;
+      color:var(--text);
+      border:1px solid #2a3672;
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:600;
+      cursor:pointer;
+      font-size:.85rem;
+      line-height:1.2;
+      transition:all 0.2s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      user-select:none;
+    }
+    button:hover,.btn:hover{
+      background:#1c285b;
+      border-color:#3a4782;
+      transform:translateY(-1px);
+    }
+    button:active,.btn:active{transform:translateY(0)}
+    
+    .primary{
+      background:linear-gradient(180deg,#6ea8fe,#4f8dff);
+      border-color:#5b90ff;
+      color:#0b1020;
+      font-weight:700;
+    }
+    .primary:hover{
+      background:linear-gradient(180deg,#5a94e8,#3f7def);
+      box-shadow:0 4px 12px rgba(110,168,254,.3);
+    }
+    
+    .ghost{background:transparent;border-color:#3a4782}
+    .ghost:hover{background:#192351}
+    
+    .success{
+      background:linear-gradient(180deg,#52c788,#42b778);
+      border-color:#52c788;
+      color:#fff;
+    }
+
+    .canvas-tools{
+      display:flex; 
+      gap:10px; 
+      margin-top:10px; 
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .canvas-tools button{
+      font-size: 0.8rem;
+      padding: 6px 12px;
+    }
+    .btn-clipping.active{
+      background:rgba(255, 107, 107, 0.2);
+      border-color:var(--danger);
+      color:var(--danger);
+    }
+
+    input[type="file"]{display:none}
+    label[for="file"]{
+      background:#192351;
+      border:1px solid #2a3672;
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:.85rem;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:all 0.2s ease;
+    }
+    label[for="file"]:hover{
+      background:#1c285b;
+      border-color:#3a4782;
+      transform:translateY(-1px);
+    }
+
+    .tabs{
+      display:flex;
+      gap:6px;
+      padding:10px 12px;
+      border-bottom:2px solid #24305f;
+      background:var(--panel-2);
+      position:sticky;
+      top:80px;
+      z-index:2;
+      overflow-x:auto;
+      flex-wrap:wrap;
+    }
+    .tab{
+      padding:9px 12px;
+      border:1px solid #2a3672;
+      border-bottom:none;
+      border-radius:10px 10px 0 0;
+      background:#18204a;
+      color:#cbd5ff;
+      cursor:pointer;
+      font-weight:700;
+      flex:0 0 auto;
+      white-space:nowrap;
+      font-size:.82rem;
+      transition:all 0.2s ease;
+      position:relative;
+    }
+    .tab:hover{
+      background:#1a2553;
+      color:#fff;
+    }
+    .tab.active{
+      background:linear-gradient(180deg,#1a2a66,#142254);
+      color:#fff;
+      border-color:#3a4782;
+    }
+    .tab.active::after{
+      content:'';
+      position:absolute;
+      bottom:-2px;
+      left:0;
+      right:0;
+      height:2px;
+      background:var(--accent);
+    }
+    
+    .tabpanes{padding:12px 8px 12px 12px}
+    .tabpane{display:none;overflow:visible}
+    .tabpane.active{display:block;animation:fadeIn 0.3s ease}
+    
+    [id^="group-"]{ padding:0; }
+    
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(8px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    .row{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin:16px 12px 16px 8px;
+      padding:14px 16px;
+      border-radius:12px;
+      background:rgba(255,255,255,.02);
+      transition:background 0.2s ease;
+      border:1px solid transparent;
+    }
+    .row:hover{
+      background:rgba(255,255,255,.04);
+      border-color:#2a3672;
+    }
+    
+    .row>label{
+      font-size:.95rem;
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      font-weight:600;
+      width:100%;
+    }
+    .labelText{
+      flex:1;
+      color:var(--text);
+      font-weight:600;
+    }
+    
+    .helpBtn{
+      background:#1a2148;
+      border:1px solid #2a3672;
+      color:var(--accent);
+      font-size:.75rem;
+      line-height:1;
+      font-weight:700;
+      width:24px;
+      height:24px;
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0;
+      cursor:pointer;
+      transition:all 0.2s ease;
+      flex-shrink:0;
+    }
+    .helpBtn:hover{
+      background:var(--accent);
+      color:#0b1020;
+      transform:scale(1.15);
+      box-shadow:0 4px 12px rgba(110,168,254,.3);
+    }
+
+    input[type=range]{
+      width:100%;
+      max-width:100%;
+      height:8px;
+      border-radius:4px;
+      background:#1b254d;
+      outline:none;
+      -webkit-appearance:none;
+      margin:0;
+      cursor:pointer;
+    }
+    input[type=range]::-webkit-slider-thumb{
+      -webkit-appearance:none;
+      width:20px;
+      height:20px;
+      border-radius:50%;
+      background:var(--accent);
+      cursor:pointer;
+      transition:all 0.2s ease;
+      box-shadow:0 2px 8px rgba(110,168,254,.3);
+    }
+    input[type=range]::-webkit-slider-thumb:hover{
+      background:var(--accent-hover);
+      transform:scale(1.2);
+      box-shadow:0 4px 12px rgba(110,168,254,.5);
+    }
+    
+    input[type=number], input[type=password], input[type=text], select{
+      background:var(--panel-2);
+      color:var(--text);
+      border:1px solid #2a3672;
+      border-radius:10px;
+      padding:10px 12px;
+      font-size:.9rem;
+      font-weight:600;
+      transition:all 0.2s ease;
+      box-sizing:border-box;
+      display:block;
+      width: 100%;
+    }
+    input[type=number] { text-align:center; }
+    
+    input[type=number]:focus, input[type=password]:focus, input[type=text]:focus, select:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(110,168,254,.15);
+      background:#0d1430;
+    }
+    
+    input[type=checkbox]{
+      width:20px;
+      height:20px;
+      cursor:pointer;
+    }
+    
+    textarea{
+      width:100%;
+      min-height:220px;
+      background:#0d1430;
+      color:#dfe0ff;
+      border:1px solid #263065;
+      border-radius:12px;
+      padding:10px;
+      font-size:.85rem;
+      line-height:1.5;
+      resize:vertical;
+      font-family:inherit;
+      transition:all 0.2s ease;
+    }
+    textarea:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(110,168,254,.1);
+    }
+
+    .hint{
+      font-size:.82rem;
+      color:var(--muted);
+      line-height:1.5;
+      margin:6px 0;
+    }
+    
+    .eduBox{
+      background:#0f1530;
+      border:1px solid #2a3672;
+      border-radius:12px;
+      padding:12px;
+      margin-bottom:12px;
+      font-size:.85rem;
+      line-height:1.6;
+      color:#cfe0ff;
+    }
+
+    .previewWrap{padding:16px}
+    .canvasWrap{
+      background:#0a0f23;
+      border:2px dashed #263065;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:360px;
+      max-height:70vh;
+      overflow:auto;
+      position:relative;
+    }
+    .canvasWrap::before{
+      content:'📷 Upload an image to begin';
+      position:absolute;
+      color:var(--muted);
+      font-size:.9rem;
+      pointer-events:none;
+    }
+    .canvasWrap.has-image::before{display:none}
+    
+    canvas.main-canvas{
+      max-width:100%;
+      max-height:70vh;
+      border-radius:12px;
+      background:#000;
+      box-shadow:0 8px 32px rgba(0,0,0,.4);
+    }
+
+    .promptArea{
+      padding:16px;
+      border-top:2px solid #1b254d;
+      background:var(--panel-2);
+    }
+    .promptToolbar{
+      display:flex;
+      gap:8px;
+      margin-bottom:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .sectionInfo{
+      margin-top:12px;
+      border-top:1px solid #1b254d;
+      padding:16px;
+      background:var(--panel-2);
+      border-radius:12px;
+      border:1px solid #1b254d;
+    }
+
+    .pedagogyBox{
+      margin-top:12px;
+      padding:16px;
+      background:linear-gradient(135deg, #0f1530 0%, #1a1f45 100%);
+      border-radius:12px;
+      border:1px solid #2a3672;
+      box-shadow:0 4px 16px rgba(0,0,0,.3);
+    }
+    .pedagogyBox h3{
+      margin-top:0;
+      color:#6ea8fe;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .pedagogyText{
+      font-size:.82rem;
+      color:#cfe0ff;
+      line-height:1.6;
+      white-space:pre-wrap;
+      background:#0d1430;
+      border:1px solid #263065;
+      border-radius:12px;
+      padding:10px;
+      min-height:140px;
+      max-height:500px;
+      overflow-y:auto;
+    }
+    
+    #smartTips{
+      font-size:.85rem;
+      line-height:1.7;
+      color:#e9ecf5;
+    }
+    #smartTips strong{
+      color:#6ea8fe;
+      font-weight:700;
+    }
+
+    .literacyGrid{
+      display:grid;
+      gap:14px;
+      margin-top:12px;
+    }
+    
+    .literacyCard{
+      background:#0f1530;
+      border:1px solid #2a3672;
+      border-radius:12px;
+      padding:14px;
+      transition:all 0.3s ease;
+    }
+    .literacyCard h4{
+      margin-top:0;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .conceptBox{
+      background:#0d1430;
+      border:1px solid #263065;
+      border-radius:10px;
+      padding:10px;
+      margin:8px 0;
+      font-size:.85rem;
+      line-height:1.6;
+    }
+
+    .helpOverlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.75);
+      backdrop-filter:blur(4px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      animation:fadeIn 0.2s ease;
+    }
+    .helpOverlay.active{display:flex}
+    
+    .helpCard{
+      background:#0f1530;
+      border:1px solid #2a3672;
+      border-radius:16px;
+      box-shadow:var(--shadow-lg);
+      max-width:560px;
+      width:90%;
+      max-height:85vh;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      color:#fff;
+      font-size:.85rem;
+    }
+    .helpHead{
+      padding:14px 16px;
+      background:#1a2148;
+      border-bottom:1px solid #2a3672;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .helpTitle{
+      font-size:1rem;
+      font-weight:700;
+      color:#fff;
+      line-height:1.3;
+    }
+    .helpCloseBtn{
+      background:transparent;
+      border:1px solid #2a3672;
+      border-radius:8px;
+      color:var(--accent);
+      font-size:.75rem;
+      width:30px;
+      height:30px;
+      line-height:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .helpBody{
+      padding:16px;
+      overflow:auto;
+      line-height:1.6;
+      color:#e9ecf5;
+    }
+    .helpBlockTitle{
+      font-weight:700;
+      color:var(--accent);
+      margin-top:14px;
+      margin-bottom:6px;
+      font-size:.85rem;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .helpBlockTitle:first-child{ margin-top:0; }
+    .helpBlockTitle::before{ content:'▸'; font-size:1rem; }
+    .helpBlockText{
+      font-size:.85rem;
+      color:#e9ecf5;
+      margin-bottom:8px;
+    }
+    
+    .hist-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      gap: 8px;
+    }
+    .hist-small {
+      width: 32%;
+      height: 60px;
+      background: #02040a;
+      border-radius: 6px;
+      display: block;
+    }
+
+    /* AI Tutor Styles */
+    .aiResultBox {
+      background: #0a0f23;
+      border: 1px solid #263065;
+      border-radius: 12px;
+      padding: 14px;
+      min-height: 80px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #cfe0ff;
+      margin-top: 10px;
+    }
+    .aiResultBox p { margin: 0 0 10px 0; }
+    .aiResultBox ul { margin: 0 0 10px 0; padding-left: 20px; }
+    .aiResultBox strong { color: var(--accent); }
+    .aiResultBox code { background: #1b254d; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #f5b841; }
+    details { background: #121936; border: 1px solid #2a3672; border-radius: 8px; padding: 10px; margin-top: 10px; }
+    summary { font-weight: bold; color: var(--success); cursor: pointer; outline: none; }
+    
+    .loader {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(110,168,254,.3);
+      border-radius: 50%;
+      border-top-color: var(--accent);
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="app">
+
+    <div class="card">
+      <div class="section sticky">
+        <h1>🎨 Parametric Literacy Tool</h1>
+        <p class="hint">Upload an image, adjust parameters, and learn how visual effects decompose into explicit values. Generate structured prompts for AI collaboration.</p>
+        <div class="toolbar">
+          <input id="file" type="file" accept="image/*" />
+          <label for="file">📤 Upload Image</label>
+          <button id="resetAll" class="ghost" type="button">↺ Reset All</button>
+          <button id="download" type="button">⬇️ Export</button>
+          <button id="downloadMetadata" class="ghost" type="button">Export JSON</button>
+        </div>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="basic">⚙️ Basics</button>
+        <button class="tab" data-tab="color">🎨 Color</button>
+        <button class="tab" data-tab="effects">✨ Effects</button>
+        <button class="tab" data-tab="output">💾 Output</button>
+        <button class="tab" data-tab="literacy">📚 Literacy</button>
+        <button class="tab" data-tab="ai" style="color:#f5b841;">🤖 AI Tutor</button>
+      </div>
+
+      <div class="tabpanes">
+        <div class="tabpane active" id="pane-basic"><div id="group-basic"></div></div>
+        <div class="tabpane" id="pane-color"><div id="group-color"></div></div>
+        <div class="tabpane" id="pane-effects"><div id="group-effects"></div></div>
+        <div class="tabpane" id="pane-output"><div id="group-output"></div></div>
+        
+        <div class="tabpane" id="pane-literacy">
+          <div class="eduBox">
+            <h3>📖 What is Parametric Literacy?</h3>
+            <p><strong>Parametric literacy</strong> is the ability to understand and articulate visual outcomes as systematic configurations of adjustable parameters rather than vague stylistic descriptions.</p>
+          </div>
+          <div class="literacyGrid">
+            <div class="literacyCard">
+              <h4 style="color:var(--success)"><span style="font-size:1.2rem;margin-right:8px;">📈</span>Visualizing Image Data</h4>
+              <div class="conceptBox">
+                <strong>Histogram Analysis:</strong> The graph represents tonal distribution. It is divided into Shadows (left), Midtones (center), and Highlights (right). 
+              </div>
+              <div class="conceptBox">
+                <strong>Clipping / Data Loss:</strong> When you adjust extremely, pixels push off the edges (below 0 or above 255), destroying detail. Use <strong>"Show Clipping"</strong> under the canvas to visualize lost shadows (Blue) and highlights (Red).
+              </div>
+            </div>
+          </div>
+          <div id="group-literacy"></div>
+        </div>
+
+        <div class="tabpane" id="pane-ai">
+          
+          <div class="eduBox" style="background:#0a0f23;">
+            <h4 style="margin-top:0; color:#fff;">🔑 1. Gemini 2.5 API Setup</h4>
+            <p class="hint" style="margin-bottom:8px;">Enter your Gemini API Key to enable AI features. It is stored locally in your browser's localStorage.</p>
+            <div style="display:flex; gap:8px;">
+              <input type="password" id="geminiApiKey" placeholder="AIzaSy..." style="flex:1;">
+              <button id="saveApiKey" class="ghost">Save Key</button>
+            </div>
+            <span id="apiKeyStatus" style="font-size:0.75rem; color:var(--success); display:none; margin-top:6px;">✓ Key saved locally.</span>
+            <div style="margin-top:12px; display:grid; gap:6px;">
+              <label for="aiResponseLanguage" style="font-size:0.8rem; color:var(--muted); font-weight:700;">Response language</label>
+              <select id="aiResponseLanguage">
+                <option value="English" selected>English</option>
+                <option value="Greek">Greek</option>
+              </select>
+            </div>
+            <details style="margin-top:12px; border-top:1px solid #1b254d; padding-top:10px;">
+              <summary style="cursor:pointer; color:var(--accent); font-weight:700;">API setup, free access, and privacy notes</summary>
+              <div class="hint" style="margin-top:10px; line-height:1.6;">
+                <p style="margin:0 0 8px 0;"><strong>How to get a Gemini API key:</strong> open <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>, create or select an API key, and paste it above. Availability, rate limits, and pricing can change; always check the official <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener">Gemini API pricing</a> and <a href="https://ai.google.dev/gemini-api/docs/rate-limits" target="_blank" rel="noopener">rate limits</a> pages.</p>
+                <p style="margin:0 0 8px 0;"><strong>Privacy:</strong> core image editing runs locally in the browser. The current canvas image and active parameter context are sent to Gemini only when you click <em>Analyze My Image</em>. Metadata JSON exports do not include image pixels or API keys.</p>
+                <p style="margin:0;"><strong>Other providers to explore:</strong> Hugging Face offers inference providers with small monthly credits for experimentation, while Cloudinary offers a free plan for image transformation APIs. These providers are not currently integrated in this tool.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="literacyCard">
+            <h4>👁️ AI Image Critic (Vision)</h4>
+            <p class="hint">The AI will "look" at your current edited image and analyze its exposure, contrast, and color balance, suggesting specific improvements.</p>
+            <button id="btnAnalyzeImage" class="primary" style="width:100%; justify-content:center; background:linear-gradient(180deg,#f5b841,#d99c26); border-color:#d99c26;">Analyze My Image</button>
+            <div id="aiAnalyzeResult" class="aiResultBox" style="display:none;"></div>
+          </div>
+
+          <div class="literacyCard" style="margin-top:14px;">
+            <h4>🔄 Workflow Translator</h4>
+            <p class="hint">How do I achieve my current slider settings in professional software?</p>
+            <div style="display:flex; gap:8px; margin-bottom:10px;">
+              <select id="softwareSelect" style="flex:1;">
+                <option value="Adobe Photoshop">Adobe Photoshop</option>
+                <option value="Adobe Lightroom">Adobe Lightroom</option>
+                <option value="GIMP">GIMP</option>
+                <option value="Adobe Premiere Pro">Adobe Premiere Pro</option>
+                <option value="Capture One">Capture One</option>
+              </select>
+            </div>
+            <button id="btnTranslateWorkflow" class="primary" style="width:100%; justify-content:center;">Translate My Parameters</button>
+            <div id="aiTranslateResult" class="aiResultBox" style="display:none;"></div>
+          </div>
+
+          <div class="literacyCard" style="margin-top:14px;">
+            <h4>📝 Test My Knowledge</h4>
+            <p class="hint">Generate a random quiz question based on digital imaging theory.</p>
+            <button id="btnQuizMe" class="primary" style="width:100%; justify-content:center; background:linear-gradient(180deg,#52c788,#3aa66d); border-color:#3aa66d;">Generate Quick Quiz</button>
+            <div id="aiQuizResult" class="aiResultBox" style="display:none;"></div>
+          </div>
+
+          <div class="literacyCard" style="margin-top:14px;">
+            <h4>🎓 Ask the AI Tutor</h4>
+            <p class="hint">The tutor can see your current parameter settings. Ask a question! (e.g. "Why did my image turn blue?", "Explain Gamma to me")</p>
+            <textarea id="aiQuestionInput" style="min-height:80px; margin-bottom:10px;" placeholder="Type your question here (in Greek or English)..."></textarea>
+            <button id="btnAskTutor" class="primary" style="width:100%; justify-content:center;">Ask Tutor</button>
+            <div id="aiTutorResult" class="aiResultBox" style="display:none;"></div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="previewWrap">
+        <h2>Live Preview</h2>
+        <div class="canvasWrap" id="canvasWrap">
+          <canvas id="C" class="main-canvas"></canvas>
+        </div>
+        <div class="canvas-tools" id="canvasTools">
+          <button id="btnCompare" class="ghost" title="Hold to see the unedited image">👁️ Hold to Compare</button>
+          <button id="btnClipping" class="ghost btn-clipping" title="Highlight blown out whites (Red) and crushed blacks (Blue)">⚠️ Show Clipping</button>
+        </div>
+      </div>
+
+      <div class="sectionInfo" style="margin: 0 16px;">
+        <h3 style="display:flex; justify-content:space-between; align-items:center; margin-top:0;">
+          📊 High-Fidelity Tonal Histograms
+          <span style="font-size:0.75rem; color:var(--muted); font-weight:normal;">Monitor Data Integrity</span>
+        </h3>
+        <div style="background:#050814; padding:12px; border-radius:12px; border:1px solid #263065; margin-top:10px;">
+          
+          <canvas id="histogramCanvas" width="512" height="240" style="width:100%; height:120px; display:block;"></canvas>
+          <div style="display:flex; justify-content:space-between; color:#6ea8fe; font-size:0.7rem; font-weight:bold; margin-top:4px; padding:0 4px;">
+            <span>0 (BLACK)</span>
+            <span>128 (MID GRAY)</span>
+            <span>255 (WHITE)</span>
+          </div>
+
+          <div class="hist-row">
+            <canvas id="histR" class="hist-small" width="256" height="120" style="border: 1px solid rgba(255,50,50,0.3);"></canvas>
+            <canvas id="histG" class="hist-small" width="256" height="120" style="border: 1px solid rgba(50,255,50,0.3);"></canvas>
+            <canvas id="histB" class="hist-small" width="256" height="120" style="border: 1px solid rgba(50,150,255,0.3);"></canvas>
+          </div>
+
+        </div>
+        <p style="font-size:0.75rem; color:var(--muted); margin:10px 0 0 0; line-height: 1.5;">
+          <strong>How to read it:</strong> The large graph overlays Red, Green, and Blue. The solid white line represents total Luminosity. The three smaller graphs below isolate the <strong>R, G, B channels</strong> allowing you to spot specific color clipping.
+        </p>
+      </div>
+
+      <div class="promptArea">
+        <div class="promptToolbar">
+          <button class="primary" id="genPrompt">📝 Generate AI Prompt</button>
+          <button id="copyPrompt">📋 Copy</button>
+          <button class="ghost" id="resetPrompt">🗑️ Clear</button>
+        </div>
+        <textarea id="promptOut" placeholder="Click 'Generate AI Prompt' to create structured instructions for AI image editing tools..."></textarea>
+      </div>
+
+      <div class="pedagogyBox">
+        <h3>💡 Smart Tips (Context-Aware)</h3>
+        <div id="smartTips" style="font-size:.85rem;line-height:1.6;color:#cfe0ff;"></div>
+      </div>
+      
+      <div class="pedagogyBox" style="background:var(--panel-2); border-color:#1b254d; box-shadow:none;">
+        <h3>📚 Parametric Breakdown</h3>
+        <div class="pedagogyText" id="pedagogyText" style="min-height: 80px;">Adjust parameters to see the breakdown...</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="helpOverlay" id="helpOverlay">
+  <div class="helpCard">
+    <div class="helpHead">
+      <div class="helpTitle" id="helpTitle">Parameter Information</div>
+      <button class="helpCloseBtn" id="helpClose">✕</button>
+    </div>
+    <div class="helpBody" id="helpBody">
+      Loading...
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+
+  const helpData={
+    brightness:{ title:'Brightness / Exposure', content:`<div class="helpBlockTitle">Scientific Basis</div><div class="helpBlockText">Based on the <strong>Weber-Fechner Law</strong>. Formula: <code>RGB' = RGB + constant</code>.</div>` },
+    contrast:{ title:'Contrast', content:`<div class="helpBlockTitle">Scientific Basis</div><div class="helpBlockText">Enhances <strong>Michelson Contrast</strong>. Stretches histogram outwards from mid-gray (128).</div>` },
+    shadows:{ title:'Shadows Recovery', content:`<div class="helpBlockText">Applies weighted additive adjustment to pixels < 128 luminance.</div>` },
+    highlights:{ title:'Highlights Recovery', content:`<div class="helpBlockText">Applies weighted subtractive adjustment to pixels > 128 luminance.</div>` },
+    saturation:{ title:'Saturation', content:`<div class="helpBlockText">Positive values stretch the R, G, B curves apart; negative squeeze them together.</div>` },
+    hue:{ title:'Hue Shift', content:`<div class="helpBlockText">Shifts hue moving colors along the visible spectrum circumference (360-degree).</div>` },
+    gamma:{ title:'Gamma Correction', content:`<div class="helpBlockText">A power-law transformation: <code>V_out = V_in^(1/γ)</code>. Anchors 0 and 255.</div>` },
+    levels_black:{ title:'Levels: Black Point', content:`<div class="helpBlockText">Re-maps tonal range so pixels below chosen value become pure black.</div>` },
+    levels_white:{ title:'Levels: White Point', content:`<div class="helpBlockText">Re-maps tonal range so pixels above chosen value become pure white.</div>` },
+    levels_mid:{ title:'Levels: Midtones', content:`<div class="helpBlockText">Redistributes midtones without altering absolute black/white points.</div>` },
+    cb_shadows:{ title:'Color Balance (Shadows)', content:`<div class="helpBlockText">Targets pixels with low luminance (< 85) to neutralize casts.</div>` },
+    cb_midtones:{ title:'Color Balance (Midtones)', content:`<div class="helpBlockText">Additive RGB adjustments to middle luminance range (85-170).</div>` },
+    cb_highlights:{ title:'Color Balance (Highlights)', content:`<div class="helpBlockText">Targets the brightest pixels (> 170).</div>` },
+    temperature:{ title:'Color Temperature', content:`<div class="helpBlockText">Simulates <strong>Planckian locus (Black Body Radiation)</strong>. Blue-Yellow axis.</div>` },
+    tint:{ title:'Color Tint (G-M)', content:`<div class="helpBlockText">Green-Magenta axis. Compensates for artificial light spectral emission.</div>` },
+    vignette:{ title:'Vignette', content:`<div class="helpBlockText"><strong>Optical Falloff (Cosine Fourth Law)</strong>. Darkens corners.</div>` },
+    blur:{ title:'Gaussian Blur', content:`<div class="helpBlockText"><strong>Low-Pass Spatial Filter</strong>. Removes high-frequency spatial data.</div>` },
+    sharpen:{ title:'Sharpen', content:`<div class="helpBlockText">Simulates <strong>Mach Bands illusion</strong>. Uses High-Pass filter to enhance edges.</div>` },
+    noise:{ title:'Grain / Noise', content:`<div class="helpBlockText">Simulates <strong>Signal-to-Noise Ratio (SNR)</strong> artifacts.</div>` },
+    invert:{ title:'Invert', content:`<div class="helpBlockText"><code>New = 255 - Old</code>.</div>` },
+    desaturate:{ title:'Desaturate', content:`<div class="helpBlockText">Blends RGB channels towards single luminance value.</div>` },
+    posterize:{ title:'Posterize', content:`<div class="helpBlockText"><strong>Color Quantization</strong>. Limits continuous spectrum into discrete bands.</div>` },
+    chromatic:{ title:'Chromatic Aberration', content:`<div class="helpBlockText"><strong>Dispersion</strong>. Spatially translates Red and Blue channels in opposite directions.</div>` },
+    pixelate:{ title:'Pixelate (Mosaic)', content:`<div class="helpBlockText">Demonstrates <strong>Downsampling</strong> and Spatial Resolution reduction.</div>` },
+    output_format:{ title:'Output Format', content:`<div class="helpBlockText">PNG (Lossless) vs JPEG/WEBP (Lossy DCT compression).</div>` },
+    output_quality:{ title:'Output Quality', content:`<div class="helpBlockText">Dictates aggressiveness of lossy compression.</div>` },
+    output_psd:{ title:'PSD Export', content:`<div class="helpBlockText">Requires layered file structure for non-destructive pipeline.</div>` }
+  };
+
+  const state={
+    img:null,
+    p:{
+      brightness:0, contrast:0, shadows:0, highlights:0, saturation:0, hue:0,
+      gamma:1, levels_black:0, levels_white:255, levels_mid:1,
+      cb_s_r:0, cb_s_g:0, cb_s_b:0, cb_m_r:0, cb_m_g:0, cb_m_b:0, cb_h_r:0, cb_h_g:0, cb_h_b:0,
+      temperature:0, tint:0,
+      blur:0, sharpen:0, noise:0, vignette:0, chromatic:0, pixelate:0, invert:0, desaturate:0, posterize:0,
+      output_format:'PNG', output_quality:90, output_psd:false
+    }
+  };
+
+  const groups={
+    basic:[
+      {key:'brightness',label:'Brightness',type:'range',min:-100,max:100,help:'brightness'},
+      {key:'contrast',label:'Contrast',type:'range',min:-100,max:100,help:'contrast'},
+      {key:'shadows',label:'Shadows Recovery',type:'range',min:-100,max:100,help:'shadows'},
+      {key:'highlights',label:'Highlights Recovery',type:'range',min:-100,max:100,help:'highlights'},
+      {key:'saturation',label:'Saturation',type:'range',min:-100,max:100,help:'saturation'},
+      {key:'hue',label:'Hue Shift',type:'range',min:-180,max:180,help:'hue'},
+      {key:'gamma',label:'Gamma',type:'range',min:0.3,max:3,step:0.1,help:'gamma'},
+      {key:'levels_black',label:'Levels: Black',type:'range',min:0,max:100,help:'levels_black'},
+      {key:'levels_white',label:'Levels: White',type:'range',min:155,max:255,help:'levels_white'},
+      {key:'levels_mid',label:'Levels: Midtones',type:'range',min:0.5,max:2,step:0.1,help:'levels_mid'}
+    ],
+    color:[
+      {key:'cb_s_r',label:'Shadows Red',type:'range',min:-100,max:100, help:'cb_shadows'},
+      {key:'cb_s_g',label:'Shadows Green',type:'range',min:-100,max:100, help:'cb_shadows'},
+      {key:'cb_s_b',label:'Shadows Blue',type:'range',min:-100,max:100, help:'cb_shadows'},
+      {key:'cb_m_r',label:'Midtones Red',type:'range',min:-100,max:100, help:'cb_midtones'},
+      {key:'cb_m_g',label:'Midtones Green',type:'range',min:-100,max:100, help:'cb_midtones'},
+      {key:'cb_m_b',label:'Midtones Blue',type:'range',min:-100,max:100, help:'cb_midtones'},
+      {key:'cb_h_r',label:'Highlights Red',type:'range',min:-100,max:100, help:'cb_highlights'},
+      {key:'cb_h_g',label:'Highlights Green',type:'range',min:-100,max:100, help:'cb_highlights'},
+      {key:'cb_h_b',label:'Highlights Blue',type:'range',min:-100,max:100, help:'cb_highlights'},
+      {key:'temperature',label:'Temperature (B-Y)',type:'range',min:-100,max:100,help:'temperature'},
+      {key:'tint',label:'Tint (G-M)',type:'range',min:-100,max:100,help:'tint'}
+    ],
+    effects:[
+      {key:'blur',label:'Gaussian Blur',type:'range',min:0,max:30,help:'blur'},
+      {key:'sharpen',label:'Sharpen',type:'range',min:0,max:100,help:'sharpen'},
+      {key:'noise',label:'Grain',type:'range',min:0,max:100,help:'noise'},
+      {key:'vignette',label:'Vignette',type:'range',min:0,max:100,help:'vignette'},
+      {key:'chromatic',label:'Chromatic Aberration',type:'range',min:0,max:50,help:'chromatic'},
+      {key:'pixelate',label:'Pixelate',type:'range',min:0,max:100,help:'pixelate'},
+      {key:'invert',label:'Invert',type:'range',min:0,max:100,help:'invert'},
+      {key:'desaturate',label:'Desaturate',type:'range',min:0,max:100,help:'desaturate'},
+      {key:'posterize',label:'Posterize',type:'range',min:0,max:255,help:'posterize'}
+    ],
+    output:[
+      {key:'output_format',label:'Format',type:'select',options:['PNG','JPG','WEBP'],help:'output_format'},
+      {key:'output_quality',label:'Quality',type:'range',min:1,max:100,help:'output_quality'},
+      {key:'output_psd',label:'Request Layered PSD',type:'checkbox',help:'output_psd'}
+    ]
+  };
+
+  const C=document.getElementById('C'), CX=C.getContext('2d',{willReadFrequently:true});
+  
+  const histCanvas=document.getElementById('histogramCanvas'), hx=histCanvas.getContext('2d');
+  const histRCanvas=document.getElementById('histR'), hxR=histRCanvas.getContext('2d');
+  const histGCanvas=document.getElementById('histG'), hxG=histGCanvas.getContext('2d');
+  const histBCanvas=document.getElementById('histB'), hxB=histBCanvas.getContext('2d');
+  
+  const helpOverlay=document.getElementById('helpOverlay');
+  const helpTitle=document.getElementById('helpTitle');
+  const helpBody=document.getElementById('helpBody');
+  const helpClose=document.getElementById('helpClose');
+  const promptOut=document.getElementById('promptOut');
+  const pedagogyTextEl=document.getElementById('pedagogyText');
+  const smartTipsEl=document.getElementById('smartTips');
+  const canvasWrap=document.getElementById('canvasWrap');
+  
+  let isComparing = false;
+  let showClipping = false;
+
+  function mountGroups(){
+    for(let gName in groups){
+      const arr=groups[gName];
+      const container=document.getElementById('group-'+gName);
+      if(!container) continue;
+
+      arr.forEach(spec=>{
+        const row=document.createElement('div');
+        row.className='row';
+
+        const lbl=document.createElement('label');
+        const labelTextSpan=document.createElement('span');
+        labelTextSpan.className='labelText';
+        labelTextSpan.textContent=spec.label;
+        lbl.appendChild(labelTextSpan);
+
+        if(spec.help && helpData[spec.help]){
+          const helpBtn=document.createElement('button');
+          helpBtn.className='helpBtn';
+          helpBtn.textContent='?';
+          helpBtn.type='button';
+          helpBtn.addEventListener('click',()=>showHelp(spec.help));
+          lbl.appendChild(helpBtn);
+        }
+        row.appendChild(lbl);
+
+        let input;
+        if(spec.type==='range'){
+          const wrap=document.createElement('div');
+          wrap.style.display='flex';
+          wrap.style.gap='10px';
+          
+          const slider=document.createElement('input');
+          slider.type='range';
+          slider.min=spec.min??0; slider.max=spec.max??100; slider.step=spec.step??1;
+          slider.value=state.p[spec.key];
+          slider.dataset.key=spec.key;
+          
+          const numInput=document.createElement('input');
+          numInput.type='number';
+          numInput.min=spec.min??0; numInput.max=spec.max??100; numInput.step=spec.step??1;
+          numInput.value=state.p[spec.key];
+          numInput.style.width='60px';
+
+          slider.addEventListener('input',()=>{
+            state.p[spec.key]=parseFloat(slider.value);
+            numInput.value=slider.value;
+            render(); renderPedagogy();
+          });
+          numInput.addEventListener('input',()=>{
+            state.p[spec.key]=parseFloat(numInput.value);
+            slider.value=numInput.value;
+            render(); renderPedagogy();
+          });
+
+          wrap.appendChild(slider);
+          wrap.appendChild(numInput);
+          row.appendChild(wrap);
+        } 
+        else if(spec.type==='select'){
+          input=document.createElement('select');
+          spec.options.forEach(opt=>{
+            const option=document.createElement('option');
+            option.value=opt; option.textContent=opt;
+            input.appendChild(option);
+          });
+          input.value=state.p[spec.key];
+          input.dataset.key=spec.key;
+          input.addEventListener('change',()=>{ state.p[spec.key]=input.value; renderPedagogy(); });
+          row.appendChild(input);
+        } 
+        else if(spec.type==='checkbox'){
+          const checkWrap=document.createElement('div');
+          checkWrap.style.textAlign='center';
+          input=document.createElement('input');
+          input.type='checkbox';
+          input.checked=!!state.p[spec.key];
+          input.dataset.key=spec.key;
+          input.addEventListener('change',()=>{ state.p[spec.key]=input.checked; renderPedagogy(); });
+          checkWrap.appendChild(input);
+          row.appendChild(checkWrap);
+        }
+        container.appendChild(row);
+      });
+    }
+  }
+
+  function showHelp(key){
+    const data=helpData[key];
+    if(!data) return;
+    helpTitle.textContent=data.title;
+    helpBody.innerHTML=data.content;
+    helpOverlay.classList.add('active');
+  }
+  helpClose.addEventListener('click',()=>helpOverlay.classList.remove('active'));
+
+  const tabs=document.querySelectorAll('.tab');
+  const panes=document.querySelectorAll('.tabpane');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
+      panes.forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('pane-'+tab.dataset.tab)?.classList.add('active');
+    });
+  });
+
+  document.getElementById('file').addEventListener('change',(e)=>{
+    const f=e.target.files[0];
+    if(!f) return;
+    const reader=new FileReader();
+    reader.onload=(ev)=>{
+      const img=new Image();
+      img.onload=()=>{
+        img.dataset.sourceName=f.name;
+        img.dataset.sourceType=f.type||'';
+        img.dataset.sourceSize=String(f.size);
+        state.img=img;
+        C.width=img.width; C.height=img.height;
+        canvasWrap.classList.add('has-image');
+        render();
+      };
+      img.src=ev.target.result;
+    };
+    reader.readAsDataURL(f);
+  });
+
+  const btnCompare = document.getElementById('btnCompare');
+  btnCompare.addEventListener('mousedown', () => { isComparing = true; render(); });
+  btnCompare.addEventListener('mouseup', () => { isComparing = false; render(); });
+  btnCompare.addEventListener('mouseleave', () => { isComparing = false; render(); });
+  btnCompare.addEventListener('touchstart', (e) => { e.preventDefault(); isComparing = true; render(); });
+  btnCompare.addEventListener('touchend', () => { isComparing = false; render(); });
+
+  const btnClipping = document.getElementById('btnClipping');
+  btnClipping.addEventListener('click', (e) => {
+    showClipping = !showClipping;
+    btnClipping.classList.toggle('active', showClipping);
+    render();
+  });
+
+  document.getElementById('resetAll').addEventListener('click',()=>{
+    const P=state.p;
+    Object.keys(P).forEach(k=>{
+      if(k==='gamma') P[k]=1;
+      else if(k==='levels_white') P[k]=255;
+      else if(k==='levels_mid') P[k]=1;
+      else if(k==='output_format') P[k]='PNG';
+      else if(k==='output_quality') P[k]=90;
+      else if(k==='output_psd') P[k]=false;
+      else if(typeof P[k]==='number') P[k]=0;
+    });
+
+    document.querySelectorAll('[data-key]').forEach(el=>{
+      const key=el.dataset.key;
+      if(el.type==='checkbox') el.checked=!!state.p[key];
+      else el.value=state.p[key];
+    });
+
+    promptOut.value = '';
+    render(); 
+    renderPedagogy();
+  });
+
+  document.getElementById('download').addEventListener('click',()=>{
+    if(!state.img) return alert('Please upload an image first.');
+    const fmt=(state.p.output_format||'PNG').toUpperCase();
+    let mime='image/png', ext='png', quality;
+    
+    if(fmt==='JPG'||fmt==='JPEG'){
+      mime='image/jpeg'; ext='jpg'; quality=(state.p.output_quality||90)/100;
+    } else if(fmt==='WEBP'){
+      mime='image/webp'; ext='webp'; quality=(state.p.output_quality||90)/100;
+    }
+
+    try{
+      const dataURL=C.toDataURL(mime,quality);
+      const a=document.createElement('a');
+      a.download=`parametric-edit.${ext}`;
+      a.href=dataURL;
+      a.click();
+    } catch(err){
+      alert('Export failed. Ensure the image is uploaded properly.');
+    }
+  });
+
+  document.getElementById('downloadMetadata').addEventListener('click',()=>{
+    const now=new Date();
+    const activeParameters=getActiveParamsString();
+    const metadata={
+      schema:'parametric-literacy-metadata-v1',
+      software:{
+        name:'Parametric Literacy Tool',
+        edition:'Enhanced Educational Edition',
+        repository:'https://github.com/gk1966/Parametric_Literacy_Learning_Tool',
+        archivedRelease:'https://doi.org/10.5281/zenodo.20112617',
+        liveDemo:'https://gk1966.github.io/Parametric_Literacy_Learning_Tool/enhanced_parametric_app.html'
+      },
+      exportedAt:now.toISOString(),
+      image:state.img?{
+        width:C.width,
+        height:C.height,
+        sourceName:state.img.dataset?.sourceName||null,
+        sourceType:state.img.dataset?.sourceType||null,
+        sourceSizeBytes:state.img.dataset?.sourceSize?Number(state.img.dataset.sourceSize):null
+      }:null,
+      canvas:{
+        width:C.width,
+        height:C.height
+      },
+      parameters:{...state.p},
+      activeParameters,
+      diagnosticState:{
+        clippingWarningEnabled:showClipping,
+        compareModeEnabled:isComparing
+      },
+      privacy:{
+        includesImagePixels:false,
+        includesApiKey:false
+      },
+      reproducibilityNote:'Apply these parameter values in the Parametric Literacy Tool to reproduce the recorded editing state.'
+    };
+
+    const json=JSON.stringify(metadata,null,2);
+    const blob=new Blob([json],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    const stamp=now.toISOString().replace(/[:.]/g,'-');
+    a.download=`parametric-metadata-${stamp}.json`;
+    a.href=url;
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),0);
+  });
+
+  function render(){
+    if(!state.img){
+      CX.fillStyle='#000'; CX.fillRect(0,0,C.width,C.height);
+      drawHistogram(null);
+      return;
+    }
+
+    const w=C.width, h=C.height;
+    CX.clearRect(0,0,w,h);
+    CX.drawImage(state.img,0,0,w,h);
+
+    if (isComparing) {
+      drawHistogram(CX.getImageData(0,0,w,h));
+      return; 
+    }
+
+    let imageData=CX.getImageData(0,0,w,h);
+    let d=imageData.data;
+    const P=state.p;
+
+    applyBrightnessContrast(d, P.brightness, P.contrast);
+    applyShadowsHighlights(d, P.shadows, P.highlights);
+    applySaturationHue(d, P.saturation, P.hue);
+    applyGamma(d, P.gamma);
+    applyLevels(d, P.levels_black, P.levels_white, P.levels_mid);
+    applyColorBalance(d, P);
+    applyTemperatureTint(d, P.temperature, P.tint);
+    
+    applyDesaturate(d, P.desaturate);
+    applyInvert(d, P.invert);
+    if(P.posterize>0) applyPosterize(d, P.posterize);
+
+    if(showClipping) applyClippingWarning(d);
+
+    CX.putImageData(imageData, 0, 0);
+
+    if(P.blur>0) applyBlur(P.blur);
+    if(P.sharpen>0) applySharpen(P.sharpen);
+    if(P.noise>0) applyNoise(P.noise);
+    if(P.vignette>0) applyVignette(P.vignette);
+    if(P.chromatic>0) applyChromaticAberration(P.chromatic);
+    if(P.pixelate>0) applyPixelate(P.pixelate);
+
+    drawHistogram(CX.getImageData(0,0,w,h));
+  }
+
+  function applyBrightnessContrast(d,b,c){
+    if(b===0 && c===0) return;
+    const factor=(259*(c+255))/(255*(259-c));
+    for(let i=0;i<d.length;i+=4){
+      for(let j=0;j<3;j++) d[i+j]=clamp(factor*(d[i+j]+b-128)+128,0,255);
+    }
+  }
+  
+  function applyShadowsHighlights(d, shad, high){
+    if(shad===0 && high===0) return;
+    const sF = shad/100, hF = high/100;
+    for(let i=0; i<d.length; i+=4) {
+      const r=d[i], g=d[i+1], b=d[i+2];
+      const lum = 0.299*r + 0.587*g + 0.114*b;
+      let wS = clamp(1 - (lum/128), 0, 1);
+      let wH = clamp((lum-128)/127, 0, 1);
+      const sAdd = wS * sF * 60; 
+      const hAdd = wH * hF * 60;
+      d[i] = clamp(r + sAdd + hAdd, 0, 255);
+      d[i+1] = clamp(g + sAdd + hAdd, 0, 255);
+      d[i+2] = clamp(b + sAdd + hAdd, 0, 255);
+    }
+  }
+
+  function applySaturationHue(d,sat,hueShift){
+    if(sat===0 && hueShift===0) return;
+    const sF=1+(sat/100);
+    for(let i=0;i<d.length;i+=4){
+      let [h,s,l]=rgbToHsl(d[i],d[i+1],d[i+2]);
+      h=(h+hueShift+360)%360;
+      let [r,g,b]=hslToRgb(h,clamp(s*sF,0,1),l);
+      d[i]=r; d[i+1]=g; d[i+2]=b;
+    }
+  }
+
+  function applyGamma(d,g){
+    if(g===1) return;
+    const ig=1/g;
+    for(let i=0;i<d.length;i+=4){
+      for(let j=0;j<3;j++) d[i+j]=255*Math.pow(d[i+j]/255,ig);
+    }
+  }
+
+  function applyLevels(d,bl,wh,mid){
+    if(bl===0 && wh===255 && mid===1) return;
+    for(let i=0;i<d.length;i+=4){
+      for(let j=0;j<3;j++){
+        let v=(d[i+j]-bl)/(wh-bl)*255;
+        d[i+j]=clamp(255*Math.pow(clamp(v,0,255)/255,1/mid),0,255);
+      }
+    }
+  }
+
+  function applyColorBalance(d,P){
+    if(P.cb_s_r===0 && P.cb_m_r===0 && P.cb_h_r===0 && P.cb_s_g===0 && P.cb_m_g===0 && P.cb_h_g===0 && P.cb_s_b===0 && P.cb_m_b===0 && P.cb_h_b===0) return;
+    for(let i=0;i<d.length;i+=4){
+      let [r,g,b]=[d[i],d[i+1],d[i+2]];
+      const lum=(r+g+b)/3;
+      let sr=0,sg=0,sb=0, mr=0,mg=0,mb=0, hr=0,hg=0,hb=0;
+      if(lum<85){
+        const w=1-(lum/85);
+        sr=P.cb_s_r*w; sg=P.cb_s_g*w; sb=P.cb_s_b*w;
+      } else if(lum<170){
+        const w=(lum-85)/85;
+        mr=P.cb_m_r*w; mg=P.cb_m_g*w; mb=P.cb_m_b*w;
+      } else {
+        const w=(lum-170)/85;
+        hr=P.cb_h_r*w; hg=P.cb_h_g*w; hb=P.cb_h_b*w;
+      }
+      d[i]=clamp(r+sr+mr+hr,0,255);
+      d[i+1]=clamp(g+sg+mg+hg,0,255);
+      d[i+2]=clamp(b+sb+mb+hb,0,255);
+    }
+  }
+
+  function applyTemperatureTint(d, temp, tint){
+    if(temp===0 && tint===0) return;
+    const fT = temp/100;
+    const fTint = tint/100; 
+    for(let i=0;i<d.length;i+=4){
+      let rAdd = fT * 30 + fTint * 20;
+      let gAdd = -fTint * 20;
+      let bAdd = -fT * 30 + fTint * 20;
+      d[i]   = clamp(d[i]   + rAdd, 0, 255);
+      d[i+1] = clamp(d[i+1] + gAdd, 0, 255);
+      d[i+2] = clamp(d[i+2] + bAdd, 0, 255);
+    }
+  }
+
+  function applyDesaturate(d,amt){
+    if(amt===0) return;
+    const factor=amt/100;
+    for(let i=0;i<d.length;i+=4){
+      const gray=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];
+      d[i]=d[i]*(1-factor)+gray*factor;
+      d[i+1]=d[i+1]*(1-factor)+gray*factor;
+      d[i+2]=d[i+2]*(1-factor)+gray*factor;
+    }
+  }
+
+  function applyInvert(d,amt){
+    if(amt===0) return;
+    const factor=amt/100;
+    for(let i=0;i<d.length;i+=4){
+      for(let j=0;j<3;j++){
+        const inv=255-d[i+j];
+        d[i+j]=d[i+j]*(1-factor)+inv*factor;
+      }
+    }
+  }
+
+  function applyPosterize(d,levels){
+    if(levels<=1) return;
+    const step=256/levels;
+    for(let i=0;i<d.length;i+=4){
+      for(let j=0;j<3;j++) d[i+j]=Math.floor(d[i+j]/step)*step;
+    }
+  }
+
+  function applyBlur(r){
+    for(let pass=0;pass<2;pass++){
+      CX.filter=`blur(${r}px)`; CX.drawImage(C,0,0); CX.filter='none';
+    }
+  }
+
+  function applySharpen(amt){
+    const imageData=CX.getImageData(0,0,C.width,C.height);
+    const blurred=CX.createImageData(imageData);
+    const factor=amt/100;
+    for(let i=0;i<imageData.data.length;i+=4){
+      for(let j=0;j<3;j++){
+        const orig=imageData.data[i+j];
+        const blur=blurred.data[i+j];
+        imageData.data[i+j]=clamp(orig+(orig-blur)*factor,0,255);
+      }
+    }
+    CX.putImageData(imageData,0,0);
+  }
+
+  function applyNoise(amt){
+    const imageData=CX.getImageData(0,0,C.width,C.height);
+    const d=imageData.data;
+    const intensity=amt*2.55;
+    for(let i=0;i<d.length;i+=4){
+      const noise=(Math.random()-0.5)*intensity;
+      for(let j=0;j<3;j++) d[i+j]=clamp(d[i+j]+noise,0,255);
+    }
+    CX.putImageData(imageData,0,0);
+  }
+
+  function applyVignette(amt){
+    const w=C.width, h=C.height, cx=w/2, cy=h/2, mD=Math.sqrt(cx*cx+cy*cy), s=amt/100;
+    const id=CX.getImageData(0,0,w,h), d=id.data;
+    for(let y=0;y<h;y++){
+      for(let x=0;x<w;x++){
+        const dist=Math.sqrt((x-cx)**2+(y-cy)**2), f=1-((dist/mD)*s);
+        const i=(y*w+x)*4;
+        d[i]*=f; d[i+1]*=f; d[i+2]*=f;
+      }
+    }
+    CX.putImageData(id,0,0);
+  }
+
+  function applyChromaticAberration(amt){
+    const shift = (amt / 100) * (C.width * 0.02); 
+    const id = CX.getImageData(0,0,C.width, C.height);
+    const d = id.data;
+    const out = new Uint8ClampedArray(d);
+    const w = C.width;
+
+    for(let y=0; y<C.height; y++){
+      for(let x=0; x<w; x++){
+        const idx = (y*w + x) * 4;
+        const rX = Math.min(w-1, x + Math.floor(shift));
+        const rIdx = (y*w + rX)*4;
+        out[idx] = d[rIdx]; 
+        out[idx+1] = d[idx+1]; 
+        const bX = Math.max(0, x - Math.floor(shift));
+        const bIdx = (y*w + bX)*4;
+        out[idx+2] = d[bIdx+2]; 
+        out[idx+3] = d[idx+3];
+      }
+    }
+    CX.putImageData(new ImageData(out, C.width, C.height), 0, 0);
+  }
+
+  function applyPixelate(amt){
+    const size = Math.max(1, (amt / 100) * 50); 
+    const w = C.width, h = C.height;
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = w / size;
+    tempCanvas.height = h / size;
+    tempCtx.drawImage(C, 0, 0, tempCanvas.width, tempCanvas.height);
+    CX.imageSmoothingEnabled = false;
+    CX.drawImage(tempCanvas, 0, 0, w, h);
+    CX.imageSmoothingEnabled = true;
+  }
+
+  function applyClippingWarning(d) {
+    for(let i=0;i<d.length;i+=4){
+      const r=d[i], g=d[i+1], b=d[i+2];
+      if(r>=253 && g>=253 && b>=253) { 
+        d[i]=255; d[i+1]=0; d[i+2]=0; 
+      } else if(r<=5 && g<=5 && b<=5) { 
+        d[i]=0; d[i+1]=150; d[i+2]=255; 
+      }
+    }
+  }
+
+  function drawHistogram(imageData) {
+    hx.clearRect(0,0,512,240);
+    hxR.clearRect(0,0,256,120);
+    hxG.clearRect(0,0,256,120);
+    hxB.clearRect(0,0,256,120);
+    
+    hx.fillStyle = 'rgba(255,255,255,0.02)'; hx.fillRect(0, 0, 170, 240);
+    hx.fillStyle = 'rgba(255,255,255,0.05)'; hx.fillRect(170, 0, 172, 240);
+    hx.fillStyle = 'rgba(255,255,255,0.02)'; hx.fillRect(342, 0, 170, 240);
+
+    hx.fillStyle = 'rgba(255,255,255,0.3)'; hx.font = '20px Arial'; hx.textAlign = 'center';
+    hx.fillText('SHADOWS', 85, 28); hx.fillText('MIDTONES', 256, 28); hx.fillText('HIGHLIGHTS', 426, 28);
+
+    hx.fillStyle = 'rgba(255, 107, 107, 0.2)';
+    hx.fillRect(0, 0, 8, 240); hx.fillRect(504, 0, 8, 240);
+
+    if(!imageData) return;
+    
+    const rCount=new Array(256).fill(0), gCount=new Array(256).fill(0), bCount=new Array(256).fill(0), lumCount=new Array(256).fill(0);
+    const d = imageData.data;
+    let maxCount = 0;
+    
+    const step = Math.max(4, Math.floor(d.length / 200000) * 4); 
+    for(let i=0; i<d.length; i+=step) {
+      const red = Math.round(d[i]), green = Math.round(d[i+1]), blue = Math.round(d[i+2]);
+      const lum = Math.round(0.299*red + 0.587*green + 0.114*blue);
+      rCount[red]++; gCount[green]++; bCount[blue]++; lumCount[lum]++;
+    }
+
+    for(let i=2; i<254; i++) {
+      maxCount = Math.max(maxCount, rCount[i], gCount[i], bCount[i], lumCount[i]);
+    }
+    if(maxCount === 0) return;
+
+    hx.globalCompositeOperation = 'screen';
+    function drawMainChannel(arr, colorFill) {
+      hx.beginPath();
+      hx.fillStyle = colorFill;
+      hx.moveTo(0, 240);
+      for(let i=0; i<256; i++) {
+        const h = (arr[i]/maxCount) * 200; 
+        hx.lineTo(i * 2, 240 - h);
+      }
+      hx.lineTo(512, 240);
+      hx.fill();
+    }
+    
+    drawMainChannel(rCount, 'rgba(255, 50, 50, 0.8)');
+    drawMainChannel(gCount, 'rgba(50, 255, 50, 0.6)');
+    drawMainChannel(bCount, 'rgba(50, 100, 255, 0.8)');
+    
+    hx.globalCompositeOperation = 'source-over';
+    
+    hx.beginPath();
+    hx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+    hx.lineWidth = 2.5;
+    for(let i=0; i<256; i++) {
+      const h = (lumCount[i]/maxCount) * 200;
+      if(i===0) hx.moveTo(i * 2, 240 - h);
+      else hx.lineTo(i * 2, 240 - h);
+    }
+    hx.stroke();
+
+    function drawSmallChannel(ctx, arr, colorFill, colorLine) {
+      ctx.beginPath();
+      ctx.fillStyle = colorFill;
+      ctx.strokeStyle = colorLine;
+      ctx.lineWidth = 1;
+      ctx.moveTo(0, 120);
+      for(let i=0; i<256; i++) {
+        const h = (arr[i]/maxCount) * 110; 
+        ctx.lineTo(i, 120 - h);
+      }
+      ctx.lineTo(256, 120);
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    drawSmallChannel(hxR, rCount, 'rgba(255,50,50,0.5)', 'rgba(255,50,50,1)');
+    drawSmallChannel(hxG, gCount, 'rgba(50,255,50,0.5)', 'rgba(50,255,50,1)');
+    drawSmallChannel(hxB, bCount, 'rgba(50,150,255,0.5)', 'rgba(50,150,255,1)');
+  }
+
+  function clamp(v,min,max){ return Math.max(min,Math.min(max,v)); }
+  function rgbToHsl(r,g,b){
+    r/=255; g/=255; b/=255;
+    const max=Math.max(r,g,b), min=Math.min(r,g,b);
+    let h,s, l=(max+min)/2;
+    if(max===min) h=s=0;
+    else {
+      const d=max-min; s=l>0.5?d/(2-max-min):d/(max+min);
+      switch(max){
+        case r: h=((g-b)/d+(g<b?6:0))/6; break;
+        case g: h=((b-r)/d+2)/6; break;
+        case b: h=((r-g)/d+4)/6; break;
+      }
+    }
+    return [h*360,s,l];
+  }
+  function hslToRgb(h,s,l){
+    h/=360;
+    const hue2rgb=(p,q,t)=>{
+      if(t<0) t+=1; if(t>1) t-=1;
+      if(t<1/6) return p+(q-p)*6*t;
+      if(t<1/2) return q;
+      if(t<2/3) return p+(q-p)*(2/3-t)*6;
+      return p;
+    };
+    let r,g,b;
+    if(s===0) r=g=b=l;
+    else {
+      const q=l<0.5?l*(1+s):l+s-l*s, p=2*l-q;
+      r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3);
+    }
+    return [r*255,g*255,b*255];
+  }
+  function signed(v){ return v>=0?'+'+v:String(v); }
+
+  // ==========================================
+  // AI TUTOR & GEMINI API INTEGRATION
+  // ==========================================
+  
+  const apiKeyInput = document.getElementById('geminiApiKey');
+  const btnSaveKey = document.getElementById('saveApiKey');
+  const apiKeyStatus = document.getElementById('apiKeyStatus');
+  
+  const savedKey = localStorage.getItem('geminiApiKey');
+  if(savedKey) apiKeyInput.value = savedKey;
+
+  btnSaveKey.addEventListener('click', () => {
+    const key = apiKeyInput.value.trim();
+    if(key) {
+      localStorage.setItem('geminiApiKey', key);
+      apiKeyStatus.style.display = 'block';
+      setTimeout(() => apiKeyStatus.style.display = 'none', 3000);
+    } else {
+      localStorage.removeItem('geminiApiKey');
+      alert('API Key removed.');
+    }
+  });
+
+  function getActiveParamsString() {
+    const P = state.p;
+    let active = [];
+    if(P.brightness!==0) active.push(`Brightness: ${P.brightness}`);
+    if(P.contrast!==0) active.push(`Contrast: ${P.contrast}`);
+    if(P.shadows!==0) active.push(`Shadows: ${P.shadows}`);
+    if(P.highlights!==0) active.push(`Highlights: ${P.highlights}`);
+    if(P.saturation!==0) active.push(`Saturation: ${P.saturation}`);
+    if(P.hue!==0) active.push(`Hue: ${P.hue}`);
+    if(P.gamma!==1) active.push(`Gamma: ${P.gamma}`);
+    if(P.levels_black!==0) active.push(`Levels Black Point: ${P.levels_black}`);
+    if(P.levels_white!==255) active.push(`Levels White Point: ${P.levels_white}`);
+    if(P.levels_mid!==1) active.push(`Levels Midtones: ${P.levels_mid}`);
+    if(P.temperature!==0) active.push(`Temperature: ${P.temperature}`);
+    if(P.tint!==0) active.push(`Tint: ${P.tint}`);
+    if(P.blur!==0) active.push(`Blur: ${P.blur}`);
+    if(P.sharpen!==0) active.push(`Sharpen: ${P.sharpen}`);
+    if(P.noise!==0) active.push(`Noise/Grain: ${P.noise}`);
+    if(P.vignette!==0) active.push(`Vignette: ${P.vignette}`);
+    if(P.chromatic!==0) active.push(`Chromatic Aberration: ${P.chromatic}`);
+    if(P.pixelate!==0) active.push(`Pixelate: ${P.pixelate}`);
+    if(P.desaturate!==0) active.push(`Desaturate: ${P.desaturate}`);
+    if(P.invert!==0) active.push(`Invert: ${P.invert}`);
+    if(P.posterize!==0) active.push(`Posterize: ${P.posterize}`);
+    
+    const hasCB = (P.cb_s_r||P.cb_s_g||P.cb_s_b||P.cb_m_r||P.cb_m_g||P.cb_m_b||P.cb_h_r||P.cb_h_g||P.cb_h_b);
+    if(hasCB) active.push(`Color Balance applied`);
+
+    if(active.length === 0) return "No adjustments currently applied. Original image state.";
+    return active.join(', ');
+  }
+
+  function getAiResponseLanguage() {
+    const selector = document.getElementById('aiResponseLanguage');
+    return selector?.value || 'English';
+  }
+
+  function getAiLanguageInstruction() {
+    return `Reply in ${getAiResponseLanguage()}. Use HTML formatting for readability (<ul>, <li>, <strong>) where useful. Do not use markdown bold.`;
+  }
+
+  async function callGemini(promptText, base64Image = null) {
+    const apiKey = localStorage.getItem('geminiApiKey') || apiKeyInput.value.trim();
+    if(!apiKey) throw new Error("Please enter your Gemini API Key in the setup box above.");
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    
+    let parts = [{ text: promptText }];
+    if(base64Image) {
+      parts.push({
+        inline_data: { mime_type: "image/jpeg", data: base64Image }
+      });
+    }
+
+    const payload = {
+      contents: [{ parts: parts }],
+      generationConfig: { temperature: 0.7 }
+    };
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if(!response.ok) {
+      const err = await response.json();
+      throw new Error(err.error?.message || "API request failed");
+    }
+
+    const data = await response.json();
+    return data.candidates[0].content.parts[0].text;
+  }
+
+  // ΝΕΟ: AI Image Critic (Vision)
+  document.getElementById('btnAnalyzeImage').addEventListener('click', async () => {
+    if(!state.img) return alert("Please upload an image first so the AI can analyze it!");
+
+    const btn = document.getElementById('btnAnalyzeImage');
+    const resultBox = document.getElementById('aiAnalyzeResult');
+    const activeParams = getActiveParamsString();
+
+    btn.innerHTML = '<span class="loader"></span> AI is analyzing image...';
+    btn.disabled = true;
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = 'Uploading image data to Gemini Vision...';
+
+    // Μικραίνουμε την ποιότητα για ταχύτητα στο API
+    const base64 = C.toDataURL('image/jpeg', 0.5).split(',')[1];
+
+    const systemPrompt = `You are an expert digital imaging instructor and colorist. 
+    I have provided an image which represents my CURRENT edit. 
+    My active parametric sliders are: [ ${activeParams} ].
+    
+    Please analyze this image visually:
+    1. Critique the exposure, contrast, and color balance based on what you see.
+    2. Identify any potential issues (e.g., clipped highlights, crushed shadows, strange color casts).
+    3. Suggest SPECIFIC parameter adjustments (e.g. "Reduce contrast", "Increase shadows recovery", "Shift temperature to cooler") to improve it.
+    
+    ${getAiLanguageInstruction()}`;
+
+    try {
+      const response = await callGemini(systemPrompt, base64);
+      let formattedResponse = response.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      resultBox.innerHTML = formattedResponse;
+    } catch (err) {
+      resultBox.innerHTML = `<span style="color:var(--danger)">Error: ${err.message}</span>`;
+    } finally {
+      btn.innerHTML = 'Analyze My Image';
+      btn.disabled = false;
+    }
+  });
+
+  // Workflow Translator
+  document.getElementById('btnTranslateWorkflow').addEventListener('click', async () => {
+    const btn = document.getElementById('btnTranslateWorkflow');
+    const resultBox = document.getElementById('aiTranslateResult');
+    const software = document.getElementById('softwareSelect').value;
+    const activeParams = getActiveParamsString();
+
+    if(activeParams === "No adjustments currently applied. Original image state.") {
+      alert("Please adjust some sliders first before asking for a translation!");
+      return;
+    }
+
+    btn.innerHTML = '<span class="loader"></span> Generating workflow...';
+    btn.disabled = true;
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = 'Connecting to Gemini API...';
+
+    const systemPrompt = `You are an expert digital imaging instructor. The user is using an educational parametric image editor.
+    Their current active parameters are: [ ${activeParams} ].
+    
+    Provide a concise, step-by-step guide in ${getAiResponseLanguage()} on how they can achieve exactly this same visual result in ${software}. 
+    Use the correct terminology for ${software}'s UI panels and tools. Format it clearly using bullet points or numbered lists. Use HTML tags like <strong> for emphasis.`;
+
+    try {
+      const response = await callGemini(systemPrompt);
+      let formattedResponse = response.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      resultBox.innerHTML = formattedResponse;
+    } catch (err) {
+      resultBox.innerHTML = `<span style="color:var(--danger)">Error: ${err.message}</span>`;
+    } finally {
+      btn.innerHTML = 'Translate My Parameters';
+      btn.disabled = false;
+    }
+  });
+
+  // ΝΕΟ: Quiz Generator
+  document.getElementById('btnQuizMe').addEventListener('click', async () => {
+    const btn = document.getElementById('btnQuizMe');
+    const resultBox = document.getElementById('aiQuizResult');
+
+    btn.innerHTML = '<span class="loader"></span> Generating Quiz...';
+    btn.disabled = true;
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = 'Generating a custom question...';
+
+    const systemPrompt = `You are a digital imaging instructor. Generate ONE challenging multiple-choice question (with 4 options) about digital image processing, histograms, color theory, or parametric editing.
+    Provide the question, the options (A, B, C, D), and then hide the correct answer and a brief explanation using the HTML <details><summary>Show answer</summary>...</details> tags.
+    ${getAiLanguageInstruction()}`;
+
+    try {
+      const response = await callGemini(systemPrompt);
+      let formattedResponse = response.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      resultBox.innerHTML = formattedResponse;
+    } catch (err) {
+      resultBox.innerHTML = `<span style="color:var(--danger)">Error: ${err.message}</span>`;
+    } finally {
+      btn.innerHTML = 'Generate Quick Quiz';
+      btn.disabled = false;
+    }
+  });
+
+  // Ask the Tutor
+  document.getElementById('btnAskTutor').addEventListener('click', async () => {
+    const btn = document.getElementById('btnAskTutor');
+    const resultBox = document.getElementById('aiTutorResult');
+    const question = document.getElementById('aiQuestionInput').value.trim();
+    const activeParams = getActiveParamsString();
+
+    if(!question) {
+      alert("Please type a question first.");
+      return;
+    }
+
+    btn.innerHTML = '<span class="loader"></span> Tutor is thinking...';
+    btn.disabled = true;
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = 'Connecting to Gemini API...';
+
+    const systemPrompt = `You are a helpful and highly knowledgeable photography and digital imaging AI Tutor. 
+    The user is looking at an educational parametric tool.
+    Context - Their CURRENT active slider settings are: [ ${activeParams} ].
+    
+    The user asks the following question: "${question}"
+    
+    Answer them directly, clearly, and educationally. If their question relates to what their image looks like right now, reference their current active settings to explain WHY it looks like that (e.g. "Because you have saturation at -100...").
+    Please reply in ${getAiResponseLanguage()}. Format clearly. Use HTML tags like <strong> for emphasis.`;
+
+    try {
+      const response = await callGemini(systemPrompt);
+      let formattedResponse = response.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      resultBox.innerHTML = formattedResponse;
+    } catch (err) {
+      resultBox.innerHTML = `<span style="color:var(--danger)">Error: ${err.message}</span>`;
+    } finally {
+      btn.innerHTML = 'Ask Tutor';
+      btn.disabled = false;
+    }
+  });
+
+
+  function renderPedagogy(){
+    const P=state.p;
+    let log=[];
+    if(P.brightness!==0) log.push(`Brightness: ${P.brightness} (Shifts entire histogram)`);
+    if(P.contrast!==0) log.push(`Contrast: ${P.contrast} (Stretches midtones outwards)`);
+    if(P.shadows!==0) log.push(`Shadows: ${P.shadows} (Compresses/Expands lower end)`);
+    if(P.highlights!==0) log.push(`Highlights: ${P.highlights} (Compresses/Expands upper end)`);
+    if(P.saturation!==0) log.push(`Saturation: ${P.saturation} (Pulls RGB curves apart/together)`);
+    if(P.temperature!==0) log.push(`Temperature: ${P.temperature} (Shifts Red and Blue curves inversely)`);
+    if(P.tint!==0) log.push(`Tint: ${P.tint} (Shifts Green versus Magenta)`);
+    if(P.pixelate!==0) log.push(`Pixelate: ${P.pixelate} (Mosaic Downsampling)`);
+    if(P.chromatic!==0) log.push(`Chromatic Aberration: ${P.chromatic} (Refractive Shift)`);
+    
+    pedagogyTextEl.textContent=log.length ? log.join('\n') : 'Adjust sliders to see breakdown...';
+    
+    let tips = [];
+    if(P.contrast > 40) tips.push(`⚠️ <strong>High Contrast:</strong> Notice how your histogram is stretching to the edges. Ensure important details aren't getting pushed into the red clipping zones.`);
+    if(P.saturation < -80) tips.push(`💡 <strong>Desaturation:</strong> Check the histogram! The Red, Green, and Blue areas are perfectly overlapping to create pure white (gray).`);
+    if(tips.length===0) tips.push(`✅ <strong>Data is Safe:</strong> Watch how your adjustments manipulate the color peaks. Keeping the peaks away from the absolute edges preserves detail.`);
+    
+    smartTipsEl.innerHTML = tips.join('<br><br>');
+  }
+
+  function buildPrompt(P){
+    const lines=[];
+    lines.push('# IMAGE EDITING PROMPT');
+    lines.push('');
+    lines.push('⚠️ CRITICAL INSTRUCTIONS:');
+    lines.push('- Apply adjustments to the UPLOADED IMAGE ONLY');
+    lines.push('- DO NOT regenerate, reconstruct, or recreate the image');
+    lines.push('- DO NOT alter image content, composition, or subjects');
+    lines.push('- PRESERVE all original pixels, details, and structures');
+    lines.push('- Apply ONLY the specified parametric adjustments below');
+    lines.push('- This is NON-DESTRUCTIVE editing - modify existing pixels only');
+    lines.push('');
+    lines.push('Apply the following parametric adjustments to the uploaded image:');
+    lines.push('');
+
+    if(P.brightness!==0) lines.push(`- Brightness/Exposure: ${signed(P.brightness)}`);
+    if(P.contrast!==0) lines.push(`- Contrast: ${signed(P.contrast)}`);
+    if(P.shadows!==0) lines.push(`- Shadows Recovery: ${signed(P.shadows)}`);
+    if(P.highlights!==0) lines.push(`- Highlights Recovery: ${signed(P.highlights)}`);
+    
+    if(P.saturation!==0) lines.push(`- Saturation: ${signed(P.saturation)}`);
+    if(P.hue!==0) lines.push(`- Hue Shift: ${signed(P.hue)}°`);
+    if(P.gamma!==1) lines.push(`- Gamma Correction: ${P.gamma.toFixed(2)}`);
+    if(P.levels_black!==0 || P.levels_white!==255 || P.levels_mid!==1){
+      lines.push(`- Levels: Black Point ${P.levels_black}, White Point ${P.levels_white}, Midtones ${P.levels_mid.toFixed(2)}`);
+    }
+
+    const hasCB=(
+      P.cb_s_r||P.cb_s_g||P.cb_s_b||
+      P.cb_m_r||P.cb_m_g||P.cb_m_b||
+      P.cb_h_r||P.cb_h_g||P.cb_h_b
+    );
+    if(hasCB){
+      lines.push('- Color Balance:');
+      if(P.cb_s_r||P.cb_s_g||P.cb_s_b) lines.push(`  * Shadows RGB: (${signed(P.cb_s_r)}, ${signed(P.cb_s_g)}, ${signed(P.cb_s_b)})`);
+      if(P.cb_m_r||P.cb_m_g||P.cb_m_b) lines.push(`  * Midtones RGB: (${signed(P.cb_m_r)}, ${signed(P.cb_m_g)}, ${signed(P.cb_m_b)})`);
+      if(P.cb_h_r||P.cb_h_g||P.cb_h_b) lines.push(`  * Highlights RGB: (${signed(P.cb_h_r)}, ${signed(P.cb_h_g)}, ${signed(P.cb_h_b)})`);
+    }
+
+    if(P.temperature!==0) lines.push(`- Color Temperature: ${signed(P.temperature)} (${P.temperature>0?'warmer/orange':'cooler/blue'})`);
+    if(P.tint!==0) lines.push(`- Color Tint: ${signed(P.tint)} (${P.tint>0?'Magenta':'Green'})`);
+    
+    if(P.blur>0) lines.push(`- Gaussian Blur: ${P.blur}px`);
+    if(P.sharpen>0) lines.push(`- Sharpen: ${P.sharpen}%`);
+    if(P.noise>0) lines.push(`- Grain/Film Noise: ${P.noise}%`);
+    if(P.vignette>0) lines.push(`- Vignette Effect: ${P.vignette}%`);
+    if(P.chromatic>0) lines.push(`- Chromatic Aberration / RGB Split: ${P.chromatic}%`);
+    if(P.pixelate>0) lines.push(`- Pixelate / Mosaic effect: ${P.pixelate}% block size`);
+    if(P.invert>0) lines.push(`- Invert Colors: ${P.invert}%`);
+    if(P.desaturate>0) lines.push(`- Desaturate to Grayscale: ${P.desaturate}%`);
+    if(P.posterize>0) lines.push(`- Posterize / Color Quantization: ${P.posterize} levels`);
+
+    lines.push('');
+    lines.push(`Output Instructions:`);
+    lines.push(`- Format: ${P.output_format}`);
+    if(P.output_format==='JPG'||P.output_format==='WEBP'){
+      lines.push(`- Quality: ${P.output_quality}%`);
+    }
+    if(P.output_psd){
+      lines.push('- Deliverable: Include layered PSD file with separate adjustment layers for non-destructive pipeline.');
+    }
+
+    lines.push('');
+    lines.push('---');
+    lines.push('REMINDER: DO NOT alter the core visual contents of the image. Only perform the parameter modifications requested.');
+
+    return lines.join('\n');
+  }
+
+  document.getElementById('genPrompt').addEventListener('click', () => {
+    const promptStr = buildPrompt(state.p);
+    document.getElementById('promptOut').value = promptStr;
+  });
+
+  document.getElementById('copyPrompt').addEventListener('click', () => {
+    const text = document.getElementById('promptOut').value;
+    if(text) navigator.clipboard.writeText(text);
+  });
+  
+  document.getElementById('resetPrompt').addEventListener('click', () => {
+    document.getElementById('promptOut').value = '';
+  });
+
+  // Init
+  mountGroups();
+  C.width=900; C.height=520;
+  CX.fillStyle='#000'; CX.fillRect(0,0,900,520);
+  drawHistogram(null);
+
+});
+</script>
+</body>
+</html>
