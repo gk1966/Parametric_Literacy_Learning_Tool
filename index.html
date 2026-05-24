@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parametric Literacy Tool</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#121936;
+      --panel2:#0f1530;
+      --text:#eef3ff;
+      --muted:#aab5d6;
+      --line:#263469;
+      --accent:#6ea8fe;
+      --green:#52c788;
+      --warn:#f5b841;
+      --radius:14px;
+      --shadow:0 24px 70px rgba(0,0,0,.38);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:linear-gradient(180deg,#0b1020,#080d1d);
+      color:var(--text);
+      font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .page{
+      max-width:1240px;
+      margin:0 auto;
+      padding:26px;
+    }
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(310px,430px) minmax(0,1fr);
+      gap:22px;
+      align-items:stretch;
+      min-height:calc(100vh - 52px);
+    }
+    .intro,.visual,.panel{
+      background:var(--panel);
+      border:1px solid #1b254d;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .intro{
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .eyebrow{
+      color:var(--accent);
+      font-size:.78rem;
+      font-weight:850;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    h1{
+      margin:0 0 12px;
+      font-size:2.4rem;
+      line-height:1.08;
+      letter-spacing:0;
+    }
+    .lead{
+      margin:0 0 18px;
+      color:#c7d3f6;
+      font-size:1.02rem;
+    }
+    .credit{
+      margin:0 0 18px;
+      color:#b8c4e6;
+      font-size:.86rem;
+      line-height:1.45;
+    }
+    .credit strong{color:#eef3ff}
+    .site-footer{
+      max-width:1240px;
+      margin:18px auto 0;
+      padding:14px 4px 0;
+      color:#b8c4e6;
+      font-size:.86rem;
+      line-height:1.45;
+      border-top:1px solid rgba(255,255,255,.12);
+    }
+    .site-footer strong{color:#eef3ff}
+    .actions{
+      display:grid;
+      gap:10px;
+      margin:24px 0;
+    }
+    .button{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      text-decoration:none;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:14px 16px;
+      background:#192351;
+      font-weight:800;
+      transition:transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .button:hover{
+      transform:translateY(-1px);
+      border-color:#6ea8fe;
+      background:#1c285b;
+    }
+    .button.primary{
+      background:#192351;
+      border-color:var(--line);
+      color:var(--text);
+    }
+    .button small{
+      display:block;
+      margin-top:2px;
+      font-size:.78rem;
+      font-weight:650;
+      opacity:.78;
+    }
+    .button-label{display:block}
+    .new-tab{
+      flex:0 0 auto;
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:999px;
+      padding:5px 8px;
+      font-size:.7rem;
+      font-weight:850;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      opacity:.78;
+    }
+    .facts{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:8px;
+    }
+    .fact{
+      background:var(--panel2);
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:10px;
+      color:var(--muted);
+      font-size:.82rem;
+    }
+    .fact strong{
+      display:block;
+      color:#fff;
+      font-size:.78rem;
+      margin-bottom:2px;
+    }
+    .visual{
+      padding:16px;
+      display:grid;
+      align-content:start;
+      gap:14px;
+      overflow:hidden;
+      padding-top:18px;
+    }
+    .preview-frame{
+      position:relative;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid #253269;
+      background:#0b1020;
+    }
+    .visual img{
+      width:100%;
+      display:block;
+      border-radius:10px;
+      background:#0b1020;
+    }
+    .preview-frame::after{
+      content:"Preview image";
+      position:absolute;
+      left:14px;
+      top:14px;
+      background:rgba(11,16,32,.82);
+      border:1px solid rgba(110,168,254,.45);
+      color:#fff;
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:.72rem;
+      font-weight:850;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      pointer-events:none;
+    }
+    .caption{
+      color:var(--muted);
+      font-size:.86rem;
+      margin:0;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-top:22px;
+    }
+    .panel{
+      padding:16px;
+      box-shadow:none;
+    }
+    .panel h2{
+      margin:0 0 8px;
+      font-size:1rem;
+      color:#fff;
+    }
+    .panel p{
+      margin:0;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+    .notice{
+      margin-top:22px;
+      border:1px solid rgba(245,184,65,.45);
+      background:rgba(245,184,65,.08);
+      border-radius:12px;
+      padding:13px 15px;
+      color:#ffe8a6;
+      font-size:.9rem;
+    }
+    @media (max-width:940px){
+      .page{padding:16px}
+      .hero{grid-template-columns:1fr;min-height:0}
+      h1{font-size:2rem}
+      .grid{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .intro{padding:20px}
+      .facts{grid-template-columns:1fr}
+      .button{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="intro">
+        <div class="eyebrow">Enhanced Educational Edition</div>
+        <h1>Parametric Literacy Tool</h1>
+        <p class="lead">
+          An interactive browser tool for learning how image edits become explicit parameter values
+          and how those values can support clearer AI prompting.
+        </p>
+        <div class="actions" aria-label="Primary links">
+          <a class="button primary" href="enhanced_parametric_app.html" target="_blank" rel="noopener">
+            <span class="button-label">Launch Application<small>Open the interactive image editing and AI prompting tool</small></span>
+            <span class="new-tab">Open application</span>
+          </a>
+          <a class="button" href="Parametric_Literacy_Technical_Manual.html" target="_blank" rel="noopener">
+            <span class="button-label">Read Technical Manual<small>Interface guide, architecture, privacy notes, and figures</small></span>
+            <span class="new-tab">Open manual</span>
+          </a>
+          <a class="button" href="parametric_manual_assets/tab-contents-overview.svg" target="_blank" rel="noopener">
+            <span class="button-label">View Tab Overview<small>Single visual map of all application sections</small></span>
+            <span class="new-tab">Open overview</span>
+          </a>
+        </div>
+
+        <div class="facts">
+          <div class="fact"><strong>Core workflow</strong>Runs locally in the browser</div>
+          <div class="fact"><strong>Image data</strong>Demo image or user upload</div>
+          <div class="fact"><strong>Diagnostics</strong>Histogram, clipping, metrics</div>
+          <div class="fact"><strong>AI Tutor</strong>Optional external API use</div>
+        </div>
+
+        <div class="notice">
+          Use the built-in demo image for quick testing, or upload a non-sensitive image. The optional AI analysis
+          is only invoked when the user explicitly requests it.
+        </div>
+      </div>
+
+      <div class="visual" aria-label="Application preview">
+        <div class="preview-frame">
+          <img src="parametric_manual_assets/interface-preview.jpeg" alt="Preview screenshot of the enhanced Parametric Literacy Tool interface">
+        </div>
+        <p class="caption">
+          Screenshot preview of the interface. Use the Launch Application button to open the working tool in a new tab.
+        </p>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Feature summary">
+      <div class="panel">
+        <h2>Learn Parameters</h2>
+        <p>Brightness, contrast, gamma, levels, saturation, color balance, blur, sharpening, and effects are exposed as explicit values.</p>
+      </div>
+      <div class="panel">
+        <h2>Inspect Image Data</h2>
+        <p>Histograms, clipping warnings, metrics, before/after split view, and zoom inspection help users connect edits with visible outcomes.</p>
+      </div>
+      <div class="panel">
+        <h2>Support AI Prompting</h2>
+        <p>The tool translates parameter choices into structured prompts and optional AI Tutor feedback for image-editing literacy.</p>
+      </div>
+    </section>
+    <footer class="site-footer">
+      Developed by <strong>Georgios Korakakis</strong>, Assistant Professor, Department of Graphic Design and Visual Communication, University of West Attica (UniWA).
+    </footer>
+  </main>
+</body>
+</html>
